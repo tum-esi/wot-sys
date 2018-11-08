@@ -21,3 +21,10 @@ def brightness():
             camera.brightness = data['brightness']
         return jsonify(data)
 
+@app.route('/properties/frame',methods = ['GET'])
+def shot():
+    camera.capture('frame.jpg')
+    return send_file('frame.jpg')
+
+if __name__ == '__main__':
+    app.run(host = '0.0.0.0')
