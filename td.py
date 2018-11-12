@@ -1,14 +1,166 @@
 # this request python >= 3.5
 from flask import Flask, jsonify, request, Response
 from flask.json import JSONEncoder
+from enum import Enum,unique
+from typing import Type, Any, List
 
-class Property(object):
-    def __init__(self, name, value_type = None, metadata = {}):
-        self.name = name
-        self.type = value_type
-        self.metadata = metadata
-        self.forms = []
+@unique
+class DataType(str,Enum):
+    object = 'object',
+    array = 'array',
+    number = 'number',
+    string = 'string',
+    boolean = 'boolean',
+    integer = 'integer',
+    none = 'none'
+    
+
+class DataSchema(object):
+
+    def __init__(self,
+            title: str, 
+            description: str = '', 
+            type: Type[DataType] = DataType.none,
+            const: bool = False,
+            unit: str = None,
+            enum: list = [],
+            readOnly: bool = False,
+            writeOnly: bool = False
+    ): # this is also an emoji..
+        self.title = title
+        self.description = description
+        self.type = type
+        self.const = const
+        self.unit = unit
+        self.enum = enum
+        self.readOnly = readOnly
+        self.writeOnly = writeOnly
+
         self.properties = []
+    def add_property(self, property: 'DataSchema') -> 'DataSchema':
+        if self.type not in [ DataType.object, DataType.array]:
+            raise TypeError("If the type of data is not 'object' or 'array', it cannot have its own properties")
+        else:
+            self.properties.append(property)
+        return self
+
+    def serialize(self,isTopLevel: bool = True):
+        td = {}
+        if isTopLevel:
+            td["title"] = self.title
+        td["description"] = self.description
+        if self.type != DataType.none:
+            td["type"] = self.type
+        td["const"] = self.const
+
+        if self.unit:
+            td["unit"] = self.unit
+        if len(self.enum) > 0:
+            td["enum"] = self.enum
+
+        td["readOnly"] = self.readOnly
+        td["writeOnly"] = self.writeOnly
+
+        if self.type in [DataType.object, DataType.array]:
+            td['properties'] = {prop.title: prop.serialize(False) for prop in self.properties}
+
+        return td
+
+class BooleanSchema(DataSchema):
+    def __init__(self,
+            title: str, 
+            description: str,
+            const: bool = False,
+            readOnly: bool = False,
+            writeOnly: bool = False
+    ):
+        DataSchema.__init__(self,
+                title, 
+                description,
+                DataType.boolean,
+                const = const,
+                readOnly = readOnly,
+                writeOnly = writeOnly)
+
+class ObjectSchema(DataSchema):
+    def __init__(self,
+            title: str, 
+            description: str = '',
+            required: List[str] = [],
+            type: Type[DataType] = DataType.none,
+            *args
+    ):
+        DataSchema.__init__(self,
+            title, 
+            description, 
+            DataType.object,
+            *args
+        )
+        self.required = required
+    def serialize(self,*args):
+        td = super().serialize(*args)
+        td['required'] = self.required
+        return td
+
+class NumberSchema(DataSchema):
+    def __init__(self, title: str, *args):
+        DataSchema.__init__(self, title, type = DataType.number,*args)
+        self.minimum = None
+        self.maximum = None
+
+    def set_minimum(self,num: float):
+        self.minimum = num
+        return self
+
+    def set_maximum(self,num: float):
+        self.maximum = num
+        return self
+
+    def serialize(self,*args):
+        td = super().serialize(*args)
+        if self.minimum:
+            td['minimum'] = self.minimum
+        if self.maximum:
+            td['maximum'] = self.maximum
+        return td
+
+class ArraySchema(DataSchema):
+    def __init__(self, title: str, *args):
+        DataSchema.__init__(self,title,type = DataType.array, *args)
+        self.min_items = None
+        self.max_items = None
+
+    def set_min_items(self,num: int):
+        self.min_items = num
+        return self
+    
+    def set_max_items(self,num: int):
+        self.max_items = num
+        return self
+
+    def serialize(self, *args):
+        td = super().serialize(*args)
+        if self.min_items:
+            td['minItems'] = self.min_items
+        if self.max_items:
+            td['maxItems'] = self.max_items
+        return td
+
+class Property(DataSchema):
+    def __init__(self, 
+            title: str, 
+            description: str = '',
+            type: DataType = DataType.none,
+            observable: bool = False,
+            *args
+    ):
+        DataSchema.__init__(self,
+                title,
+                description,
+                type,
+                observable,
+                *args)
+        self.forms = []
 
     def add_form(self, href, contenttype = 'application/json', metadata = {}):
         form = {}
@@ -17,19 +169,13 @@ class Property(object):
         self.forms.append({ **form, **metadata})
         return self # for a calling chain :)
 
-    def add_property(self,prop):
+    def add_property(self,prop: DataSchema):
         self.properties.append(prop)
         return self
 
-    def serialize(self):
-        td = {}
-
-        if self.type:
-            td['type'] = self.type
-            if self.type == 'object' and len(self.properties) > 0:
-                td['properties'] = self.properties
-        
-        return { **td, **self.metadata, 'forms': self.forms}
+    def serialize(self,*args):
+        td = super().serialize(*args) 
+        return { **td, 'forms': self.forms}
 
 class Thing(object):
     def __init__(self, thing_id, name, description = "",security = None, metadata = {}):
@@ -45,7 +191,7 @@ class Thing(object):
     def _string_or_empty_string(self,s):
         return s if s else ''
 
-    def add_property(self,prop):
+    def add_property(self,prop: Property):
         self.properties.append(prop)
         return self
 
@@ -61,8 +207,8 @@ class Thing(object):
         td['id'] = self.thing_id
         td['name'] = self.name
         td['description'] = self._string_or_empty_string(self.description)
-        td['properties'] = {prop.name: prop.serialize() for prop in self.properties}
-        td['actions'] = {action.name: action.serialize() for action in self.actions}
+        td['properties'] = {prop.title: prop.serialize(False) for prop in self.properties}
+        td['actions'] = {action.title: action.serialize(False) for action in self.actions}
         td['security'] = self.security
 
         # merge both the meta data and compulsory fields
@@ -117,7 +263,7 @@ class TDServer(object):
         )
         # endpoints for properties of each thing
         for prop in thing.properties:
-            prop_url_name = sub_space_to_underscore(prop.name)
+            prop_url_name = sub_space_to_underscore(prop.title)
             self._add_endpoint(
                     '/{}/properties/{}'.format(thing_url_name,prop_url_name),
                     '{}:{}'.format(thing_url_name,prop_url_name),
@@ -139,33 +285,44 @@ if __name__ == '__main__':
                 'esi:picamera',
                 'piCamera',
                 'a camera mounted on Raspberry Pi').add_property( 
-                   Property('configuration','object')
-                    .add_property({
-                        'title': 'brightness',
-                        'type': 'number',
-                        'minimum': 0,
-                        'maximum': 100
-                    })
-                    .add_property({
-                        'title': 'size',
-                        'type': 'array',
-                        'properties': [
-                        {
-                            'title': 'width',
-                            'type': 'number',
-                            'minimum': 0
-                        }, 
-                        {
-                            'title': 'height',
-                            'type': 'number',
-                            'minimum': 0
-                        }],
-                        'minItems': 2,
-                        'maxItems': 2
-                    })
+                   Property(
+                       'configuration',
+                       'configuration of the camera',
+                       DataType.object
+                    )
+                    .add_property(
+                        NumberSchema(
+                            "brightness",
+                            "brightness of the camera", 
+                        )
+                        .set_minimum(0)
+                        .set_maximum(100)
+                    )
+                    .add_property(
+                        ArraySchema(
+                            "size",
+                            "size (width, height) of the frame",
+                        )
+                        .add_property(
+                            NumberSchema(
+                                "width",
+                                "width of the camera"
+                            )
+                            .set_minimum(0)
+                        ) 
+                        .add_property(
+                            NumberSchema(
+                                "height",
+                                "height of the camera"
+                            )
+                            .set_minimum(0)
+                        )
+                        .set_min_items(2)
+                        .set_max_items(2)
+                    )
                     .add_form('http://192.168.0.104:5000/properties/configuration')
                 ).add_property(
-                    Property('frame',None)
+                    Property('frame',"frame of the current camera")
                     .add_form('http://192.168.0.104:5000/properties/frame','image/jpeg')
                 )
 
