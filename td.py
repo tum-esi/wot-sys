@@ -289,9 +289,10 @@ if __name__ == '__main__':
                 'esi:picamera',
                 'piCamera',
                 'a camera mounted on Raspberry Pi').add_property( 
-                   ObjectSchema(
+                   Property(
                        'configuration',
                        'configuration of the camera',
+                       DataType.object
                     )
                     .add_property(
                         NumberSchema(
