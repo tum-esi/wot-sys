@@ -101,6 +101,10 @@ class ObjectSchema(DataSchema):
         td = super().serialize(*args)
         td['required'] = self.required
         return td
+    def add_property(self, prop: DataSchema,required: bool = False):
+        if required:
+            self.required.append(prop.title)
+        return super().add_property(prop)
 
 class NumberSchema(DataSchema):
     def __init__(self, title: str, *args):
@@ -285,10 +289,9 @@ if __name__ == '__main__':
                 'esi:picamera',
                 'piCamera',
                 'a camera mounted on Raspberry Pi').add_property( 
-                   Property(
+                   ObjectSchema(
                        'configuration',
                        'configuration of the camera',
-                       DataType.object
                     )
                     .add_property(
                         NumberSchema(
@@ -299,7 +302,7 @@ if __name__ == '__main__':
                         .set_maximum(100)
                     )
                     .add_property(
-                        ArraySchema(
+                        ObjectSchema(
                             "size",
                             "size (width, height) of the frame",
                         )
@@ -308,17 +311,17 @@ if __name__ == '__main__':
                                 "width",
                                 "width of the camera"
                             )
-                            .set_minimum(0)
+                            .set_minimum(0),
+                            required = True
                         ) 
                         .add_property(
                             NumberSchema(
                                 "height",
                                 "height of the camera"
                             )
-                            .set_minimum(0)
+                            .set_minimum(0),
+                            required = True
                         )
-                        .set_min_items(2)
-                        .set_max_items(2)
                     )
                     .add_form('http://192.168.0.104:5000/properties/configuration')
                 ).add_property(
