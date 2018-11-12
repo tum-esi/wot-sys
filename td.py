@@ -107,10 +107,15 @@ class ObjectSchema(DataSchema):
         return super().add_property(prop)
 
 class NumberSchema(DataSchema):
-    def __init__(self, title: str, *args):
-        DataSchema.__init__(self, title, type = DataType.number,*args)
-        self.minimum = None
-        self.maximum = None
+    def __init__(self,
+            title: str, 
+            description: str = "",
+            minimum: float = None, 
+            maximum: float = None,
+            *args):
+        DataSchema.__init__(self, title, description, type = DataType.number,*args)
+        self.minimum = minimum
+        self.maximum = maximum
 
     def set_minimum(self,num: float):
         self.minimum = num
@@ -122,9 +127,9 @@ class NumberSchema(DataSchema):
 
     def serialize(self,*args):
         td = super().serialize(*args)
-        if self.minimum:
+        if self.minimum is not None:
             td['minimum'] = self.minimum
-        if self.maximum:
+        if self.maximum is not None:
             td['maximum'] = self.maximum
         return td
 
@@ -310,9 +315,8 @@ if __name__ == '__main__':
                         .add_property(
                             NumberSchema(
                                 "width",
-                                "width of the camera"
-                            )
-                            .set_minimum(0),
+                                "width of the camera", 
+                            ).set_minimum(0),
                             required = True
                         ) 
                         .add_property(
