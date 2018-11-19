@@ -284,8 +284,8 @@ class TDServer(object):
 
 if __name__ == '__main__':
    
-   # lets hardcode some devices here...
-   camera_thing = Thing(
+   def generate_camera_thing(dev_addr):
+       return Thing(
                 'esi:picamera',
                 'piCamera',
                 'a camera mounted on Raspberry Pi').add_property( 
@@ -323,13 +323,17 @@ if __name__ == '__main__':
                             required = True
                         )
                     )
-                    .add_form('http://192.168.0.104:5000/properties/configuration')
+                    .add_form('http://{}:5000/properties/configuration'.format(dev_addr))
                 ).add_property(
                     Property('frame',"frame of the current camera")
-                    .add_form('http://192.168.0.104:5000/properties/frame','image/jpeg')
+                    .add_form('http://{}:5000/properties/frame'.format(dev_addr),'image/jpeg')
                 )
 
+   camera_thing_a = generate_camera_thing('192.168.1.104')
+   camera_thing_b = generate_camera_thing('192.168.1.105')
 
-   server = TDServer([camera_thing])
+   server = TDServer([camera_thing_a])
    server.run(port = 3000)
 
+   server_b = TDServer([camera_thing_b])
+   server.run(port = 3001)

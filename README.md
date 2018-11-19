@@ -8,3 +8,10 @@
 - python >= 3.5
 - picamera
 - flask
+
+# ESP8266 light sensor instructions
+- prepare your ESP8266 with MicroPython's installation instruction
+- change `esp_main.py` to `main.py`
+- upload the script to ESP8266 with `ampy`
+- now plug it in, find out its address from router's config page.
+- You're set:)
