@@ -1,5 +1,3 @@
-from webthing import (Action, Event, Property, Thing, WebThingServer,SingleThing,Value)
-
 import logging
 import time
 from picamera import PiCamera

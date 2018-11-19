@@ -1,0 +1,79 @@
+{
+   "security" : [
+      {
+         "scheme" : "nosec"
+      }
+   ],
+   "actions" : {},
+   "name" : "piCamera",
+   "properties" : {
+      "configuration" : {
+         "forms" : [
+            {
+               "contenttype" : "application/json",
+               "href" : "http://192.168.0.104:5000/properties/configuration"
+            }
+         ],
+         "properties" : {
+            "brightness" : {
+               "minimum" : 0,
+               "maximum" : 100,
+               "type" : "number",
+               "const" : false,
+               "writeOnly" : false,
+               "readOnly" : false,
+               "description" : "brightness of the camera"
+            },
+            "size" : {
+               "description" : "size (width, height) of the frame",
+               "readOnly" : false,
+               "writeOnly" : false,
+               "properties" : {
+                  "width" : {
+                     "description" : "width of the camera",
+                     "readOnly" : false,
+                     "writeOnly" : false,
+                     "type" : "number",
+                     "const" : false,
+                     "minimum" : 0
+                  },
+                  "height" : {
+                     "type" : "number",
+                     "const" : false,
+                     "minimum" : 0,
+                     "description" : "height of the camera",
+                     "readOnly" : false,
+                     "writeOnly" : false
+                  }
+               },
+               "const" : false,
+               "type" : "object",
+               "required" : [
+                  "width",
+                  "height"
+               ]
+            }
+         },
+         "const" : false,
+         "type" : "object",
+         "readOnly" : false,
+         "description" : "configuration of the camera",
+         "writeOnly" : false
+      },
+      "frame" : {
+         "const" : false,
+         "forms" : [
+            {
+               "href" : "http://192.168.0.104:5000/properties/frame",
+               "contenttype" : "image/jpeg"
+            }
+         ],
+         "writeOnly" : false,
+         "readOnly" : false,
+         "description" : "frame of the current camera"
+      }
+   },
+   "id" : "esi:picamera",
+   "description" : "a camera mounted on Raspberry Pi",
+   "@context" : "http://www.w3.org/ns/td"
+}
