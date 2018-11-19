@@ -21,7 +21,6 @@ class DataSchema(object):
             title: str, 
             description: str = '', 
             type: Type[DataType] = DataType.none,
-            const: bool = False,
             unit: str = None,
             enum: list = [],
             readOnly: bool = False,
@@ -30,7 +29,6 @@ class DataSchema(object):
         self.title = title
         self.description = description
         self.type = type
-        self.const = const
         self.unit = unit
         self.enum = enum
         self.readOnly = readOnly
@@ -51,7 +49,6 @@ class DataSchema(object):
         td["description"] = self.description
         if self.type != DataType.none:
             td["type"] = self.type
-        td["const"] = self.const
 
         if self.unit:
             td["unit"] = self.unit
@@ -70,7 +67,6 @@ class BooleanSchema(DataSchema):
     def __init__(self,
             title: str, 
             description: str,
-            const: bool = False,
             readOnly: bool = False,
             writeOnly: bool = False
     ):
@@ -78,7 +74,6 @@ class BooleanSchema(DataSchema):
                 title, 
                 description,
                 DataType.boolean,
-                const = const,
                 readOnly = readOnly,
                 writeOnly = writeOnly)
 
