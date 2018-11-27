@@ -1,6 +1,4 @@
 # this request python >= 3.5
-from flask import Flask, jsonify, request, Response
-from flask.json import JSONEncoder
 from enum import Enum,unique
 from typing import Type, Any, List
 
@@ -170,7 +168,9 @@ class Property(DataSchema):
         form = {}
         form['href'] = href
         form['contenttype'] = contenttype
-        self.forms.append({ **form, **metadata})
+        form.update(metadata)
+        self.forms.append(form)
+        #self.forms.append({ **form, **metadata})
         return self # for a calling chain :)
 
     def add_property(self,prop: DataSchema):
@@ -179,7 +179,9 @@ class Property(DataSchema):
 
     def serialize(self,*args):
         td = super().serialize(*args) 
-        return { **td, 'forms': self.forms}
+        td['forms'] = self.forms
+        return td
+        #return { **td, 'forms': self.forms}
 
 class Thing(object):
     def __init__(self, thing_id, name, description = "",security = None, metadata = {}):
@@ -216,7 +218,9 @@ class Thing(object):
         td['security'] = self.security
 
         # merge both the meta data and compulsory fields
-        return {**td, **self.metadata}
+        td.update(self.metadata)
+        return td
+        #return {**td, **self.metadata}
 
 class TDServer(object):
     
@@ -284,7 +288,9 @@ class TDServer(object):
 
 if __name__ == '__main__':
    
-   def generate_camera_thing(dev_addr):
+    from flask import Flask, jsonify, request, Response
+    from flask.json import JSONEncoder
+    def generate_camera_thing(dev_addr):
        return Thing(
                 'esi:picamera',
                 'piCamera',
@@ -329,11 +335,11 @@ if __name__ == '__main__':
                     .add_form('http://{}:5000/properties/frame'.format(dev_addr),'image/jpeg')
                 )
 
-   camera_thing_a = generate_camera_thing('192.168.1.104')
-   camera_thing_b = generate_camera_thing('192.168.1.105')
+    camera_thing_a = generate_camera_thing('192.168.1.104')
+    camera_thing_b = generate_camera_thing('192.168.1.105')
 
-   server = TDServer([camera_thing_a])
-   server.run(port = 3000)
+    server = TDServer([camera_thing_a])
+    server.run(port = 3000)
 
-   server_b = TDServer([camera_thing_b])
-   server.run(port = 3001)
+    server_b = TDServer([camera_thing_b])
+    server.run(port = 3001)
