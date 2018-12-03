@@ -3,7 +3,10 @@ import time
 from picamera import PiCamera
 from functools import partial
 from flask import Flask, send_file, jsonify, request
-
+from td import generate_camera_thing
+import socket
+import requests
+import json
 app = Flask(__name__)
 # set up the camera
 camera = PiCamera()
@@ -28,5 +31,23 @@ def shot():
     camera.capture('frame.jpg',resize = size)
     return send_file('frame.jpg')
 
-if __name__ == '__main__':
-    app.run(host = '0.0.0.0')
+
+# regiter td automatically
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(('192.168.0.1',80)) # connect to router to ensure a successful connection
+ip_addr = s.getsockname()[0]
+
+td = generate_camera_thing(ip_addr).serialize()
+td_json = json.loads(json.dumps(td))
+print(json.dumps(td))
+while True:
+    try:
+        r = requests.post('http://192.168.0.100:8080/td',json = td_json)
+        if r.status_code == 201:
+            print("TD uploaded!")
+            break
+    except Exception as e:
+        print(e)
+        continue
+
+app.run(host = '0.0.0.0')

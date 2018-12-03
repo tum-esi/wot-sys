@@ -1,7 +1,9 @@
 # this request python >= 3.5
+from flask import Flask, jsonify, request, Response
+from flask.json import JSONEncoder
 from enum import Enum,unique
 from typing import Type, Any, List
-
+import json
 @unique
 class DataType(str,Enum):
     object = 'object',
@@ -168,9 +170,7 @@ class Property(DataSchema):
         form = {}
         form['href'] = href
         form['contenttype'] = contenttype
-        form.update(metadata)
-        self.forms.append(form)
-        #self.forms.append({ **form, **metadata})
+        self.forms.append({ **form, **metadata})
         return self # for a calling chain :)
 
     def add_property(self,prop: DataSchema):
@@ -179,9 +179,7 @@ class Property(DataSchema):
 
     def serialize(self,*args):
         td = super().serialize(*args) 
-        td['forms'] = self.forms
-        return td
-        #return { **td, 'forms': self.forms}
+        return { **td, 'forms': self.forms}
 
 class Thing(object):
     def __init__(self, thing_id, name, description = "",security = None, metadata = {}):
@@ -209,7 +207,6 @@ class Thing(object):
     def serialize(self):
         td = {}
         
-        td['@context'] = 'http://www.w3.org/ns/td'
         td['id'] = self.thing_id
         td['name'] = self.name
         td['description'] = self._string_or_empty_string(self.description)
@@ -218,9 +215,7 @@ class Thing(object):
         td['security'] = self.security
 
         # merge both the meta data and compulsory fields
-        td.update(self.metadata)
-        return td
-        #return {**td, **self.metadata}
+        return {**td, **self.metadata}
 
 class TDServer(object):
     
@@ -286,60 +281,50 @@ class TDServer(object):
                     lambda: jsonify(action.serialize())
             )
 
-if __name__ == '__main__':
    
-    from flask import Flask, jsonify, request, Response
-    from flask.json import JSONEncoder
-    def generate_camera_thing(dev_addr):
-       return Thing(
-                'esi:picamera',
-                'piCamera',
-                'a camera mounted on Raspberry Pi').add_property( 
-                   Property(
-                       'configuration',
-                       'configuration of the camera',
-                       DataType.object
+def generate_camera_thing(dev_addr):
+   return Thing(
+            'esi:picamera',
+            'piCamera',
+            'a camera mounted on Raspberry Pi').add_property( 
+               Property(
+                   'configuration',
+                   'configuration of the camera',
+                   DataType.object
+                )
+                .add_property(
+                    NumberSchema(
+                        "brightness",
+                        "brightness of the camera", 
+                    )
+                    .set_minimum(0)
+                    .set_maximum(100)
+                )
+                .add_property(
+                    ObjectSchema(
+                        "size",
+                        "size (width, height) of the frame",
                     )
                     .add_property(
                         NumberSchema(
-                            "brightness",
-                            "brightness of the camera", 
-                        )
-                        .set_minimum(0)
-                        .set_maximum(100)
-                    )
+                            "width",
+                            "width of the camera", 
+                        ).set_minimum(0),
+                        required = True
+                    ) 
                     .add_property(
-                        ObjectSchema(
-                            "size",
-                            "size (width, height) of the frame",
+                        NumberSchema(
+                            "height",
+                            "height of the camera"
                         )
-                        .add_property(
-                            NumberSchema(
-                                "width",
-                                "width of the camera", 
-                            ).set_minimum(0),
-                            required = True
-                        ) 
-                        .add_property(
-                            NumberSchema(
-                                "height",
-                                "height of the camera"
-                            )
-                            .set_minimum(0),
-                            required = True
-                        )
+                        .set_minimum(0),
+                        required = True
                     )
-                    .add_form('http://{}:5000/properties/configuration'.format(dev_addr))
-                ).add_property(
-                    Property('frame',"frame of the current camera")
-                    .add_form('http://{}:5000/properties/frame'.format(dev_addr),'image/jpeg')
                 )
+                .add_form('http://{}:5000/properties/configuration'.format(dev_addr))
+            ).add_property(
+                Property('frame',"frame of the current camera")
+                .add_form('http://{}:5000/properties/frame'.format(dev_addr),'image/jpeg')
+            )
 
-    camera_thing_a = generate_camera_thing('192.168.1.104')
-    camera_thing_b = generate_camera_thing('192.168.1.105')
 
-    server = TDServer([camera_thing_a])
-    server.run(port = 3000)
-
-    server_b = TDServer([camera_thing_b])
-    server.run(port = 3001)
