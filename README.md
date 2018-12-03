@@ -10,8 +10,13 @@
 - flask
 
 # ESP8266 light sensor instructions
-- prepare your ESP8266 with MicroPython's installation instruction
+- get the micropython firmware from http://micropython.org/download#esp8266
+- run `pip install esptool`
+- run `esptool.py --port <dev location, e.g. /dev/ttyUSB0> erase_flash`
+- run `esptool.py --port <dev location> --baud 460800 write_flash --flash_size=detect 0 <name of the firmware you downloaded>`
 - change `esp_main.py` to `main.py`
-- upload the script to ESP8266 with `ampy`
-- now plug it in, find out its address from router's config page.
+- upload the script to ESP8266 with `ampy` following the instructions from https://learn.adafruit.com/micropython-basics-load-files-and-run-code/install-ampy
+- to use the REPL of the ESP8266, use the command `picocom <dev location> -b 115200`
+- to find out the MAC address of the ESP, follow the instructions on https://forum.micropython.org/viewtopic.php?t=1890
+- assign a static IP adress to this MAC on the router's configuration page
 - You're set:)
