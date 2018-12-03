@@ -1,9 +1,30 @@
 import network
 import socket
-import json
 import machine
 from machine import ADC
 import time
+import urequests
+import ujson
+
+def get_td(ip_address):
+
+    td = {
+            'id': 'light:sensor:{}'.format(ip_address),
+            'name': 'light_sensor',
+            'description': 'sensor that measures the intensity of light',
+            'properties': {
+                'intensity': {
+                    "type": "number",
+                    "forms": [{
+                        "href": "https://{}/properties/intensity".format(ip_address),
+                        "mediaType": "application/json"
+                    }],
+                    "minimum": 0,
+                    "maximum": 1000
+                }
+            }
+    }
+    return td
 
 def run():
     # setup network here
@@ -27,7 +48,21 @@ def run():
         led.on()
 
     led.off()
+    ifconfig = sta.ifconfig()
     print("connected! Info:", sta.ifconfig())
+    
+    # submit TD
+    td = get_td(ifconfig[0])
+    td_server_address = "http://192.168.0.100:8080" 
+    while True:
+        try:
+            r = urequests.post("{}/td".format(td_server_address), json = td)
+            if r.status_code == 201:
+                print('TD uploaded!')
+                break # check connectivity
+        except:
+            continue # don't stop, keep trying...
+    # now serve the values
     # setup ADC here
     adc = ADC(0)
 
