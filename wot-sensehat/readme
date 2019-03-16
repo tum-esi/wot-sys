@@ -1,0 +1,4 @@
+install the latest version of NodeJs (must be 8.11.2 or higher):
+
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs
