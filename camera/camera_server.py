@@ -41,7 +41,7 @@ def submit_td(td_json):
     while True:
         try:
             r = requests.post('http://192.168.0.100:8080/td', json=td_json)
-            if r.status_code == 201:
+            if 200 <= r.status_code <= 299:
                 print("TD uploaded!")
                 break
         except Exception as e:
