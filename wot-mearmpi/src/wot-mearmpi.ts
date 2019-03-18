@@ -150,17 +150,18 @@ export class WotMeArmPi {
     private add_actions() {
         this.thing.addAction(
             "openGrip", 
-            {description: "Is the robots grip open or closed?"}, 
+            {description: "Open the robot's Grip."}, 
             () => { return this.move_to({grip: 90}); }
         );
         this.thing.addAction(
             "closeGrip", 
-            {description: "Is the robots grip open or closed?"}, 
+            {description: "Close the robot's Grip."}, 
             () => { return this.move_to({grip: 0}); }
         );
         this.thing.addAction(
             "moveGripTo",
             {
+                description: "Move the grip's to a given angle.",
                 input: {
                     "type": "integer",
                     "minimum": 0,
@@ -172,6 +173,7 @@ export class WotMeArmPi {
         this.thing.addAction(
             "moveUpperTo",
             {
+                description: "Move the upper part of the arm to a given angle.",
                 input: {
                     "type": "integer",
                     "minimum": 0,
@@ -183,6 +185,7 @@ export class WotMeArmPi {
         this.thing.addAction(
             "moveLowerTo",
             {
+                description: "Move the lower part of the arm to a given angle.",
                 input: {
                     "type": "integer",
                     "minimum": 0,
@@ -194,6 +197,7 @@ export class WotMeArmPi {
         this.thing.addAction(
             "moveBaseTo",
             {
+                description: "Move the base of the arm to a given angle.",
                 input: {
                     "type": "integer",
                     "minimum": -90,
