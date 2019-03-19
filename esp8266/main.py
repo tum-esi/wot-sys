@@ -107,7 +107,7 @@ def run_server():
             path = str(request).split(' ')[1]
             if path == "/properties/intensity":
                 val = adc.read()  # between 0 - 1000
-                response = http_200_response(ujson.dumps(str(val)))
+                response = http_200_response(str(val))
                 conn.sendall(response)
             elif path == "/":
                 td = get_td(wifi.ifconfig()[0])
