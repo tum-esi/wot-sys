@@ -113,12 +113,10 @@ def fill_lower():
 
 @app.route("/actions/random", methods=["POST"])
 def random():
-    if request.is_json:
-        for i in range(NR_OF_LEDS):
-            dots[i] = (randint(0, 255), randint(0, 255), randint(0, 255))
-        return "", 204
-    else:
-        abort(415)  # Wrong media type.
+    for i in range(NR_OF_LEDS):
+        dots[i] = (randint(0, 255), randint(0, 255), randint(0, 255))
+    return "", 204
+
 
 
 @app.route("/actions/shutdown", methods=["POST"])
