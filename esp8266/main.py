@@ -7,8 +7,8 @@ import usocket
 
 
 # setup network here
-WIFI_SSID = b"TP-Link_5442"
-WIFI_PASSWORD = "46484765"
+WIFI_SSID = b"ESI_WotSys"
+WIFI_PASSWORD = "youcantimagine"
 TD_DIRECTORY_ADDRESS = "http://192.168.0.100:8080"
 LISTENING_PORT = 80
 
