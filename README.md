@@ -5,6 +5,7 @@ This is a project that contains the source code, description, guides etc. of the
 ## General
 - Clone this repo to get the code
 - All the devices are hard coded to connect the a TD Directory at 192.168.0.100. IF using another TD Directory please change the code accordingly. 
+- Once all devices are running, you can access all the available TD by visiting the TD directory at `192.168.0.100:8080`or `TD-Directory.local:8080`
 
 # ESP Light Sensor
 
