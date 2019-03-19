@@ -12,6 +12,11 @@ size = (640, 480)
 app = Flask(__name__)
 
 
+@app.route("/")
+def thing_description():
+    return jsonify(td)
+
+
 @app.route('/properties/configuration', methods=['GET', 'PUT'])
 def configuration():
     with PiCamera() as camera:
