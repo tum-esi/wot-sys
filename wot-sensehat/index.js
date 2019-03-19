@@ -13,5 +13,5 @@ var servient = new Servient();
 
 servient.addServer(httpServer);
 servient.start().then((thingFactory) => {
-    hat = new WotSenseHat(thingFactory);
+    hat = new WotSenseHat(thingFactory, TD_DIRECTORY);
 })
