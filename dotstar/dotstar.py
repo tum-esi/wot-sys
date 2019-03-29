@@ -28,7 +28,7 @@ dots = dotstar.DotStar(board.SCK, board.MOSI, NR_OF_LEDS, brightness=DEFAULT_BRI
 
 @app.route("/")
 def thing_description():
-    return json.dumps(get_td(ip_addr, NR_OF_LEDS))
+    return json.dumps(get_td(ip_addr, NR_OF_LEDS)), {'Content-Type': 'application/json'}
 
 
 @app.route("/properties/brightness", methods=["GET", "PUT"])
