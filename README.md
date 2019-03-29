@@ -7,6 +7,16 @@ This is a project that contains the source code, description, guides etc. of the
 - All the devices are hard coded to connect the a TD Directory at 192.168.0.100. IF using another TD Directory please change the code accordingly. 
 - Once all devices are running, you can access all the available TD by visiting the TD directory at `192.168.0.100:8080`or `TD-Directory.local:8080`
 
+## Postman
+
+The collections with all interactions are found under Postman and also [here](https://www.getpostman.com/collections/ad2fa98aaf79b7d1a448)
+
+The collection documentation is available [here](https://documenter.getpostman.com/view/2152549/S17wNS8o)
+
+## Mashup
+
+Example mashups and clients for students are found under Mashups
+
 # ESP Light Sensor
 
 ## Requirements
