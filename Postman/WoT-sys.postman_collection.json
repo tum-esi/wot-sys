@@ -6,951 +6,1165 @@
 	},
 	"item": [
 		{
-			"name": "LightSensor1-TD",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
+			"name": "Hue",
+			"item": [
+				{
+					"name": "Light1-TurnOnOff",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"on\":false\n}"
+						},
+						"url": {
+							"raw": "http://192.168.0.111/api/R6D7CYQFzXckikMPLEL8WbSZWg9XKkEyx-NrgKws/lights/1/state",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"111"
+							],
+							"path": [
+								"api",
+								"R6D7CYQFzXckikMPLEL8WbSZWg9XKkEyx-NrgKws",
+								"lights",
+								"1",
+								"state"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://192.168.0.101:8080",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"101"
-					],
-					"port": "8080"
+				{
+					"name": "Light1-Brightness-Complex",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"on\":true,\n\t\"bri\":20,\n\t\"transitiontime\":300\n}"
+						},
+						"url": {
+							"raw": "http://192.168.0.111/api/R6D7CYQFzXckikMPLEL8WbSZWg9XKkEyx-NrgKws/lights/1/state",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"111"
+							],
+							"path": [
+								"api",
+								"R6D7CYQFzXckikMPLEL8WbSZWg9XKkEyx-NrgKws",
+								"lights",
+								"1",
+								"state"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Light1-Brightness-Increment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"on\":true,\n\t\"bri\":20,\n\t\"transitiontime\":300\n}"
+						},
+						"url": {
+							"raw": "http://192.168.0.111/api/R6D7CYQFzXckikMPLEL8WbSZWg9XKkEyx-NrgKws/lights/1/state",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"111"
+							],
+							"path": [
+								"api",
+								"R6D7CYQFzXckikMPLEL8WbSZWg9XKkEyx-NrgKws",
+								"lights",
+								"1",
+								"state"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Light1-Brightness-Simple",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"on\":true,\n\t\"bri\":25\n}"
+						},
+						"url": {
+							"raw": "http://192.168.0.111/api/R6D7CYQFzXckikMPLEL8WbSZWg9XKkEyx-NrgKws/lights/1/state",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"111"
+							],
+							"path": [
+								"api",
+								"R6D7CYQFzXckikMPLEL8WbSZWg9XKkEyx-NrgKws",
+								"lights",
+								"1",
+								"state"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Light1-Brightness-Alert",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"on\":true,\n\t\"bri\":250,\n\t\"alert\":\"lselect\"\n}"
+						},
+						"url": {
+							"raw": "http://192.168.0.111/api/R6D7CYQFzXckikMPLEL8WbSZWg9XKkEyx-NrgKws/lights/1/state",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"111"
+							],
+							"path": [
+								"api",
+								"R6D7CYQFzXckikMPLEL8WbSZWg9XKkEyx-NrgKws",
+								"lights",
+								"1",
+								"state"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"description": "ALl Philips Hue Devices"
 		},
 		{
-			"name": "Light Sensor 1 properties/intensity",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
+			"name": "LightSensor",
+			"item": [
+				{
+					"name": "LightSensor1-TD",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.101:8080",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"101"
+							],
+							"port": "8080"
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://192.168.0.101/properties/intensity",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"101"
-					],
-					"path": [
-						"properties",
-						"intensity"
-					]
+				{
+					"name": "Light Sensor 1 properties/intensity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.101/properties/intensity",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"101"
+							],
+							"path": [
+								"properties",
+								"intensity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Light Sensor 2 properties/intensity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.102/properties/intensity",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"102"
+							],
+							"path": [
+								"properties",
+								"intensity"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"description": "ESP Light Sensor"
 		},
 		{
-			"name": "Light Sensor 2 properties/intensity",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
+			"name": "Dotstar",
+			"item": [
+				{
+					"name": "LED DotStar properties/brightness",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "100"
+						},
+						"url": {
+							"raw": "http://192.168.0.103:8080/properties/brightness",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"103"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"brightness"
+							]
+						},
+						"description": "Set/get brightness"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://192.168.0.102/properties/intensity",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"102"
-					],
-					"path": [
-						"properties",
-						"intensity"
-					]
+				{
+					"name": "LED DotStar properties/stats",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.103:8080/properties/stats",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"103"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"stats"
+							]
+						},
+						"description": "Set/get brightness"
+					},
+					"response": []
+				},
+				{
+					"name": "LED DotStar actions/fill",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"red\": 255,\"green\": 0,\"blue\": 0}"
+						},
+						"url": {
+							"raw": "http://192.168.0.103:8080/actions/fill",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"103"
+							],
+							"port": "8080",
+							"path": [
+								"actions",
+								"fill"
+							]
+						},
+						"description": "light all LEDs"
+					},
+					"response": []
+				},
+				{
+					"name": "LED DotStar actions/fill_upper",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"red\": 255,\"green\": 255,\"blue\": 0}"
+						},
+						"url": {
+							"raw": "http://192.168.0.103:8080/actions/fill_upper",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"103"
+							],
+							"port": "8080",
+							"path": [
+								"actions",
+								"fill_upper"
+							]
+						},
+						"description": "light all LEDs"
+					},
+					"response": []
+				},
+				{
+					"name": "LED DotStar actions/fill_middle",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"red\": 255,\"green\": 0,\"blue\": 255}"
+						},
+						"url": {
+							"raw": "http://192.168.0.103:8080/actions/fill_middle",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"103"
+							],
+							"port": "8080",
+							"path": [
+								"actions",
+								"fill_middle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LED DotStar actions/fill_lower",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"red\": 0,\"green\": 255,\"blue\": 255}"
+						},
+						"url": {
+							"raw": "http://192.168.0.103:8080/actions/fill_lower",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"103"
+							],
+							"port": "8080",
+							"path": [
+								"actions",
+								"fill_lower"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LED DotStar - actions/random",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.103:8080/actions/random",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"103"
+							],
+							"port": "8080",
+							"path": [
+								"actions",
+								"random"
+							]
+						},
+						"description": "Light one LED"
+					},
+					"response": []
+				},
+				{
+					"name": "LED DotStar - actions/dot",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"led\": 24, \"color\": {\"red\": 255,\"green\": 255,\"blue\": 255}}"
+						},
+						"url": {
+							"raw": "http://192.168.0.103:8080/actions/dot",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"103"
+							],
+							"port": "8080",
+							"path": [
+								"actions",
+								"dot"
+							]
+						},
+						"description": "Light one LED"
+					},
+					"response": []
+				},
+				{
+					"name": "LED DotStar - actions/shutdown",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.103:8080/actions/shutdown",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"103"
+							],
+							"port": "8080",
+							"path": [
+								"actions",
+								"shutdown"
+							]
+						},
+						"description": "Light one LED"
+					},
+					"response": []
+				},
+				{
+					"name": "DotStar TD",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.103:8080/",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"103"
+							],
+							"port": "8080",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"description": "LED Strip going around the cart"
 		},
 		{
-			"name": "LED DotStar properties/brightness",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "100"
+			"name": "MeArm",
+			"item": [
+				{
+					"name": "MeArmPi properties/gripState",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.104:8080/MeArmPi/properties/gripState",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"104"
+							],
+							"port": "8080",
+							"path": [
+								"MeArmPi",
+								"properties",
+								"gripState"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://192.168.0.103:8080/properties/brightness",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"103"
-					],
-					"port": "8080",
-					"path": [
-						"properties",
-						"brightness"
-					]
+				{
+					"name": "MeArmPi properties/motorPositions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.104:8080/MeArmPi/properties/motorPositions",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"104"
+							],
+							"port": "8080",
+							"path": [
+								"MeArmPi",
+								"properties",
+								"motorPositions"
+							]
+						}
+					},
+					"response": []
 				},
-				"description": "Set/get brightness"
-			},
-			"response": []
-		},
-		{
-			"name": "LED DotStar properties/stats",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
+				{
+					"name": "MeArmPi actions/openGrip",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.104:8080/MeArmPi/actions/openGrip",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"104"
+							],
+							"port": "8080",
+							"path": [
+								"MeArmPi",
+								"actions",
+								"openGrip"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://192.168.0.103:8080/properties/stats",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"103"
-					],
-					"port": "8080",
-					"path": [
-						"properties",
-						"stats"
-					]
+				{
+					"name": "MeArmPi actions/moveUpperTo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "50"
+						},
+						"url": {
+							"raw": "http://192.168.0.104:8080/MeArmPi/actions/moveUpperTo",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"104"
+							],
+							"port": "8080",
+							"path": [
+								"MeArmPi",
+								"actions",
+								"moveUpperTo"
+							]
+						}
+					},
+					"response": []
 				},
-				"description": "Set/get brightness"
-			},
-			"response": []
-		},
-		{
-			"name": "LED DotStar actions/fill",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"red\": 255,\"green\": 0,\"blue\": 0}"
+				{
+					"name": "MeArmPi actions/moveBaseTo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "50"
+						},
+						"url": {
+							"raw": "http://192.168.0.104:8080/MeArmPi/actions/moveBaseTo",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"104"
+							],
+							"port": "8080",
+							"path": [
+								"MeArmPi",
+								"actions",
+								"moveBaseTo"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://192.168.0.103:8080/actions/fill",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"103"
-					],
-					"port": "8080",
-					"path": [
-						"actions",
-						"fill"
-					]
+				{
+					"name": "MeArmPi actions/moveLowerTo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "50"
+						},
+						"url": {
+							"raw": "http://192.168.0.104:8080/MeArmPi/actions/moveLowerTo",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"104"
+							],
+							"port": "8080",
+							"path": [
+								"MeArmPi",
+								"actions",
+								"moveLowerTo"
+							]
+						}
+					},
+					"response": []
 				},
-				"description": "light all LEDs"
-			},
-			"response": []
-		},
-		{
-			"name": "LED DotStar actions/fill_upper",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"red\": 255,\"green\": 255,\"blue\": 0}"
-				},
-				"url": {
-					"raw": "http://192.168.0.103:8080/actions/fill_upper",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"103"
-					],
-					"port": "8080",
-					"path": [
-						"actions",
-						"fill_upper"
-					]
-				},
-				"description": "light all LEDs"
-			},
-			"response": []
-		},
-		{
-			"name": "LED DotStar actions/fill_middle",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"red\": 255,\"green\": 0,\"blue\": 255}"
-				},
-				"url": {
-					"raw": "http://192.168.0.103:8080/actions/fill_middle",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"103"
-					],
-					"port": "8080",
-					"path": [
-						"actions",
-						"fill_middle"
-					]
+				{
+					"name": "MeArmPi actions/dance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.104:8080/MeArmPi/actions/dance",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"104"
+							],
+							"port": "8080",
+							"path": [
+								"MeArmPi",
+								"actions",
+								"dance"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "LED DotStar actions/fill_lower",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"red\": 0,\"green\": 255,\"blue\": 255}"
+			"name": "SenseHAT",
+			"item": [
+				{
+					"name": "SenseHat all/properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.106:8080/SenseHat/all/properties",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"106"
+							],
+							"port": "8080",
+							"path": [
+								"SenseHat",
+								"all",
+								"properties"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://192.168.0.103:8080/actions/fill_lower",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"103"
-					],
-					"port": "8080",
-					"path": [
-						"actions",
-						"fill_lower"
-					]
+				{
+					"name": "SenseHat actions/flipH",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.106:8080/SenseHat/actions/flipH",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"106"
+							],
+							"port": "8080",
+							"path": [
+								"SenseHat",
+								"actions",
+								"flipH"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SenseHat actions/showLetter",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"s\": \"A\"}"
+						},
+						"url": {
+							"raw": "http://192.168.0.106:8080/SenseHat/actions/showLetter",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"106"
+							],
+							"port": "8080",
+							"path": [
+								"SenseHat",
+								"actions",
+								"showLetter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SenseHat properties/eventHistory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.106:8080/SenseHat/properties/eventHistory",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"106"
+							],
+							"port": "8080",
+							"path": [
+								"SenseHat",
+								"properties",
+								"eventHistory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SenseHat properties/rotation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.106:8080/SenseHat/properties/rotation",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"106"
+							],
+							"port": "8080",
+							"path": [
+								"SenseHat",
+								"properties",
+								"rotation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SenseHat properties/rotation",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "0"
+						},
+						"url": {
+							"raw": "http://192.168.0.106:8080/SenseHat/properties/rotation",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"106"
+							],
+							"port": "8080",
+							"path": [
+								"SenseHat",
+								"properties",
+								"rotation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SenseHat actions/showMessage",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"textString\": \"Hello World!\", \"scrollSpeed\": 0.4}"
+						},
+						"url": {
+							"raw": "http://192.168.0.106:8080/SenseHat/actions/showMessage",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"106"
+							],
+							"port": "8080",
+							"path": [
+								"SenseHat",
+								"actions",
+								"showMessage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SenseHat actions/clear",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.106:8080/SenseHat/actions/clear",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"106"
+							],
+							"port": "8080",
+							"path": [
+								"SenseHat",
+								"actions",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SenseHat events/joystickPress",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.106:8080/SenseHat/events/joystickPress",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"106"
+							],
+							"port": "8080",
+							"path": [
+								"SenseHat",
+								"events",
+								"joystickPress"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "LED DotStar - actions/dot",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"led\": 24, \"color\": {\"red\": 255,\"green\": 255,\"blue\": 255}}"
+			"name": "Camera",
+			"item": [
+				{
+					"name": "PiCamera properties/frame",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.108:8080/properties/frame",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"108"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"frame"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://192.168.0.103:8080/actions/dot",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"103"
-					],
-					"port": "8080",
-					"path": [
-						"actions",
-						"dot"
-					]
-				},
-				"description": "Light one LED"
-			},
-			"response": []
-		},
-		{
-			"name": "LED DotStar - actions/random",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://192.168.0.103:8080/actions/random",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"103"
-					],
-					"port": "8080",
-					"path": [
-						"actions",
-						"random"
-					]
-				},
-				"description": "Light one LED"
-			},
-			"response": []
-		},
-		{
-			"name": "LED DotStar - actions/shutdown",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://192.168.0.103:8080/actions/shutdown",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"103"
-					],
-					"port": "8080",
-					"path": [
-						"actions",
-						"shutdown"
-					]
-				},
-				"description": "Light one LED"
-			},
-			"response": []
-		},
-		{
-			"name": "MeArmPi properties/gripState",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://192.168.0.104:8080/MeArmPi/properties/gripState",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"104"
-					],
-					"port": "8080",
-					"path": [
-						"MeArmPi",
-						"properties",
-						"gripState"
-					]
+				{
+					"name": "PiCamera properties/configuration",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://192.168.0.108:8080/properties/configuration",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"108"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"configuration"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "MeArmPi properties/motorPositions",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://192.168.0.104:8080/MeArmPi/properties/motorPositions",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"104"
-					],
-					"port": "8080",
-					"path": [
-						"MeArmPi",
-						"properties",
-						"motorPositions"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "MeArmPi actions/openGrip",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://192.168.0.104:8080/MeArmPi/actions/openGrip",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"104"
-					],
-					"port": "8080",
-					"path": [
-						"MeArmPi",
-						"actions",
-						"openGrip"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "MeArmPi actions/moveUpperTo",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "50"
-				},
-				"url": {
-					"raw": "http://192.168.0.104:8080/MeArmPi/actions/moveUpperTo",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"104"
-					],
-					"port": "8080",
-					"path": [
-						"MeArmPi",
-						"actions",
-						"moveUpperTo"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "MeArmPi actions/moveBaseTo",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "50"
-				},
-				"url": {
-					"raw": "http://192.168.0.104:8080/MeArmPi/actions/moveBaseTo",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"104"
-					],
-					"port": "8080",
-					"path": [
-						"MeArmPi",
-						"actions",
-						"moveBaseTo"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "MeArmPi actions/moveLowerTo",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "50"
-				},
-				"url": {
-					"raw": "http://192.168.0.104:8080/MeArmPi/actions/moveLowerTo",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"104"
-					],
-					"port": "8080",
-					"path": [
-						"MeArmPi",
-						"actions",
-						"moveLowerTo"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "MeArmPi actions/dance",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://192.168.0.104:8080/MeArmPi/actions/dance",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"104"
-					],
-					"port": "8080",
-					"path": [
-						"MeArmPi",
-						"actions",
-						"dance"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "SenseHat properties/rotation",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://192.168.0.106:8080/SenseHat/properties/rotation",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"106"
-					],
-					"port": "8080",
-					"path": [
-						"SenseHat",
-						"properties",
-						"rotation"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "SenseHat properties/rotation",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "0"
-				},
-				"url": {
-					"raw": "http://192.168.0.106:8080/SenseHat/properties/rotation",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"106"
-					],
-					"port": "8080",
-					"path": [
-						"SenseHat",
-						"properties",
-						"rotation"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "SenseHat properties/eventHistory",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://192.168.0.106:8080/SenseHat/properties/eventHistory",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"106"
-					],
-					"port": "8080",
-					"path": [
-						"SenseHat",
-						"properties",
-						"eventHistory"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "SenseHat all/properties",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://192.168.0.106:8080/SenseHat/all/properties",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"106"
-					],
-					"port": "8080",
-					"path": [
-						"SenseHat",
-						"all",
-						"properties"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "SenseHat actions/flipH",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://192.168.0.106:8080/SenseHat/actions/flipH",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"106"
-					],
-					"port": "8080",
-					"path": [
-						"SenseHat",
-						"actions",
-						"flipH"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "SenseHat actions/showLetter",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"s\": \"A\"}"
-				},
-				"url": {
-					"raw": "http://192.168.0.106:8080/SenseHat/actions/showLetter",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"106"
-					],
-					"port": "8080",
-					"path": [
-						"SenseHat",
-						"actions",
-						"showLetter"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "SenseHat actions/showMessage",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"textString\": \"Hello World!\", \"scrollSpeed\": 0.4}"
-				},
-				"url": {
-					"raw": "http://192.168.0.106:8080/SenseHat/actions/showMessage",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"106"
-					],
-					"port": "8080",
-					"path": [
-						"SenseHat",
-						"actions",
-						"showMessage"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "SenseHat actions/clear",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://192.168.0.106:8080/SenseHat/actions/clear",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"106"
-					],
-					"port": "8080",
-					"path": [
-						"SenseHat",
-						"actions",
-						"clear"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "SenseHat events/joystickPress",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://192.168.0.106:8080/SenseHat/events/joystickPress",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"106"
-					],
-					"port": "8080",
-					"path": [
-						"SenseHat",
-						"events",
-						"joystickPress"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "PiCamera properties/configuration",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://192.168.0.108:8080/properties/configuration",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"108"
-					],
-					"port": "8080",
-					"path": [
-						"properties",
-						"configuration"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "PiCamera properties/frame",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://192.168.0.108:8080/properties/frame",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"108"
-					],
-					"port": "8080",
-					"path": [
-						"properties",
-						"frame"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "DotStar TD",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://192.168.0.103:8080/",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"0",
-						"103"
-					],
-					"port": "8080",
-					"path": [
-						""
-					]
-				}
-			},
-			"response": []
+			],
+			"description": "The cameras attached to RPi Zeros"
 		}
 	]
 }
