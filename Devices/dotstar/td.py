@@ -1,8 +1,14 @@
 def get_td(ip_address, leds):
     return {
+        "@context": [
+            "https://www.w3.org/2019/wot/td/v1",
+            {"@language": "en"}
+        ],
         'id': 'de:tum:ei:esi:dotstar:{}'.format(ip_address),
-        'name': 'DotStar RGB LED strip',
+        'title': 'DotStar RGB LED strip',
         'description': 'A strip of {} RGB LEDs that can be controlled remotely.'.format(leds),
+        "securityDefinitions": {"nosec_sc": {"scheme": "nosec"}},
+        "security": "nosec_sc",
         'properties': {
             'brightness': {
                 "title": "LED Brightness",
@@ -15,7 +21,8 @@ def get_td(ip_address, leds):
                 "writeOnly": False,
                 "forms": [{
                     "href": "http://{}/properties/brightness".format(ip_address),
-                    "contentType": "application/json"
+                    "contentType": "application/json",
+                    "op": ["readproperty", "writeproperty"]
                 }]
             },
             'stats': {
@@ -31,7 +38,7 @@ def get_td(ip_address, leds):
                         "minimum": 0,
                         "maximum": leds
                     },
-                    "beightness": {
+                    "brightness": {
                         "type": "integer",
                         "minimum": 0,
                         "maximum": 100,
@@ -65,13 +72,16 @@ def get_td(ip_address, leds):
                 "writeOnly": False,
                 "forms": [{
                     "href": "http://{}/properties/stats".format(ip_address),
-                    "contentType": "application/json"
+                    "contentType": "application/json",
+                    "op": "readproperty"
                 }]
             }
         },
         "actions": {
             "dot": {
-                "description": "Light a specific LED with the given RGB color.",
+                "description": "Light a specific single LED with the given RGB color.",
+                "safe":False,
+                "idempotent":True,
                 "input": {
                     "type": "object",
                     "required": ["led", "color"],
@@ -106,11 +116,14 @@ def get_td(ip_address, leds):
                 },
                 "forms": [{
                     "href": "http://{}/actions/dot".format(ip_address),
-                    "contentType": "application/json"
+                    "contentType": "application/json",
+                    "op": "invokeaction"
                 }]
             },
             "fill": {
                 "description": "Light all the LEDs with same color.",
+                "safe": False,
+                "idempotent": True,
                 "input": {
                     "type": "object",
                     "required": ["red", "green", "blue"],
@@ -134,11 +147,14 @@ def get_td(ip_address, leds):
                 },
                 "forms": [{
                     "href": "http://{}/actions/fill".format(ip_address),
-                    "contentType": "application/json"
+                    "contentType": "application/json",
+                    "op": "invokeaction"
                 }]
             },
             "fill_upper": {
                 "description": "Light all the LEDs in the upper band with the same color.",
+                "safe": False,
+                "idempotent": True,
                 "input": {
                     "type": "object",
                     "required": ["red", "green", "blue"],
@@ -162,11 +178,14 @@ def get_td(ip_address, leds):
                 },
                 "forms": [{
                     "href": "http://{}/actions/fill_upper".format(ip_address),
-                    "contentType": "application/json"
+                    "contentType": "application/json",
+                    "op": "invokeaction"
                 }]
             },
             "fill_middle": {
                 "description": "Light all the LEDs in the middle band with the same color.",
+                "safe": False,
+                "idempotent": True,
                 "input": {
                     "type": "object",
                     "required": ["red", "green", "blue"],
@@ -190,11 +209,14 @@ def get_td(ip_address, leds):
                 },
                 "forms": [{
                     "href": "http://{}/actions/fill_middle".format(ip_address),
-                    "contentType": "application/json"
+                    "contentType": "application/json",
+                    "op": "invokeaction"
                 }]
             },
             "fill_lower": {
                 "description": "Light all the LEDs in the lower band with the same color.",
+                "safe": False,
+                "idempotent": True,
                 "input": {
                     "type": "object",
                     "required": ["red", "green", "blue"],
@@ -218,21 +240,28 @@ def get_td(ip_address, leds):
                 },
                 "forms": [{
                     "href": "http://{}/actions/fill_lower".format(ip_address),
-                    "contentType": "application/json"
+                    "contentType": "application/json",
+                    "op": "invokeaction"
                 }]
             },
             "random": {
                 "description": "Light up all LEDs with random colors.",
+                "safe": False,
+                "idempotent": False,
                 "forms": [{
                     "href": "http://{}/actions/random".format(ip_address),
-                    "contentType": "application/json"
+                    "contentType": "application/json",
+                    "op": "invokeaction"
                 }]
             },
             "shutdown": {
                 "description": "Turn off all the LEDs.",
+                "safe": False,
+                "idempotent": True,
                 "forms": [{
                     "href": "http://{}/actions/shutdown".format(ip_address),
-                    "contentType": "application/json"
+                    "contentType": "application/json",
+                    "op": "invokeaction"
                 }]
             }
         }
