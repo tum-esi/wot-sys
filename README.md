@@ -60,6 +60,10 @@ WiFi SSID and password are stored at: /etc/wpa_supplicant/wpa_supplicant.conf
 - Make sure that this script runs automatically on startup. Crontab can do this on Linux.
 - The server runs on port 8080
 
+## Warning
+
+Keyboard Layout is American
+
 # DotStar
 
 ## Requirements
@@ -76,6 +80,11 @@ WiFi SSID and password are stored at: /etc/wpa_supplicant/wpa_supplicant.conf
 - To run the program: `python3 dotstar.py`
 - Make sure that this script runs automatically on startup. Crontab can do this on Linux.
 - The server runs on port 8080
+
+
+## Warning
+
+Keyboard Layout is German
 
 # MeArmPi
 
@@ -95,6 +104,11 @@ sudo apt-get install -y nodejs
 - Make sure that this script runs automatically on startup. Crontab can do this on Linux.
 - The server runs on port 8080
 
+
+## Warning
+
+Keyboard Layout is German
+
 # SenseHat
 
 ## Requirements
@@ -112,3 +126,8 @@ sudo apt-get install -y nodejs
 - To run the program: `node index.js`
 - Make sure that this script runs automatically on startup. Crontab can do this on Linux.
 - The server runs on port 8080
+
+
+## Warning
+
+Keyboard Layout is German
