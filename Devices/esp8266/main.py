@@ -7,8 +7,8 @@ import usocket
 
 
 # setup network here
-WIFI_SSID = b"ESI_WotSys"
-WIFI_PASSWORD = "youcantimagine"
+WIFI_SSID = b"W3CWoT"
+WIFI_PASSWORD = "wotf2fbj"
 TD_DIRECTORY_ADDRESS = "http://192.168.0.100:8080"
 LISTENING_PORT = 80
 

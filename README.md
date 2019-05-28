@@ -24,15 +24,23 @@ Example mashups and clients for students are found under Mashups
 self contained - runs on micropython
 
 ## Installation
-- get the micropython firmware from http://micropython.org/download#esp8266
-- run `pip install esptool`
-- run `esptool.py --port <dev location, e.g. /dev/ttyUSB0> erase_flash`
-- run `esptool.py --port <dev location> --baud 460800 write_flash --flash_size=detect 0 <name of the firmware you downloaded>`
-- upload the `main.py` script to ESP8266 with `ampy` following the instructions from https://learn.adafruit.com/micropython-basics-load-files-and-run-code/install-ampy
-- to use the REPL of the ESP8266, connect it to your USB port and use a serial communication program. Example under Linux: `picocom <dev location> -b 115200`
+- You will flash the program via the serial port. Make sure that you have read/write rights to the port by following [this guide](https://docs.espressif.com/projects/esp-idf/en/latest/get-started/establish-serial-connection.html).
+- Get the micropython firmware from [here](http://micropython.org/download#esp8266) or use version provided in at esp8266 folder.
+- Run `pip install esptool` to install the tool that allows you to flash programs to the ESP board
+- Run `esptool.py --port <dev location, e.g. /dev/ttyUSB0> erase_flash` to remove the previous program or firmware
+- Run `esptool.py --port <dev location> --baud 460800 write_flash --flash_size=detect -fm dio 0 <name of the firmware>` to download the firmware into ESP board. This is not your program, just the firmware.
+- Upload the `main.py` script to ESP8266 with `ampy` following the instructions from [Adafruit](https://learn.adafruit.com/micropython-basics-load-files-and-run-code/install-ampy)
+  - Install ampy: `pip install adafruit-ampy`
+  - Check that it is installed with `ampy --help`
+  - You can run the code with `ampy --port /dev/ttyUSB0  run main.py`
+  - You can upload it as the main program via `ampy --port /dev/ttyUSB0 put main.py /main.py`
+- to use the REPL of the ESP8266, connect it to your USB port and use a serial communication program. Example under Linux: `picocom <dev location> -b115200`
+  - You will need to press enter to enter into the console.
+  - To exit, press CTRL+A+X
 - to find out the MAC address of the ESP, follow the instructions on https://forum.micropython.org/viewtopic.php?t=1890
 - assign a static IP adress to this MAC on the router's configuration page
-- You're set:)
+  - You may not see it in the DHCP clients list
+- When you see the LED lit, it means that it has connected to WiFi
 
 # PiCamera
 
