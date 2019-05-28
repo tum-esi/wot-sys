@@ -15,18 +15,28 @@ LISTENING_PORT = 80
 
 def get_td(ip_address):
     td = {
+        "@context": [
+            "https://www.w3.org/2019/wot/td/v1",
+            {"@language": "en"}
+        ],
             'id': 'light:sensor:{}'.format(ip_address),
-            'name': 'light_sensor',
+            'title': 'light_sensor',
             'description': 'Sensor that measures the intensity of light',
+            'descriptions': {'en': 'Sensor that measures the intensity of light'},
+            "securityDefinitions": {"nosec_sc": {"scheme": "nosec"}},
+            "security": "nosec_sc",
             'properties': {
                 'intensity': {
                     "type": "number",
                     "forms": [{
                         "href": "http://{}/properties/intensity".format(ip_address),
-                        "mediaType": "application/json"
+                        "contentType": "application/json",
+                        "op": "readproperty"
                     }],
                     "minimum": 0,
-                    "maximum": 1000
+                    "maximum": 1000,
+                    "readOnly": True,
+                    "writeOnly": False
                 }
             }
     }
