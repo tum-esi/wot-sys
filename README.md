@@ -36,6 +36,10 @@ self contained - runs on micropython
 
 # PiCamera
 
+## Network Configuration
+
+WiFi SSID and password are stored at: /etc/wpa_supplicant/wpa_supplicant.conf
+
 ## Requirements
 - python >= 3.5
 - picamera
