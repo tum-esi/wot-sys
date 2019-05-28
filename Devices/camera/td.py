@@ -14,7 +14,6 @@ class DataType(str,Enum):
     integer = 'integer',
     none = 'none'
     
-
 class DataSchema(object):
 
     def __init__(self,
@@ -83,6 +82,8 @@ class ObjectSchema(DataSchema):
             description: str = '',
             required: List[str] = [],
             type: Type[DataType] = DataType.none,
+            readOnly: bool = False,
+            writeOnly: bool = False,
             *args
     ):
         DataSchema.__init__(self,
@@ -107,6 +108,8 @@ class NumberSchema(DataSchema):
             description: str = "",
             minimum: float = None, 
             maximum: float = None,
+            readOnly: bool = False,
+            writeOnly: bool = False,
             *args):
         DataSchema.__init__(self, title, description, type = DataType.number,*args)
         self.minimum = minimum
@@ -166,10 +169,18 @@ class Property(DataSchema):
                 *args)
         self.forms = []
 
-    def add_form(self, href, contenttype = 'application/json', metadata = {}):
+    def set_writeOnly(self, value: bool):
+        self.writeOnly = value
+        return self
+    
+    def set_readOnly(self, value: bool):
+        self.readOnly = value
+        return self
+
+    def add_form(self, href, contentType = 'application/json', metadata = {}):
         form = {}
         form['href'] = href
-        form['contenttype'] = contenttype
+        form['contentType'] = contentType
         self.forms.append({ **form, **metadata})
         return self # for a calling chain :)
 
@@ -182,15 +193,17 @@ class Property(DataSchema):
         return { **td, 'forms': self.forms}
 
 class Thing(object):
-    def __init__(self, thing_id, name, description = "",security = None, metadata = {}):
+    def __init__(self, thing_id, title, description="", metadata={}):
+       self.context = ["https://www.w3.org/2019/wot/td/v1",{"@language":"en"}]
        self.thing_id = thing_id
-       self.name = name
+       self.title = title
        self.description = description
+       self.descriptions = {"en": description}
        self.metadata = metadata
-
        self.properties = []
        self.actions = []
-       self.security = [{ 'scheme': 'nosec'}] if not security else security
+       self.securityDefinitions = {"nosec_sc": {"scheme": "nosec"}}
+       self.security = "nosec_sc"
 
     def _string_or_empty_string(self,s):
         return s if s else ''
@@ -206,13 +219,15 @@ class Thing(object):
     # the function that generates thing descriptions given the properties
     def serialize(self):
         td = {}
-        
+        td['@context'] = self.context
         td['id'] = self.thing_id
-        td['name'] = self.name
+        td['title'] = self.title
         td['description'] = self._string_or_empty_string(self.description)
+        td['descriptions'] = self._string_or_empty_string(self.descriptions)
         td['properties'] = {prop.title: prop.serialize(False) for prop in self.properties}
         td['actions'] = {action.title: action.serialize(False) for action in self.actions}
         td['security'] = self.security
+        td['securityDefinitions'] = self.securityDefinitions
 
         # merge both the meta data and compulsory fields
         return {**td, **self.metadata}
@@ -286,36 +301,38 @@ def generate_camera_thing(dev_addr, port):
    return Thing(
             'esi:picamera:{}'.format(dev_addr),
             'piCamera',
-            'a camera mounted on Raspberry Pi').add_property( 
+            'A camera mounted on Raspberry Pi').add_property( 
                Property(
                    'configuration',
-                   'configuration of the camera',
+                   'Configuration of the camera',
                    DataType.object
                 )
                 .add_property(
                     NumberSchema(
                         "brightness",
-                        "brightness of the camera", 
+                        "Brightness of the camera",
+                        0,
+                        100,
+                        True,
+                        True
                     )
-                    .set_minimum(0)
-                    .set_maximum(100)
                 )
                 .add_property(
                     ObjectSchema(
                         "size",
-                        "size (width, height) of the frame",
+                        "Size (width, height) of the frame",
                     )
                     .add_property(
                         NumberSchema(
                             "width",
-                            "width of the camera", 
+                            "Width of the camera", 
                         ).set_minimum(0),
                         required = True
                     ) 
                     .add_property(
                         NumberSchema(
                             "height",
-                            "height of the camera"
+                            "Height of the camera"
                         )
                         .set_minimum(0),
                         required = True
@@ -323,7 +340,7 @@ def generate_camera_thing(dev_addr, port):
                 )
                 .add_form('http://{}:{}/properties/configuration'.format(dev_addr, port))
             ).add_property(
-                Property('frame',"frame of the current camera")
+                Property('frame',"frame of the current camera").set_readOnly(True)
                 .add_form('http://{}:{}/properties/frame'.format(dev_addr, port),'image/jpeg')
             )
 

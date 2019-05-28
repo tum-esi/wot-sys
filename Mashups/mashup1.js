@@ -32,13 +32,13 @@ WoT.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
                     var intensity = await lightSensorThing.properties.intensity.read();
                     if (intensity < 200) {
                         robotThing.actions["closeGrip"].invoke();
-                        robotThing.actions["moveBaseTo"].invoke(75);
+                        robotThing.actions["moveBaseTo"].invoke(35);
                         senseHatThing.actions["flashMessage"].invoke({
                             "textString": "<"
                         });
                     } else {
                         robotThing.actions["openGrip"].invoke();
-                        robotThing.actions["moveBaseTo"].invoke(-75);
+                        robotThing.actions["moveBaseTo"].invoke(-35);
                         senseHatThing.actions["flashMessage"].invoke({
                             "textString": ">"
                         });
