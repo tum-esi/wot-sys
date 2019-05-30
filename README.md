@@ -57,7 +57,7 @@ WiFi SSID and password are stored at: /etc/wpa_supplicant/wpa_supplicant.conf
 - Install python: `sudo apt-get install python3 python3-pip`
 - install requirements: `pip3 install -r requirement.txt`
 - To run the program: `python3 camera_server.py`
-- Make sure that this script runs automatically on startup. Crontab can do this on Linux.
+- Make sure that this script runs automatically on startup. Crontab can do this on Linux. Use `crontab -e` to configure crontab. Actually launch.sh does the launch
 - The server runs on port 8080
 
 ## Warning
