@@ -397,7 +397,9 @@ export class WotSenseHat {
                             "type": "string"
                         }, 
                         "scrollSpeed": {
-                            "type": "number"
+                            "type": "number",
+                            "unit":"second",
+                            "description":"seconds paused between letters."
                         }, 
                         "textColour": {
                             "type": "array",

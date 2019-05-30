@@ -13,6 +13,16 @@ The collections with all interactions are found under Postman and also [here](ht
 
 The collection documentation is available [here](https://documenter.getpostman.com/view/2152549/S17wNS8o)
 
+## Hostnames
+
+Blue Mearm: TUMEIESI-MeArmPi-Blue
+Orange Mearm: TUMEIESI-MeArmPi-Orange3
+Normal RPi Camera: TUMEIESI-Rpi-Camera
+IR RPi Camera: TUMEIESI-Rpi-Camera-IR
+Dotstar: TUMEIESI-DotStar
+Sensehat-106 : TUMEIESI-SenseHat-106
+Sensehat-107 : TUMEIESI-SenseHat-107
+
 ## Mashup
 
 Example mashups and clients for students are found under Mashups
