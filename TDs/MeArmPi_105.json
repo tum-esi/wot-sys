@@ -20,7 +20,7 @@
             "writeOnly": false,
             "observable": false,
             "forms": [{
-                "href": "http://192.168.0.105:8080/MeArmPi/properties/gripState",
+                "href": "http://TUMEIESI-MeArmPi-Orange.local:8080/MeArmPi/properties/gripState",
                 "contentType": "application/json",
                 "op": ["readproperty"],
                 "htv:methodName": "GET"
@@ -47,7 +47,7 @@
             "writeOnly": false,
             "observable": false,
             "forms": [{
-                "href": "http://192.168.0.105:8080/MeArmPi/properties/motorPositions",
+                "href": "http://TUMEIESI-MeArmPi-Orange.local:8080/MeArmPi/properties/motorPositions",
                 "contentType": "application/json",
                 "op": ["readproperty"],
                 "htv:methodName": "GET"
@@ -58,7 +58,7 @@
         "openGrip": {
             "description": "Open the robot's Grip.",
             "forms": [{
-                "href": "http://192.168.0.105:8080/MeArmPi/actions/openGrip",
+                "href": "http://TUMEIESI-MeArmPi-Orange.local:8080/MeArmPi/actions/openGrip",
                 "contentType": "application/json",
                 "op": ["invokeaction"],
                 "htv:methodName": "POST"
@@ -69,7 +69,7 @@
         "closeGrip": {
             "description": "Close the robot's Grip.",
             "forms": [{
-                "href": "http://192.168.0.105:8080/MeArmPi/actions/closeGrip",
+                "href": "http://TUMEIESI-MeArmPi-Orange.local:8080/MeArmPi/actions/closeGrip",
                 "contentType": "application/json",
                 "op": ["invokeaction"],
                 "htv:methodName": "POST"
@@ -85,7 +85,7 @@
                 "maximum": 90
             },
             "forms": [{
-                "href": "http://192.168.0.105:8080/MeArmPi/actions/moveGripTo",
+                "href": "http://TUMEIESI-MeArmPi-Orange.local:8080/MeArmPi/actions/moveGripTo",
                 "contentType": "application/json",
                 "op": ["invokeaction"],
                 "htv:methodName": "POST"
@@ -101,7 +101,7 @@
                 "maximum": 135
             },
             "forms": [{
-                "href": "http://192.168.0.105:8080/MeArmPi/actions/moveUpperTo",
+                "href": "http://TUMEIESI-MeArmPi-Orange.local:8080/MeArmPi/actions/moveUpperTo",
                 "contentType": "application/json",
                 "op": ["invokeaction"],
                 "htv:methodName": "POST"
@@ -117,7 +117,7 @@
                 "maximum": 135
             },
             "forms": [{
-                "href": "http://192.168.0.105:8080/MeArmPi/actions/moveLowerTo",
+                "href": "http://TUMEIESI-MeArmPi-Orange.local:8080/MeArmPi/actions/moveLowerTo",
                 "contentType": "application/json",
                 "op": ["invokeaction"],
                 "htv:methodName": "POST"
@@ -133,7 +133,7 @@
                 "maximum": 90
             },
             "forms": [{
-                "href": "http://192.168.0.105:8080/MeArmPi/actions/moveBaseTo",
+                "href": "http://TUMEIESI-MeArmPi-Orange.local:8080/MeArmPi/actions/moveBaseTo",
                 "contentType": "application/json",
                 "op": ["invokeaction"],
                 "htv:methodName": "POST"
@@ -143,7 +143,7 @@
         },
         "dance": {
             "forms": [{
-                "href": "http://192.168.0.105:8080/MeArmPi/actions/dance",
+                "href": "http://TUMEIESI-MeArmPi-Orange.local:8080/MeArmPi/actions/dance",
                 "contentType": "application/json",
                 "op": ["invokeaction"],
                 "htv:methodName": "POST"
@@ -152,9 +152,9 @@
             "safe": false
         }
     },
-    "id": "de:tum:ei:esi:mearmpi:192.168.0.105",
+    "id": "de:tum:ei:esi:mearmpi:TUMEIESI-MeArmPi-Orange.local",
     "forms": [{
-        "href": "http://192.168.0.105:8080/MeArmPi/all/properties",
+        "href": "http://TUMEIESI-MeArmPi-Orange.local:8080/MeArmPi/all/properties",
         "contentType": "application/json",
         "op": ["readallproperties", "readmultipleproperties", "writeallproperties", "writemultipleproperties"]
     }]

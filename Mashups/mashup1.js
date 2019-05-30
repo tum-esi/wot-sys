@@ -1,7 +1,7 @@
 const Robot_TD_ADDRESS = "http://192.168.0.105:8080/MeArmPi";
 const LightSensor_TD_ADDRESS = "http://192.168.0.102/";
 const senseHAT_TD_ADDRESS = "http://192.168.0.106:8080/SenseHat";
-const strip_TD_ADDRESS = "http://192.168.0.103:8080/";
+const strip_TD_ADDRESS = "http://TUMEIESI-DotStar.local:8080/";
 
 WoT.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
 

@@ -16,7 +16,7 @@ The collection documentation is available [here](https://documenter.getpostman.c
 ## Hostnames
 
 Blue Mearm: TUMEIESI-MeArmPi-Blue
-Orange Mearm: TUMEIESI-MeArmPi-Orange3
+Orange Mearm: TUMEIESI-MeArmPi-Orange
 Normal RPi Camera: TUMEIESI-Rpi-Camera
 IR RPi Camera: TUMEIESI-Rpi-Camera-IR
 Dotstar: TUMEIESI-DotStar

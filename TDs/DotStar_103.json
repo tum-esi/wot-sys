@@ -18,7 +18,7 @@
             "forms": [{
                 "op": ["readproperty", "writeproperty"],
                 "contentType": "application/json",
-                "href": "http://192.168.0.103:8080/properties/brightness"
+                "href": "http://TUMEIESI-DotStar.local:8080/properties/brightness"
             }],
             "readOnly": false,
             "type": "integer",
@@ -29,7 +29,7 @@
             "forms": [{
                 "op": "readproperty",
                 "contentType": "application/json",
-                "href": "http://192.168.0.103:8080/properties/stats"
+                "href": "http://TUMEIESI-DotStar.local:8080/properties/stats"
             }],
             "writeOnly": false,
             "title": "LED Stats",
@@ -80,7 +80,7 @@
             "forms": [{
                 "op": "invokeaction",
                 "contentType": "application/json",
-                "href": "http://192.168.0.103:8080/actions/dot"
+                "href": "http://TUMEIESI-DotStar.local:8080/actions/dot"
             }],
             "description": "Light a specific single LED with the given RGB color.",
             "input": {
@@ -122,7 +122,7 @@
             "forms": [{
                 "op": "invokeaction",
                 "contentType": "application/json",
-                "href": "http://192.168.0.103:8080/actions/fill_upper"
+                "href": "http://TUMEIESI-DotStar.local:8080/actions/fill_upper"
             }],
             "description": "Light all the LEDs in the upper band with the same color.",
             "input": {
@@ -153,7 +153,7 @@
             "forms": [{
                 "op": "invokeaction",
                 "contentType": "application/json",
-                "href": "http://192.168.0.103:8080/actions/fill_lower"
+                "href": "http://TUMEIESI-DotStar.local:8080/actions/fill_lower"
             }],
             "description": "Light all the LEDs in the lower band with the same color.",
             "input": {
@@ -184,7 +184,7 @@
             "forms": [{
                 "op": "invokeaction",
                 "contentType": "application/json",
-                "href": "http://192.168.0.103:8080/actions/shutdown"
+                "href": "http://TUMEIESI-DotStar.local:8080/actions/shutdown"
             }],
             "description": "Turn off all the LEDs."
         },
@@ -194,7 +194,7 @@
             "forms": [{
                 "op": "invokeaction",
                 "contentType": "application/json",
-                "href": "http://192.168.0.103:8080/actions/random"
+                "href": "http://TUMEIESI-DotStar.local:8080/actions/random"
             }],
             "description": "Light up all LEDs with random colors."
         },
@@ -204,7 +204,7 @@
             "forms": [{
                 "op": "invokeaction",
                 "contentType": "application/json",
-                "href": "http://192.168.0.103:8080/actions/fill_middle"
+                "href": "http://TUMEIESI-DotStar.local:8080/actions/fill_middle"
             }],
             "description": "Light all the LEDs in the middle band with the same color.",
             "input": {
@@ -235,7 +235,7 @@
             "forms": [{
                 "op": "invokeaction",
                 "contentType": "application/json",
-                "href": "http://192.168.0.103:8080/actions/fill"
+                "href": "http://TUMEIESI-DotStar.local:8080/actions/fill"
             }],
             "description": "Light all the LEDs with same color.",
             "input": {
@@ -262,5 +262,5 @@
         }
     },
     "description": "A strip of 118 RGB LEDs that can be controlled remotely.",
-    "id": "de:tum:ei:esi:dotstar:192.168.0.103:8080"
+    "id": "de:tum:ei:esi:dotstar:TUMEIESI-DotStar.local:8080"
 }
