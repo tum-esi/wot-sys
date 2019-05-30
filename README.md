@@ -101,7 +101,7 @@ sudo apt-get install -y nodejs
 - `cd` inside the wot-mearmpi folder and run: `npm install`
 - Build: `npm run build`
 - To run the program: `node index.js`
-- Make sure that this script runs automatically on startup. Crontab can do this on Linux.
+- Make sure that this script runs automatically on startup. Crontab can do this on Linux. Run `sudo crontab -e` to get its config
 - The server runs on port 8080
 
 
@@ -124,7 +124,7 @@ sudo apt-get install -y nodejs
 - `cd` inside the wot-sensehat folder and run: `npm install`
 - Build: `npm run build`
 - To run the program: `node index.js`
-- Make sure that this script runs automatically on startup. Crontab can do this on Linux.
+- Make sure that this script runs automatically on startup. Crontab can do this on Linux. Run `sudo crontab -e` to get its config
 - The server runs on port 8080
 
 

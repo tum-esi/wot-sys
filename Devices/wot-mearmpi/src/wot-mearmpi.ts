@@ -13,11 +13,14 @@ export class WotMeArmPi {
     constructor(thingFactory: WoT.WoTFactory, tdDirectory?: string) {
         this.factory = thingFactory;
         this.thing = thingFactory.produce(`{
-            "@context": "http://www.w3.org/ns/td",
+            "@context": [
+                "https://www.w3.org/2019/wot/td/v1",
+                { "@language" : "en" }],
             "@type": "Thing",
-            "name" : "MeArmPi",
+            "title" : "MeArmPi",
             "description" : "MeArm Pi Robotic Arm",
-            "security" : [{"scheme" : "nosec"}]
+            "securityDefinitions": { "nosec_sc": { "scheme": "nosec" }},
+            "security": "nosec_sc"
         }`);
         while (!networkInterfaces().wlan0) { }  // Wait for the network to get an IP address
         this.thing.id = "de:tum:ei:esi:mearmpi:" + networkInterfaces().wlan0[0].address;
