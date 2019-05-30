@@ -16,11 +16,14 @@ export class WotSenseHat {
     constructor(thingFactory: WoT.WoTFactory, tdDirectory?: string) {
         this.factory = thingFactory;
         this.thing = thingFactory.produce(`{
-            "@context": "http://www.w3.org/ns/td",
+            "@context": [
+                "https://www.w3.org/2019/wot/td/v1",
+                { "@language" : "en" }],
             "@type": "Thing",
-            "name" : "SenseHat",
+            "title" : "SenseHat",
             "description" : "Raspberry Pi SenseHat",
-            "security" : [{"scheme" : "nosec"}]
+            "securityDefinitions": { "nosec_sc": { "scheme": "nosec" }},
+            "security": "nosec_sc"
         }`);
         while (!networkInterfaces().wlan0) { }  // Wait for the network to get an IP address
         this.thing.id = "de:tum:ei:esi:sensehat:" + networkInterfaces().wlan0[0].address;
@@ -153,7 +156,7 @@ export class WotSenseHat {
                 type: "integer", 
                 readOnly: false,
                 writeOnly: false,
-                description: "The roation of the display. 0 is whith the HDMI port facing down.", 
+                description: "The rotation of the display. 0 is with the HDMI port facing down.", 
                 enum: [0, 90, 180, 270]
             }
         );
