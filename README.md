@@ -34,6 +34,11 @@ Example mashups and clients for students are found under Mashups
 
 self contained - runs on micropython
 
+## What to Change
+
+* This connects to a WiFi with SSID and PW specified in the beginning of `main.py`. You should change them according to your WiFi setup
+* The provided TD will be updated in a new network since the IP address of the ESP will change
+
 ## Installation
 - You will flash the program via the serial port. Make sure that you have read/write rights to the port by following [this guide](https://docs.espressif.com/projects/esp-idf/en/latest/get-started/establish-serial-connection.html).
 - Get the micropython firmware from [here](http://micropython.org/download#esp8266) or use version provided in at esp8266 folder.
@@ -57,7 +62,8 @@ self contained - runs on micropython
 
 ## Network Configuration
 
-WiFi SSID and password are stored at: /etc/wpa_supplicant/wpa_supplicant.conf
+* WiFi SSID and password are stored at: /etc/wpa_supplicant/wpa_supplicant.conf
+* You can also launch the desktop and change to another WiFi
 
 ## Requirements
 - python >= 3.5
@@ -92,12 +98,16 @@ Keyboard Layout is American
 - Make sure that this script runs automatically on startup. Crontab can do this on Linux.
 - The server runs on port 8080
 
-
 ## Warning
 
 Keyboard Layout is German
 
 # MeArmPi
+
+## Network Configuration
+
+* WiFi SSID and password are stored at: /etc/wpa_supplicant/wpa_supplicant.conf
+* You can also launch the desktop and change to another WiFi
 
 ## Requirements
 - NodeJS 8 or newer
@@ -121,6 +131,11 @@ sudo apt-get install -y nodejs
 Keyboard Layout is German
 
 # SenseHat
+
+## Network Configuration
+
+* WiFi SSID and password are stored at: /etc/wpa_supplicant/wpa_supplicant.conf
+* You can also launch the desktop and change to another WiFi
 
 ## Requirements
 - NodeJS >= 8.11.2 (version between 8.10.0 and 8.11.1 have a bug that breaks this code)
