@@ -22,6 +22,7 @@ IR RPi Camera: TUMEIESI-Rpi-Camera-IR
 Dotstar: TUMEIESI-DotStar
 Sensehat-106 : TUMEIESI-SenseHat-106
 Sensehat-107 : TUMEIESI-SenseHat-107
+Hue-related devices: Philips-hue
 
 ## Mashup
 
