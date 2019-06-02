@@ -157,3 +157,59 @@ sudo apt-get install -y nodejs
 ## Warning
 
 Keyboard Layout is German
+
+
+# Philips HUE Bridge
+
+This bridge has been configured using the white light starter pack that contains 3 white lights and a switch. 
+
+### Get it running
+
+* Follow the Philips HUE in-app guide to get your bridge started.
+* Follow the [developer page](https://developers.meethue.com/develop/get-started-2/) to get an API Key
+* The base URI is using our API Key, replace it with yours:
+  * Look for the base URI in the TD
+  * Replace the part after `/api/` with your API key.
+  * This TD uses `Philips-hue` as hostname, in case you have multiple HUE Bridges, you will need to change this in the base URI as well
+
+# Philips HUE Lights
+
+This is a TD of a light bulb that connects to a Philips HUE Bridge.
+
+### Get it running
+
+* Follow the Philips HUE in-app guide to get your bridge started.
+* Follow the [developer page](https://developers.meethue.com/develop/get-started-2/) to get an API Key
+* The base URI is using our API Key and Light number, replace them with yours:
+  * Look for the base URI in the TD
+  * Replace the part between `/api/` and `/lights/` with your API key.
+  * This TD is representing light number 1. You should replace the part after `/lights/` with your light's number.
+  * This TD uses `Philips-hue` as hostname, in case you have multiple HUE Bridges, you will need to change this in the base URI as well
+
+# Philips HUE Dimmer Switch
+
+This is a TD of a dimmer switch that connects to a Philips HUE Bridge and that can be used to turn on and off different HUE Lights.
+
+### Get it running
+
+* Follow the Philips HUE in-app guide to get your bridge started.
+* Follow the [developer page](https://developers.meethue.com/develop/get-started-2/) to get an API Key
+* The base URI is using our API Key and Sensor number, replace them with yours:
+  * Look for the base URI in the TD
+  * Replace the part between `/api/` and `/sensors/` with your API key.
+  * This TD is representing the sensor number 2. You should replace the part after `/sensors/` with your sensor's number.
+  * This TD uses `Philips-hue` as hostname, in case you have multiple HUE Bridges, you will need to change this in the base URI as well
+
+# Philips HUE Software-based Daylight Sensor
+
+This is a TD of a daylight sensor that runs on a Philips HUE Bridge and that can be used to learn whether there is daylight in the Bridge's location or not. It is based on the GPS location.
+
+### Get it running
+
+* Follow the Philips HUE in-app guide to get your bridge started.
+* Follow the [developer page](https://developers.meethue.com/develop/get-started-2/) to get an API Key
+* The base URI is using our API Key and Sensor number, replace them with yours:
+  * Look for the base URI in the TD
+  * Replace the part between `/api/` and `/sensors/` with your API key.
+  * This TD is representing the sensor number 1. You should replace the part after `/sensors/` with your sensor's number.
+  * This TD uses `Philips-hue` as hostname, in case you have multiple HUE Bridges, you will need to change this in the base URI as well
