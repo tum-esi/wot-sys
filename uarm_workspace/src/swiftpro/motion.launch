@@ -3,7 +3,7 @@
 
 	
 
-	<node name="uarm_core.py" pkg="swiftpro" type="uarm_core.py" output="screen"/>
+	<node name="core.py" pkg="swiftpro" type="core.py" output="screen"/>
 	<node name="motion.py" pkg="swiftpro" type="motion.py" output="screen"/>
 	
 	
