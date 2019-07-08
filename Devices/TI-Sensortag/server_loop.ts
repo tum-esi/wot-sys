@@ -195,7 +195,7 @@ function producer(i, WoT) {
     thing[i].setPropertyReadHandler(NAME_PROPERTY_AMBIENT_TEMPERATURE, function () {
         return new Promise(function (resolve, reject) {
             var value = conversion.convertAmb_Obj_Temperature(amb_obj_Temp[i], 1); //make the calculations here//
-            console.log(value);
+            console.log("Ambient Temp is: " + value);
             resolve(value);
         });
     });
@@ -209,7 +209,7 @@ function producer(i, WoT) {
         var start = Date.now();
         return new Promise(function (resolve, reject) {
             var value = conversion.convertAmb_Obj_Temperature(amb_obj_Temp[i], 2); //make the calculations here//
-            console.log("obj. Temp is: " + value);
+            console.log("Object Temp is: " + value);
             resolve(value);
         });
     });
