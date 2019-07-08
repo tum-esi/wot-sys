@@ -1,7 +1,5 @@
-
 import { Servient, ExposedThing } from "@node-wot/core";
 import { HttpServer } from "@node-wot/binding-http";
-
 
 const conversion = require("./conversion.js");
 const exec = require('child_process').exec;
@@ -27,33 +25,23 @@ var lux = [];
 var addressList = [];
 var thing = [];
 
-
 var httpServer = new HttpServer({ port: 8080 });
 var servient = new Servient();
 
 
-
-function wait(ms) {
-    var start = Date.now();
-    var now = start;
-    while (now - start < ms) {
-        now = Date.now();
-    }
-}
-
 var config;
 function readConfig() {
     return new Promise((resolve, reject) => {
-        console.log("promise");
+        
         fs.readFile("./conf.json", "utf-8", (err, data) => {
-            console.log("read");
+            
             if (err) {
-                console.log("reject");
+                
                 reject(err);
 
             }
             if (data) {
-                console.log("resolve");
+               
                 config = JSON.parse(data);
                 var strArray = (config.address);
                 resolve(strArray);
@@ -172,13 +160,12 @@ function readGyro_Acc_Mag(address) {
     })
 }
 
-
 function x() {
     return new Promise(function (resolve, reject) {
         exec(resetCommand,
             (error, stdout, stderr) => {
 
-                console.log("bash script")
+                
                 if (error !== null) {
                     reject(console.log(`exec error: ${error}`));
 
