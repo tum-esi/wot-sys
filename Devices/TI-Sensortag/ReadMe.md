@@ -1,9 +1,21 @@
 ## README
 
+### Requirements
+Nodejs version:+10, npm
+
 ### Installation Instructions
 
-* Install node-wot. 
-* Copy its directory path and change the path in the launcher.sh with the path you copied. 
-* Go to directory of TI-Sensortag in terminal 
+* Install nodejs and npm.  
+```bash
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+* Go to directory of TI-Sensortag in terminal
+* Run `npm install tsc` 
 * Run `npm install`
-* Run launcher.sh and optinally put & at the end to keep it running.
+* Run `npm start`
+
+### Warnings
+
+* You need to change the bluetooth addresses in conf.json file with the bluetooth addresses of your TI-Sensortags.
+* If you want to enable acceleration, gyroscope, magnetometer sensors you need to change the "gyro_acc_mag" value in conf.json file to true but sensor values are not correct at the moment.

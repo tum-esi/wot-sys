@@ -1,18 +1,25 @@
 {
   "name": "server1",
   "version": "1.0.0",
-  "description": "",
+  "description": "### Installation Instructions",
   "main": "server_loop1.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc server_loop.ts",
+    "start": "node server_loop.js",
+    "clean": "rm -rf node_modules; rm -rf dist; rm -rf package-lock.json"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "fs": "0.0.1-security",
-    "time-limit-promise": "^1.0.4"
-  },
   "devDependencies": {
-    "@types/node": "^12.0.0"
+    "typescript": "3.3.1",
+    "wot-typescript-definitions": "0.6.2-SNAPSHOT.2",
+    "@types/node": "11.9.4",
+    "tslint": "5.12.1"
+  },
+  "dependencies": {
+    "@node-wot/binding-http": "0.6.2-SNAPSHOT.1",
+    "@node-wot/core": "0.6.2-SNAPSHOT.1",
+    "fs": "0.0.1-security",
+    "child_process": "^1.0.2"
   }
 }
