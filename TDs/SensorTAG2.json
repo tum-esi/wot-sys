@@ -13,7 +13,7 @@
             "writeOnly": false,
             "observable": false,
             "forms": [{
-                "href": "http://localhost:8080/TI_Sensortag2/properties/ambientTemperature",
+                "href": "http://192.168.0.110:8080/TI_Sensortag2/properties/ambientTemperature",
                 "contentType": "application/json",
                 "op": ["readproperty"],
                 "htv:methodName": "GET"
@@ -27,7 +27,7 @@
             "writeOnly": false,
             "observable": false,
             "forms": [{
-                "href": "http://localhost:8080/TI_Sensortag2/properties/objectTemperature",
+                "href": "http://192.168.0.110:8080/TI_Sensortag2/properties/objectTemperature",
                 "contentType": "application/json",
                 "op": ["readproperty"],
                 "htv:methodName": "GET"
@@ -41,7 +41,7 @@
             "writeOnly": false,
             "observable": false,
             "forms": [{
-                "href": "http://localhost:8080/TI_Sensortag2/properties/humidity",
+                "href": "http://192.168.0.110:8080/TI_Sensortag2/properties/humidity",
                 "contentType": "application/json",
                 "op": ["readproperty"],
                 "htv:methodName": "GET"
@@ -55,7 +55,7 @@
             "writeOnly": false,
             "observable": false,
             "forms": [{
-                "href": "http://localhost:8080/TI_Sensortag2/properties/pressure",
+                "href": "http://192.168.0.110:8080/TI_Sensortag2/properties/pressure",
                 "contentType": "application/json",
                 "op": ["readproperty"],
                 "htv:methodName": "GET"
@@ -69,7 +69,7 @@
             "writeOnly": false,
             "observable": false,
             "forms": [{
-                "href": "http://localhost:8080/TI_Sensortag2/properties/luminosity",
+                "href": "http://192.168.0.110:8080/TI_Sensortag2/properties/luminosity",
                 "contentType": "application/json",
                 "op": ["readproperty"],
                 "htv:methodName": "GET"
@@ -77,7 +77,7 @@
         }
     },
     "forms": [{
-        "href": "http://localhost:8080/TI_Sensortag2/all/properties",
+        "href": "http://192.168.0.110:8080/TI_Sensortag2/all/properties",
         "contentType": "application/json",
         "op": ["readallproperties", "readmultipleproperties", "writeallproperties", "writemultipleproperties"]
     }],
