@@ -1,266 +1,317 @@
 {
+    "security": "nosec_sc",
+    "title": "DotStar RGB LED strip",
+    "id": "de:tum:ei:esi:dotstar:192.168.0.103:8080",
+    "actions": {
+        "fill": {
+            "safe": false,
+            "idempotent": true,
+            "description": "Light all the LEDs with same color.",
+            "forms": [
+                {
+                    "contentType": "application/json",
+                    "href": "http://192.168.0.103:8080/actions/fill",
+                    "op": "invokeaction"
+                }
+            ],
+            "input": {
+                "required": [
+                    "red",
+                    "green",
+                    "blue"
+                ],
+                "properties": {
+                    "red": {
+                        "maximum": 255,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "blue": {
+                        "maximum": 255,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "green": {
+                        "maximum": 255,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "shutdown": {
+            "safe": false,
+            "idempotent": true,
+            "description": "Turn off all the LEDs.",
+            "forms": [
+                {
+                    "contentType": "application/json",
+                    "href": "http://192.168.0.103:8080/actions/shutdown",
+                    "op": "invokeaction"
+                }
+            ]
+        },
+        "fill_upper": {
+            "safe": false,
+            "idempotent": true,
+            "description": "Light all the LEDs in the upper band with the same color.",
+            "forms": [
+                {
+                    "contentType": "application/json",
+                    "href": "http://192.168.0.103:8080/actions/fill_upper",
+                    "op": "invokeaction"
+                }
+            ],
+            "input": {
+                "required": [
+                    "red",
+                    "green",
+                    "blue"
+                ],
+                "properties": {
+                    "red": {
+                        "maximum": 255,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "blue": {
+                        "maximum": 255,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "green": {
+                        "maximum": 255,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "dot": {
+            "safe": false,
+            "idempotent": true,
+            "description": "Light a specific single LED with the given RGB color.",
+            "forms": [
+                {
+                    "contentType": "application/json",
+                    "href": "http://192.168.0.103:8080/actions/dot",
+                    "op": "invokeaction"
+                }
+            ],
+            "input": {
+                "required": [
+                    "led",
+                    "color"
+                ],
+                "properties": {
+                    "color": {
+                        "required": [
+                            "red",
+                            "green",
+                            "blue"
+                        ],
+                        "properties": {
+                            "red": {
+                                "maximum": 255,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "blue": {
+                                "maximum": 255,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "green": {
+                                "maximum": 255,
+                                "minimum": 0,
+                                "type": "integer"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "led": {
+                        "maximum": 118,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "fill_middle": {
+            "safe": false,
+            "idempotent": true,
+            "description": "Light all the LEDs in the middle band with the same color.",
+            "forms": [
+                {
+                    "contentType": "application/json",
+                    "href": "http://192.168.0.103:8080/actions/fill_middle",
+                    "op": "invokeaction"
+                }
+            ],
+            "input": {
+                "required": [
+                    "red",
+                    "green",
+                    "blue"
+                ],
+                "properties": {
+                    "red": {
+                        "maximum": 255,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "blue": {
+                        "maximum": 255,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "green": {
+                        "maximum": 255,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "fill_lower": {
+            "safe": false,
+            "idempotent": true,
+            "description": "Light all the LEDs in the lower band with the same color.",
+            "forms": [
+                {
+                    "contentType": "application/json",
+                    "href": "http://192.168.0.103:8080/actions/fill_lower",
+                    "op": "invokeaction"
+                }
+            ],
+            "input": {
+                "required": [
+                    "red",
+                    "green",
+                    "blue"
+                ],
+                "properties": {
+                    "red": {
+                        "maximum": 255,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "blue": {
+                        "maximum": 255,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "green": {
+                        "maximum": 255,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "random": {
+            "safe": false,
+            "idempotent": false,
+            "description": "Light up all LEDs with random colors.",
+            "forms": [
+                {
+                    "contentType": "application/json",
+                    "href": "http://192.168.0.103:8080/actions/random",
+                    "op": "invokeaction"
+                }
+            ]
+        }
+    },
     "securityDefinitions": {
         "nosec_sc": {
             "scheme": "nosec"
         }
     },
-    "title": "DotStar RGB LED strip",
-    "security": "nosec_sc",
-    "@context": ["https://www.w3.org/2019/wot/td/v1", {
-        "@language": "en"
-    }],
+    "@context": [
+        "https://www.w3.org/2019/wot/td/v1",
+        {
+            "@language": "en"
+        }
+    ],
+    "description": "A strip of 118 RGB LEDs that can be controlled remotely.",
     "properties": {
-        "brightness": {
-            "unit": "%",
-            "writeOnly": false,
-            "minimum": 0,
-            "title": "LED Brightness",
-            "forms": [{
-                "op": ["readproperty", "writeproperty"],
-                "contentType": "application/json",
-                "href": "http://TUMEIESI-DotStar.local:8080/properties/brightness"
-            }],
-            "readOnly": false,
-            "type": "integer",
-            "description": "Set all LEDs to the same brightness between 0 and 100%.",
-            "maximum": 100
-        },
         "stats": {
-            "forms": [{
-                "op": "readproperty",
-                "contentType": "application/json",
-                "href": "http://TUMEIESI-DotStar.local:8080/properties/stats"
-            }],
-            "writeOnly": false,
             "title": "LED Stats",
-            "properties": {
-                "brightness": {
-                    "type": "integer",
-                    "unit": "%",
-                    "minimum": 0,
-                    "maximum": 100
-                },
-                "led_colors": {
-                    "type": "array",
-                    "items": {
-                        "type": "array",
-                        "items": [{
-                            "type": "integer",
-                            "minimum": 0,
-                            "maximum": 255
-                        }, {
-                            "type": "integer",
-                            "minimum": 0,
-                            "maximum": 255
-                        }, {
-                            "type": "integer",
-                            "minimum": 0,
-                            "maximum": 255
-                        }]
-                    }
-                },
-                "nr_of_leds_on": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "maximum": 118
-                },
-                "nr_of_leds": {
-                    "type": "integer"
-                }
-            },
             "readOnly": true,
             "type": "object",
-            "description": "Get detailed information about the current state of the LED strip."
-        }
-    },
-    "actions": {
-        "dot": {
-            "idempotent": true,
-            "safe": false,
-            "forms": [{
-                "op": "invokeaction",
-                "contentType": "application/json",
-                "href": "http://TUMEIESI-DotStar.local:8080/actions/dot"
-            }],
-            "description": "Light a specific single LED with the given RGB color.",
-            "input": {
-                "required": ["led", "color"],
-                "type": "object",
-                "properties": {
-                    "color": {
-                        "required": ["red", "green", "blue"],
-                        "type": "object",
-                        "properties": {
-                            "green": {
-                                "type": "integer",
+            "forms": [
+                {
+                    "contentType": "application/json",
+                    "href": "http://192.168.0.103:8080/properties/stats",
+                    "op": "readproperty"
+                }
+            ],
+            "properties": {
+                "nr_of_leds": {
+                    "type": "integer"
+                },
+                "nr_of_leds_on": {
+                    "maximum": 118,
+                    "minimum": 0,
+                    "type": "integer"
+                },
+                "brightness": {
+                    "maximum": 100,
+                    "unit": "%",
+                    "minimum": 0,
+                    "type": "integer"
+                },
+                "led_colors": {
+                    "items": {
+                        "items": [
+                            {
+                                "maximum": 255,
                                 "minimum": 0,
-                                "maximum": 255
+                                "type": "integer"
                             },
-                            "red": {
-                                "type": "integer",
+                            {
+                                "maximum": 255,
                                 "minimum": 0,
-                                "maximum": 255
+                                "type": "integer"
                             },
-                            "blue": {
-                                "type": "integer",
+                            {
+                                "maximum": 255,
                                 "minimum": 0,
-                                "maximum": 255
+                                "type": "integer"
                             }
-                        }
+                        ],
+                        "type": "array"
                     },
-                    "led": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": 118
-                    }
+                    "type": "array"
                 }
-            }
+            },
+            "description": "Get detailed information about the current state of the LED strip.",
+            "writeOnly": false
         },
-        "fill_upper": {
-            "idempotent": true,
-            "safe": false,
-            "forms": [{
-                "op": "invokeaction",
-                "contentType": "application/json",
-                "href": "http://TUMEIESI-DotStar.local:8080/actions/fill_upper"
-            }],
-            "description": "Light all the LEDs in the upper band with the same color.",
-            "input": {
-                "required": ["red", "green", "blue"],
-                "type": "object",
-                "properties": {
-                    "green": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": 255
-                    },
-                    "red": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": 255
-                    },
-                    "blue": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": 255
-                    }
+        "brightness": {
+            "maximum": 100,
+            "unit": "%",
+            "title": "LED Brightness",
+            "minimum": 0,
+            "readOnly": false,
+            "type": "integer",
+            "forms": [
+                {
+                    "contentType": "application/json",
+                    "href": "http://192.168.0.103:8080/properties/brightness",
+                    "op": [
+                        "readproperty",
+                        "writeproperty"
+                    ]
                 }
-            }
-        },
-        "fill_lower": {
-            "idempotent": true,
-            "safe": false,
-            "forms": [{
-                "op": "invokeaction",
-                "contentType": "application/json",
-                "href": "http://TUMEIESI-DotStar.local:8080/actions/fill_lower"
-            }],
-            "description": "Light all the LEDs in the lower band with the same color.",
-            "input": {
-                "required": ["red", "green", "blue"],
-                "type": "object",
-                "properties": {
-                    "green": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": 255
-                    },
-                    "red": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": 255
-                    },
-                    "blue": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": 255
-                    }
-                }
-            }
-        },
-        "shutdown": {
-            "idempotent": true,
-            "safe": false,
-            "forms": [{
-                "op": "invokeaction",
-                "contentType": "application/json",
-                "href": "http://TUMEIESI-DotStar.local:8080/actions/shutdown"
-            }],
-            "description": "Turn off all the LEDs."
-        },
-        "random": {
-            "idempotent": false,
-            "safe": false,
-            "forms": [{
-                "op": "invokeaction",
-                "contentType": "application/json",
-                "href": "http://TUMEIESI-DotStar.local:8080/actions/random"
-            }],
-            "description": "Light up all LEDs with random colors."
-        },
-        "fill_middle": {
-            "idempotent": true,
-            "safe": false,
-            "forms": [{
-                "op": "invokeaction",
-                "contentType": "application/json",
-                "href": "http://TUMEIESI-DotStar.local:8080/actions/fill_middle"
-            }],
-            "description": "Light all the LEDs in the middle band with the same color.",
-            "input": {
-                "required": ["red", "green", "blue"],
-                "type": "object",
-                "properties": {
-                    "green": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": 255
-                    },
-                    "red": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": 255
-                    },
-                    "blue": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": 255
-                    }
-                }
-            }
-        },
-        "fill": {
-            "idempotent": true,
-            "safe": false,
-            "forms": [{
-                "op": "invokeaction",
-                "contentType": "application/json",
-                "href": "http://TUMEIESI-DotStar.local:8080/actions/fill"
-            }],
-            "description": "Light all the LEDs with same color.",
-            "input": {
-                "required": ["red", "green", "blue"],
-                "type": "object",
-                "properties": {
-                    "green": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": 255
-                    },
-                    "red": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": 255
-                    },
-                    "blue": {
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": 255
-                    }
-                }
-            }
+            ],
+            "description": "Set all LEDs to the same brightness between 0 and 100%.",
+            "writeOnly": false
         }
-    },
-    "description": "A strip of 118 RGB LEDs that can be controlled remotely.",
-    "id": "de:tum:ei:esi:dotstar:TUMEIESI-DotStar.local:8080"
+    }
 }
