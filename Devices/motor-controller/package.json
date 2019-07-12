@@ -1,0 +1,38 @@
+{
+  "name": "motor-controller",
+  "version": "1.0.0",
+  "description": "W3C WoT interface for the motor-controller",
+  "main": "index.js",
+  "keywords": [
+    "motor-driver",
+    "raspberry",
+    "pi",
+    "wot",
+    "w3c"
+  ],
+  "author": "Erkan Sen",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "3.3.1",
+    "wot-typescript-definitions": "0.6.2-SNAPSHOT.2",
+    "@types/node": "11.9.4",
+    "tslint": "5.12.1"
+  },
+  "dependencies": {
+    "@node-wot/binding-http": "0.6.2-SNAPSHOT.1",
+    "@node-wot/core": "0.6.2-SNAPSHOT.1",
+    "request": "2.88.0",
+    "uri-js": "^4.2.2",
+    "urijs": "^1.19.1"
+  },
+  "optionalDependencies": {
+    "pigpio": "1.2.1"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "sudo node index.js",
+    "debug": "sudo node index.js -d",
+    "debug-only": "sudo node index.js -d --noWot",
+    "clean": "rm -rf node_modules; rm -rf dist; rm -rf package-lock.json"
+  }
+}
