@@ -70,6 +70,21 @@ def dot():
     else:
         abort(415)  # Wrong media type.
 
+@app.route("/actions/fill_array", methods=["POST"])
+def fill_array():
+    if request.is_json:
+        try:
+            ledBegin = request.json["ledBegin"]
+            ledEnd = request.json["ledEnd"]
+            color = request.json["color"]
+            for led in range(ledBegin, ledEnd):
+                dots[int(led)] = (int(color["red"]), int(color["green"]), int(color["blue"]))
+            return "", 204
+        except Exception as e:
+            print(e)
+            abort(400)
+    else:
+        abort(415)  # Wrong media type.
 
 @app.route("/actions/fill", methods=["POST"])
 def fill():
