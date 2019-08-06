@@ -1,8 +1,10 @@
 /*
+This Mashup involves devices with "id":"de:tum:ei:esi:mearmpi:192.168.0.104" and "id":"de:tum:ei:esi:sensehat:192.168.0.106".
+
 This Mashup closes the grip of the robot if the button on Sensehat is pressed
 */
-const Robot_TD_ADDRESS = "http://TUMEIESI-MeArmPi-Orange.local:8080/MeArmPi";
-const senseHAT_TD_ADDRESS = "http://TUMEIESI-SenseHat-107.local:8080/SenseHat/";
+const Robot_TD_ADDRESS = "http://192.168.0.104:8080/MeArmPi";
+const senseHAT_TD_ADDRESS = "http://192.168.0.106:8080/SenseHat";
 
 WoT.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
 
@@ -10,9 +12,8 @@ WoT.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
 
                         robotThing = WoT.consume(robotTD);
                         senseHatThing = WoT.consume(senseHatTD);
-                            setInterval(async () => {
                                 senseHatThing.events.joystickPress.subscribe(x => {
-                                    robotThing.actions["closeGrip"].invoke();
+                                    robotThing.actions["dance"].invoke();
                                     e => {
                                         console.log("onError: %s", e)
                                     },
@@ -20,6 +21,5 @@ WoT.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
                                         console.log("onCompleted");
                                     }
                     }).catch((err) => console.log(err))
-                },30000).catch((err) => console.log(err))
             });
         });
