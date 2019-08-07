@@ -1,0 +1,33 @@
+@startuml
+
+loop Every 25 seconds
+	    
+    Controller [#pink]-> DotStar: Action invoke "fill"
+    
+    ...3 seconds later...
+     Controller [#pink]-> DotStar: Action invoke "shutdown"
+     
+         ...3 seconds later...
+     Controller [#pink]-> RobotArm: Action invoke "closeGrip"
+
+         ...3 seconds later...
+     Controller [#pink]-> RobotArm: Action invoke "moveBaseTo" : 70
+
+         ...3 seconds later...
+     Controller [#pink]-> RobotArm: Action invoke "closeGrip"
+
+         ...3 seconds later...
+     Controller [#pink]-> RobotArm: Action invoke "openGrip"
+
+         ...3 seconds later...
+     Controller [#pink]-> RobotArm: Action invoke "moveBaseTo" : -70
+
+
+
+
+end
+
+
+
+
+@enduml
