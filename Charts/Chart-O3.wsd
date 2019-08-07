@@ -1,0 +1,12 @@
+@startuml
+
+	    
+    Controller <[#purple]- SenseHat: Event joystickPress 
+    Controller [#pink]-> RobotArm: Action Invoke "closeGrip"
+
+
+
+
+
+
+@enduml
