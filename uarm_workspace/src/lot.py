@@ -256,8 +256,8 @@ def mgripopen():
     rate.sleep()
     return jsonify("marcus1 works")
         
-@app.route('/actions/marcus2', methods=["POST"])
-def marcus2():
+@app.route('/actions/marcus', methods=["POST"])
+def marcus():
     
     rate = rospy.Rate(10)
     
