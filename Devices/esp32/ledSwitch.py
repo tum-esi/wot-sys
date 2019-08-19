@@ -52,7 +52,11 @@ def generate_td(ip_address):
       "security": "nosec_sc",
       "properties": {
           "on_off": {
-              "type": "boolean",
+              "type": "string",
+              "enum": [
+                "True",
+                "False"
+              ]
               "forms": [
                   {
                       "href": "http://{}/properties/on_off".format(ip_address),
@@ -71,8 +75,8 @@ def generate_td(ip_address):
               "output": {
                   "type": "string",
                   "enum": [
-                      "led is turned on",
-                      "led is turned off"
+                      "on",
+                      "off"
                   ]
               },
               "forms": [
@@ -138,28 +142,33 @@ def run_server():
     
     while True:
         try:
-            conn, addr = s.accept()
-            print("Connection with {} established".format(addr))
-            print("after connection")
-            request = conn.recv(2048)
-            path = str(request).split(' ')[1]
-            if path == "/properties/on_off":
-                print("reading value of led")
-                val = led.value() 
-                print("value is ", val)
-                response = http_200_response(str(val))
+          conn, addr = s.accept()
+          print("Connection with {} established".format(addr))
+          print("after connection")
+          request = conn.recv(2048)
+          path = str(request).split(' ')[1]
+          if path == "/properties/on_off":
+              print("reading value of led")
+              val = led.value() 
+              print("value is ", val)
+              if val == 0:
+                response = http_200_response("False")
                 conn.sendall(response)
-            elif path == "/actions/toggle":
-                print("toggle activated")
-                val = led.value()
-                if val == 0:
-                  led.on()
-                  print("led is turned on")
-                elif val== 1: 
-                  led.off()
-                  print("led is turned off")
-                print("value is ", val)
-                response = http_200_response(str(led.value()))
+              elif val == 1:
+                response = http_200_response("True")
+                conn.sendall(response)  
+          elif path == "/actions/toggle":
+              print("toggle activated")
+              val = led.value()
+              if val == 0:
+                led.on()
+                response = http_200_response("on")
+                conn.sendall(response)
+                print("led is turned on")
+              elif val== 1: 
+                led.off()
+                print("led is turned off")
+                response = http_200_response("off")
                 conn.sendall(response)
             elif path == "/":
                 td = generate_td(wifi.ifconfig()[0])
