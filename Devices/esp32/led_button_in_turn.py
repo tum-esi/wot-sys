@@ -1,7 +1,6 @@
 
 
 
-
 import network
 import machine
 import urequests
@@ -189,13 +188,13 @@ def run_server():
               val = led.value()
               if val == 0:
                 led.on()
-                response = http_200_response("turned on")
+                response = http_200_response("on")
                 conn.sendall(response)
                 print("led is turned on")
               elif val== 1: 
                 led.off()
                 print("led is turned off")
-                response = http_200_response("turned off")
+                response = http_200_response("off")
                 conn.sendall(response)
                 
                 
