@@ -14,7 +14,7 @@
     "security": [
         "nosec_sc"
     ],
-    "base": "http://Philips-hue.local/api/R6D7CYQFzXckikMPLEL8WbSZWg9XKkEyx-NrgKws/lights/3/",
+    "base": "http://192.168.0.111/api/R6D7CYQFzXckikMPLEL8WbSZWg9XKkEyx-NrgKws/lights/3/",
     "properties": {
         "lightInformation": {
             "title": "State and Attributes Of Light",
