@@ -1,13 +1,8 @@
 import * as WoT from "wot-typescript-definitions"
-//import { HttpServer } from "@node-wot/binding-http";
 import { HttpClientFactory } from "@node-wot/binding-http";
-//import { networkInterfaces } from "os"
 var request = require('request');
 var Servient = require("@node-wot/core").Servient
 
-//var HttpServer = require("@node-wot/binding-http").HttpServer
-//var MotorLEDMashup = require("../lib/motorLEDMashup").MotorLEDMashup;
-//var mashup = new MotorLEDMashup();
 const Motor_Driver_TD_ADDRESS = "http://192.168.0.113:8080/MotorController";
 const strip_TD_ADDRESS = "http://192.168.0.103:8080/";
 
@@ -22,6 +17,7 @@ export class WotMotorLEDMashup {
     public factory: WoT.WoTFactory;
 
     constructor(thingFactory: WoT.WoTFactory, tdDirectory?: string) {
+        //create mashup as a server
         this.factory = thingFactory;
         this.thing = thingFactory.produce(`{
             "@context": [
@@ -33,11 +29,15 @@ export class WotMotorLEDMashup {
             "securityDefinitions": { "nosec_sc": { "scheme": "nosec" }},
             "security": "nosec_sc"
         }`);
-        this.thing.id = "de:tum:ei:esi:motorledMashup:";// + networkInterfaces().wlan0[0].address;
-        
-        //var httpServer = new HttpServer({port: 8081});
+        this.thing.id = "de:tum:ei:esi:motorledMashup:";
+        this.add_properties();
+        this.add_actions();
+        this.thing.expose();
+        console.log("!!!!!!!!!!!!!!   expose done");
+        if (tdDirectory) { this.register(tdDirectory); }
+
+        //consume LED and Motor controller
         var servient = new Servient();
-        //servient.addServer(httpServer);
         servient.addClientFactory(new HttpClientFactory());
         servient.start().then((thingFactory) => {
             console.log("!!!!!!!!!!!!!!  new sevient");
@@ -51,11 +51,6 @@ export class WotMotorLEDMashup {
             });
         });
         
-        this.add_properties();
-        this.add_actions();
-        this.thing.expose();
-        console.log("!!!!!!!!!!!!!!   expose done");
-        if (tdDirectory) { this.register(tdDirectory); }
     }
     public register(directory: string) {
         console.log("Registering TD in directory: " + directory)
@@ -79,7 +74,6 @@ export class WotMotorLEDMashup {
     }
 
     private add_properties() {
-        // Property: gripState
         this.thing.addProperty(
             "isBlinking",
             {
@@ -146,7 +140,7 @@ export class WotMotorLEDMashup {
         });
     }
     
-
+    //motor thing related functions
     private goStraight(speed) {
         return new Promise((resolve, reject) => {
             if (speed > 255 || speed < -255){
@@ -163,6 +157,7 @@ export class WotMotorLEDMashup {
     private stop() {
         return new Promise((resolve, reject) => {
             this.motorThing.actions["stop"].invoke();
+            resolve("Stopped");
         });
     }
     private turnLeft() {
@@ -205,6 +200,7 @@ export class WotMotorLEDMashup {
         });
     }
 
+    //Led thing related functions
     private closeLeds() {
         var ledBegin = 23;
         var ledEnd = 29;
