@@ -8,7 +8,7 @@ if (args.indexOf("--noWot") == -1 ) {
 
 
     // ### Change this if using another direcoty ###
-    const TD_DIRECTORY = "http://localhost:8080/td"
+    const TD_DIRECTORY = "http://192.168.0.113:8080/MotorController"
     // ###  -----------------------------------  ###
 
 
