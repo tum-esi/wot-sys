@@ -79,22 +79,26 @@ class WotMotorLEDMashup {
         this.thing.setPropertyReadHandler("isBlinking", this.getIsBlinking);
     }
     add_actions() {
-        this.thing.addAction("stop", { description: "Stops the motors" }, () => { return this.stop(); });
+        this.thing.addAction("stop", { description: "Stops the motors" }, () => {
+            return this.stop();
+        });
         this.thing.addAction("turnLeft", { description: "Turning left if signals are on else opens signal" }, () => {
-            if (blinkingStatus) {
+            if (blinkingStatus && !this.blinkingDirection) {
                 this.stopBlinking();
                 return this.turnLeft();
             }
             else {
+                this.stopBlinking();
                 return this.blinkLeft();
             }
         });
         this.thing.addAction("turnRight", { description: "Turning right if signals are on else opens signal" }, () => {
-            if (blinkingStatus) {
+            if (blinkingStatus && this.blinkingDirection) {
                 this.stopBlinking();
                 return this.turnRight();
             }
             else {
+                this.stopBlinking();
                 return this.blinkRight();
             }
         });
@@ -106,7 +110,10 @@ class WotMotorLEDMashup {
                     "maximum": 255
                 }
             }
-        }, (speed) => { return this.goStraight(speed); });
+        }, (speed) => {
+            this.stopBlinking();
+            return this.goStraight(speed);
+        });
     }
     getIsBlinking() {
         let status = blinkingStatus; //done because js is dumm

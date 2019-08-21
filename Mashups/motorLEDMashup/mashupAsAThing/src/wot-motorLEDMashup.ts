@@ -82,16 +82,19 @@ export class WotMotorLEDMashup {
         this.thing.addAction(
             "stop", 
             {description: "Stops the motors"}, 
-            () => { return this.stop(); }
+            () => { 
+                return this.stop();
+            }
         );
         this.thing.addAction(
             "turnLeft", 
             {description: "Turning left if signals are on else opens signal"}, 
             () => { 
-                if(blinkingStatus) {
+                if(blinkingStatus && !this.blinkingDirection) {
                     this.stopBlinking();
                     return this.turnLeft();
                 } else {
+                    this.stopBlinking();
                     return this.blinkLeft();
                 }
             }
@@ -100,10 +103,11 @@ export class WotMotorLEDMashup {
             "turnRight", 
             {description: "Turning right if signals are on else opens signal"}, 
             () => { 
-                if(blinkingStatus) {
+                if(blinkingStatus && this.blinkingDirection) {
                     this.stopBlinking();
                     return this.turnRight();
                 } else {
+                    this.stopBlinking();
                     return this.blinkRight();
                 }
             }
@@ -119,14 +123,16 @@ export class WotMotorLEDMashup {
                     } 
                 }
             },
-            (speed) => { return this.goStraight(speed); }
+            (speed) => { 
+                this.stopBlinking();
+                return this.goStraight(speed); 
+            }
         );
     }
 
     private getIsBlinking () {
         let status = blinkingStatus; //done because js is dumm
         return new Promise((resolve, reject) => {
-            
             if (status) {
                 resolve("blinking");
             } else {
