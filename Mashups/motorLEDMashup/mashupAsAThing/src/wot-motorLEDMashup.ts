@@ -2,15 +2,13 @@ import * as WoT from "wot-typescript-definitions"
 import { HttpClientFactory } from "@node-wot/binding-http";
 var request = require('request');
 var Servient = require("@node-wot/core").Servient
-
+var blinkingStatus: boolean = false; //0 for not signaling 1 for signaling
 const Motor_Driver_TD_ADDRESS = "http://192.168.0.113:8080/MotorController";
 const strip_TD_ADDRESS = "http://192.168.0.103:8080/";
 
 export class WotMotorLEDMashup {
-
     public ledThing : WoT.ConsumedThing;
     public motorThing : WoT.ConsumedThing;
-    public blinkingStatus: boolean = false; //0 for not signaling 1 for signaling
     public blinkingDirection: boolean = false; //0 for left 1 for right
 
     public thing: WoT.ExposedThing;
@@ -33,24 +31,20 @@ export class WotMotorLEDMashup {
         this.add_properties();
         this.add_actions();
         this.thing.expose();
-        console.log("!!!!!!!!!!!!!!   expose done");
+        console.log("thing expose done");
         if (tdDirectory) { this.register(tdDirectory); }
 
         //consume LED and Motor controller
         var servient = new Servient();
         servient.addClientFactory(new HttpClientFactory());
         servient.start().then((thingFactory) => {
-            console.log("!!!!!!!!!!!!!!  new sevient");
             thingFactory.fetch(Motor_Driver_TD_ADDRESS).then(async (motorTD) => {
-                console.log("!!!!!!!!!!!!!!   fetch 1 done");
                 this.motorThing =  thingFactory.consume(motorTD);
                 thingFactory.fetch(strip_TD_ADDRESS).then(async (stripTD) => {
-                    console.log("!!!!!!!!!!!!!!   fetch 2 done");
                     this.ledThing =  thingFactory.consume(stripTD);
                 });
             });
         });
-        
     }
     public register(directory: string) {
         console.log("Registering TD in directory: " + directory)
@@ -64,7 +58,7 @@ export class WotMotorLEDMashup {
                 setTimeout(() => { this.register(directory) }, 10000);
                 return;
             }
-        })
+        });
     }
     private get_nonld_td() {
         let td = JSON.parse(this.thing.getThingDescription());
@@ -94,7 +88,7 @@ export class WotMotorLEDMashup {
             "turnLeft", 
             {description: "Turning left if signals are on else opens signal"}, 
             () => { 
-                if(this.blinkingStatus) {
+                if(blinkingStatus) {
                     this.stopBlinking();
                     return this.turnLeft();
                 } else {
@@ -106,7 +100,7 @@ export class WotMotorLEDMashup {
             "turnRight", 
             {description: "Turning right if signals are on else opens signal"}, 
             () => { 
-                if(this.blinkingStatus) {
+                if(blinkingStatus) {
                     this.stopBlinking();
                     return this.turnRight();
                 } else {
@@ -130,8 +124,9 @@ export class WotMotorLEDMashup {
     }
 
     private getIsBlinking () {
+        let status = blinkingStatus; //done because js is dumm
         return new Promise((resolve, reject) => {
-            let status = this.blinkingStatus;
+            
             if (status) {
                 resolve("blinking");
             } else {
@@ -176,7 +171,7 @@ export class WotMotorLEDMashup {
     // blink functions
     private blinkRight () {
         return new Promise((resolve, reject) => {
-            this.blinkingStatus = true;
+            blinkingStatus = true;
             this.openLedsYellow(12,18)
             this.blinkingDirection = true;
             resolve("Blinking right");
@@ -185,8 +180,8 @@ export class WotMotorLEDMashup {
 
     private blinkLeft () {
         return new Promise((resolve, reject) => {
-            this.blinkingStatus = true;
-            this.openLedsYellow(23,29)
+            blinkingStatus = true;
+            this.openLedsYellow(23,29);
             this.blinkingDirection = false;
             resolve("Blinking left");
         });
@@ -195,7 +190,7 @@ export class WotMotorLEDMashup {
     private stopBlinking () {
         return new Promise((resolve, reject) => {
             this.closeLeds();
-            this.blinkingStatus = false;
+            blinkingStatus = false;
             resolve("blink closed");
         });
     }

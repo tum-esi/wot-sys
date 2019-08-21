@@ -11,11 +11,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const binding_http_1 = require("@node-wot/binding-http");
 var request = require('request');
 var Servient = require("@node-wot/core").Servient;
+var blinkingStatus = false; //0 for not signaling 1 for signaling
 const Motor_Driver_TD_ADDRESS = "http://192.168.0.113:8080/MotorController";
 const strip_TD_ADDRESS = "http://192.168.0.103:8080/";
 class WotMotorLEDMashup {
     constructor(thingFactory, tdDirectory) {
-        this.blinkingStatus = false; //0 for not signaling 1 for signaling
         this.blinkingDirection = false; //0 for left 1 for right
         //create mashup as a server
         this.factory = thingFactory;
@@ -33,7 +33,7 @@ class WotMotorLEDMashup {
         this.add_properties();
         this.add_actions();
         this.thing.expose();
-        console.log("!!!!!!!!!!!!!!   expose done");
+        console.log("thing expose done");
         if (tdDirectory) {
             this.register(tdDirectory);
         }
@@ -41,12 +41,9 @@ class WotMotorLEDMashup {
         var servient = new Servient();
         servient.addClientFactory(new binding_http_1.HttpClientFactory());
         servient.start().then((thingFactory) => {
-            console.log("!!!!!!!!!!!!!!  new sevient");
             thingFactory.fetch(Motor_Driver_TD_ADDRESS).then((motorTD) => __awaiter(this, void 0, void 0, function* () {
-                console.log("!!!!!!!!!!!!!!   fetch 1 done");
                 this.motorThing = thingFactory.consume(motorTD);
                 thingFactory.fetch(strip_TD_ADDRESS).then((stripTD) => __awaiter(this, void 0, void 0, function* () {
-                    console.log("!!!!!!!!!!!!!!   fetch 2 done");
                     this.ledThing = thingFactory.consume(stripTD);
                 }));
             }));
@@ -84,7 +81,7 @@ class WotMotorLEDMashup {
     add_actions() {
         this.thing.addAction("stop", { description: "Stops the motors" }, () => { return this.stop(); });
         this.thing.addAction("turnLeft", { description: "Turning left if signals are on else opens signal" }, () => {
-            if (this.blinkingStatus) {
+            if (blinkingStatus) {
                 this.stopBlinking();
                 return this.turnLeft();
             }
@@ -93,7 +90,7 @@ class WotMotorLEDMashup {
             }
         });
         this.thing.addAction("turnRight", { description: "Turning right if signals are on else opens signal" }, () => {
-            if (this.blinkingStatus) {
+            if (blinkingStatus) {
                 this.stopBlinking();
                 return this.turnRight();
             }
@@ -112,8 +109,8 @@ class WotMotorLEDMashup {
         }, (speed) => { return this.goStraight(speed); });
     }
     getIsBlinking() {
+        let status = blinkingStatus; //done because js is dumm
         return new Promise((resolve, reject) => {
-            let status = this.blinkingStatus;
             if (status) {
                 resolve("blinking");
             }
@@ -157,7 +154,7 @@ class WotMotorLEDMashup {
     // blink functions
     blinkRight() {
         return new Promise((resolve, reject) => {
-            this.blinkingStatus = true;
+            blinkingStatus = true;
             this.openLedsYellow(12, 18);
             this.blinkingDirection = true;
             resolve("Blinking right");
@@ -165,7 +162,7 @@ class WotMotorLEDMashup {
     }
     blinkLeft() {
         return new Promise((resolve, reject) => {
-            this.blinkingStatus = true;
+            blinkingStatus = true;
             this.openLedsYellow(23, 29);
             this.blinkingDirection = false;
             resolve("Blinking left");
@@ -174,7 +171,7 @@ class WotMotorLEDMashup {
     stopBlinking() {
         return new Promise((resolve, reject) => {
             this.closeLeds();
-            this.blinkingStatus = false;
+            blinkingStatus = false;
             resolve("blink closed");
         });
     }
