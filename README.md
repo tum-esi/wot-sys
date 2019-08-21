@@ -213,3 +213,30 @@ This is a TD of a daylight sensor that runs on a Philips HUE Bridge and that can
   * Replace the part between `/api/` and `/sensors/` with your API key.
   * This TD is representing the sensor number 1. You should replace the part after `/sensors/` with your sensor's number.
   * This TD uses `Philips-hue` as hostname, in case you have multiple HUE Bridges, you will need to change this in the base URI as well
+
+# Motor Controller (Pololu TB9051FTG Dual)
+
+###Pinout
+
+* Left Motor negative pole -> M1A
+* Left Motor positive pole -> M1B
+
+* Right Motor negative pole -> M2B
+* Right Motor positive pole -> M2A
+
+* Battery Positive -> VIN
+* Battery GND ->GND 
+
+* No need to make any changes between controller hat and raspberry pi, pins may vary between other brands and controllers which can be changed in motorDriver.js
+
+## Installation
+
+- get the latest node: 
+```bash
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+- `cd` inside the motor-driver folder and run: `npm install`
+- To run the program: `npm start`
+- `npm run debug` can be used to control motors via wasdx or arrow keys
+- `npm run debug-only` for disabling Wot and only using keyboard input while testing or debugging

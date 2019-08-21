@@ -120,6 +120,54 @@ def get_td(ip_address, leds):
                     "op": "invokeaction"
                 }]
             },
+            "fill_array": {
+                "description": "Light the LEDs in between given numbers with same color.",
+                "safe": False,
+                "idempotent": True,
+                "type": "object",
+                "input": {
+                    "type": "object",
+                    "required": ["ledBegin","ledEnd", "color"],
+                    "properties": {
+                        "ledBegin": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": leds
+                        },
+			            "ledEnd": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": leds
+                        },
+                        "color": {
+                            "type": "object",
+                            "required": ["red", "green", "blue"],
+                            "properties": {
+                                "red": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 255
+                                },
+                                "green": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 255
+                                },
+                                "blue": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 255
+                                }
+                            }
+                        }
+                     },
+                },
+                "forms": [{
+                    "href": "http://{}/actions/fill_array".format(ip_address),
+                    "contentType": "application/json",
+                    "op": "invokeaction"
+                }]
+            },
             "fill": {
                 "description": "Light all the LEDs with same color.",
                 "safe": False,

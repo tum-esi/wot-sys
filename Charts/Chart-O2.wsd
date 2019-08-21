@@ -1,0 +1,15 @@
+@startuml
+
+loop Every two seconds
+	    
+    Controller -[#red]> SenseHat: Property Temperature read
+    Controller <-[#green] SenseHat: Response
+    Controller [#blue]-> Controller: Calculations
+    Controller [#pink]-> DotStar: Action Invoke "fill"
+
+end
+
+
+
+
+@enduml
