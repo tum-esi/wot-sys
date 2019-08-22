@@ -216,7 +216,7 @@ This is a TD of a daylight sensor that runs on a Philips HUE Bridge and that can
 
 # Motor Controller (Pololu TB9051FTG Dual)
 
-###Pinout
+### Pinout
 
 * Left Motor negative pole -> M1A
 * Left Motor positive pole -> M1B
