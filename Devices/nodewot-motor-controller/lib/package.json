@@ -1,0 +1,27 @@
+{
+  "name": "motor-controller",
+  "version": "0.0.1",
+  "description": "motor-controller for Pololu TB9051FTG Dual pi hat",
+  "main": "index.js",
+  "keywords": [
+    "motor-driver",
+    "raspberry",
+    "pi"
+  ],
+  "author": "Erkan Sen",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "11.9.4"
+  },
+  "dependencies": {
+    "request": "^2.88.0",
+    "pigpio": "1.2.1"
+  },
+  "optionalDependencies": {
+    "pigpio": "1.2.1"
+  },
+  "scripts": {
+    "start": "sudo node index.js",
+    "clean": "rm -rf node_modules; rm -rf dist; rm -rf package-lock.json"
+  }
+}
