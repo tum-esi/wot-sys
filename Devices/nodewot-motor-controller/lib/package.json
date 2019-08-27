@@ -17,11 +17,12 @@
     "request": "^2.88.0",
     "pigpio": "1.2.1"
   },
-  "optionalDependencies": {
-    "pigpio": "1.2.1"
-  },
   "scripts": {
     "start": "sudo node index.js",
     "clean": "rm -rf node_modules; rm -rf dist; rm -rf package-lock.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tum-ei-esi/wot-sys/tree/master/Devices/nodewot-motor-controller/lib"
   }
 }
