@@ -1,5 +1,3 @@
-
-
 ## README
 
 ### Requirements
@@ -22,30 +20,7 @@
 ![capacitor connection](circuit/esp32-capacitor-flashing-mode-automatic.png )
 
 
-
-
 ### Notes
 
 * uPyCraft IDE is used to upload the source code into esp32.
-* [Intsalling firmware into esp32](https://randomnerdtutorials.com/flash-upload-micropython-firmware-esp32-esp8266/)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* [Installing firmware into esp32](https://randomnerdtutorials.com/flash-upload-micropython-firmware-esp32-esp8266/)
