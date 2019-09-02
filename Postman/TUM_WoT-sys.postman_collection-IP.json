@@ -1715,13 +1715,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://192.168.0.123",
+							"raw": "http://192.168.0.117/",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"0",
-								"123"
+								"117"
+							],
+							"path": [
+								""
 							]
 						}
 					},
@@ -2013,6 +2016,330 @@
 								"EnviroPHat",
 								"actions",
 								"calibrate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MotorController",
+			"item": [
+				{
+					"name": "TD",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "192.168.0.113:8080/MotorController",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"113"
+							],
+							"port": "8080",
+							"path": [
+								"MotorController"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "isEnabled",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.113:8080/MotorController/properties/isEnabled",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"113"
+							],
+							"port": "8080",
+							"path": [
+								"MotorController",
+								"properties",
+								"isEnabled"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "isFaulty",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.113:8080/MotorController/properties/isFaulty",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"113"
+							],
+							"port": "8080",
+							"path": [
+								"MotorController",
+								"properties",
+								"isFaulty"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "enable",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.113:8080/MotorController/actions/enable",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"113"
+							],
+							"port": "8080",
+							"path": [
+								"MotorController",
+								"actions",
+								"enable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "disable",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.113:8080/MotorController/actions/disable",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"113"
+							],
+							"port": "8080",
+							"path": [
+								"MotorController",
+								"actions",
+								"disable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stop",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.113:8080/MotorController/actions/stop",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"113"
+							],
+							"port": "8080",
+							"path": [
+								"MotorController",
+								"actions",
+								"stop"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "moveStraight",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.113:8080/MotorController/actions/moveStraight?speed=20",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"113"
+							],
+							"port": "8080",
+							"path": [
+								"MotorController",
+								"actions",
+								"moveStraight"
+							],
+							"query": [
+								{
+									"key": "speed",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "turnLeft",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.113:8080/MotorController/actions/turnLeft?speed=10",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"113"
+							],
+							"port": "8080",
+							"path": [
+								"MotorController",
+								"actions",
+								"turnLeft"
+							],
+							"query": [
+								{
+									"key": "speed",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "turnRight",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.113:8080/MotorController/actions/turnRight?speed=10",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"113"
+							],
+							"port": "8080",
+							"path": [
+								"MotorController",
+								"actions",
+								"turnRight"
+							],
+							"query": [
+								{
+									"key": "speed",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "turnAround",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.113:8080/MotorController/actions/turnAround?speed=20",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"113"
+							],
+							"port": "8080",
+							"path": [
+								"MotorController",
+								"actions",
+								"turnAround"
+							],
+							"query": [
+								{
+									"key": "speed",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "setSpeeds",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.113:8080/MotorController/actions/setSpeeds?leftSpeed=20&rightSpeed=30",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"113"
+							],
+							"port": "8080",
+							"path": [
+								"MotorController",
+								"actions",
+								"setSpeeds"
+							],
+							"query": [
+								{
+									"key": "leftSpeed",
+									"value": "20"
+								},
+								{
+									"key": "rightSpeed",
+									"value": "30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "allProperties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.113:8080/MotorController/all/properties",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"113"
+							],
+							"port": "8080",
+							"path": [
+								"MotorController",
+								"all",
+								"properties"
 							]
 						}
 					},
