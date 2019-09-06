@@ -30,7 +30,7 @@
           ],
           "htv:methodName": "GET"
         }
-      ],
+      ]
     },
     "isFaulty": {
       "type": "boolean",
@@ -80,7 +80,7 @@
         }
       ],
       "idempotent": true,
-       "output": "motors disabled",
+      "output": "motors disabled",
       "safe": false
     },
     "stop": {
