@@ -9,6 +9,10 @@ This is a project for making the proccess of creating a WoT enabled device easie
 *   #### Go to src/base.ts and fill needed places
   fill in empty quotation marks in produce function
   fill in addProperties and addActions if needed
+*   #### If Coap or MQTT is needed 
+  add dependency @node-wot/binding-xxx
+  uncomment related lines in index.js
+
 *   #### Follow installation steps 
 
 ## Installation
