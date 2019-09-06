@@ -1,228 +1,231 @@
 {
-    "@context": [
-        "https://www.w3.org/2019/wot/td/v1",
+  "@context": [
+    "https://www.w3.org/2019/wot/td/v1",
+    {
+      "@language": "en"
+    }
+  ],
+  "@type": "Thing",
+  "title": "MotorController",
+  "description": "Motor controller for pi",
+  "securityDefinitions": {
+    "nosec_sc": {
+      "scheme": "nosec"
+    }
+  },
+  "security": "nosec_sc",
+  "properties": {
+    "isEnabled": {
+      "type": "boolean",
+      "readOnly": true,
+      "description": "Is both motors enabled?",
+      "writeOnly": false,
+      "observable": false,
+      "forms": [
         {
-            "@language": "en"
+          "href": "http://192.168.0.113:8080/MotorController/properties/isEnabled",
+          "contentType": "application/json",
+          "op": [
+            "readproperty"
+          ],
+          "htv:methodName": "GET"
         }
-    ],
-    "@type": "Thing",
-    "title": "MotorController",
-    "description": "Motor controller for pi",
-    "securityDefinitions": {
-        "nosec_sc": {
-            "scheme": "nosec"
-        }
+      ],
     },
-    "security": "nosec_sc",
-    "properties": {
-        "isEnabled": {
-            "type": "string",
-            "readOnly": true,
-            "description": "Is both motors enabled?",
-            "writeOnly": false,
-            "observable": false,
-            "forms": [
-                {
-                    "href": "http://192.168.0.113:8080/MotorController/properties/isEnabled",
-                    "contentType": "application/json",
-                    "op": [
-                        "readproperty"
-                    ],
-                    "htv:methodName": "GET"
-                }
-            ]
-        },
-        "isFaulty": {
-            "type": "string",
-            "readOnly": true,
-            "description": "Is there any fault in motors?",
-            "writeOnly": false,
-            "observable": false,
-            "forms": [
-                {
-                    "href": "http://192.168.0.113:8080/MotorController/properties/isFaulty",
-                    "contentType": "application/json",
-                    "op": [
-                        "readproperty"
-                    ],
-                    "htv:methodName": "GET"
-                }
-            ]
-        }
-    },
-    "actions": {
-        "enable": {
-            "description": "Enables the motor to move",
-            "forms": [
-                {
-                    "href": "http://192.168.0.113:8080/MotorController/actions/enable",
-                    "contentType": "application/json",
-                    "op": [
-                        "invokeaction"
-                    ],
-                    "htv:methodName": "POST"
-                }
-            ],
-            "idempotent": false,
-            "safe": false
-        },
-        "disable": {
-            "description": "Disables the motors",
-            "forms": [
-                {
-                    "href": "http://192.168.0.113:8080/MotorController/actions/disable",
-                    "contentType": "application/json",
-                    "op": [
-                        "invokeaction"
-                    ],
-                    "htv:methodName": "POST"
-                }
-            ],
-            "idempotent": false,
-            "safe": false
-        },
-        "stop": {
-            "description": "Stops the motors",
-            "forms": [
-                {
-                    "href": "http://192.168.0.113:8080/MotorController/actions/stop",
-                    "contentType": "application/json",
-                    "op": [
-                        "invokeaction"
-                    ],
-                    "htv:methodName": "POST"
-                }
-            ],
-            "idempotent": false,
-            "safe": false
-        },
-        "moveStraight": {
-            "description": "Moves the bot straigt (+ values to go forward - to go backward)",
-            "uriVariables": {
-                "speed": {
-                    "type": "integer",
-                    "minimum": -255,
-                    "maximum": 255
-                }
-            },
-            "forms": [
-                {
-                    "href": "http://192.168.0.113:8080/MotorController/actions/moveStraight{?speed}",
-                    "contentType": "application/json",
-                    "op": [
-                        "invokeaction"
-                    ],
-                    "htv:methodName": "POST"
-                }
-            ],
-            "idempotent": false,
-            "safe": false
-        },
-        "turnLeft": {
-            "description": "Turning left with the given speed",
-            "uriVariables": {
-                "speed": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "maximum": 255
-                }
-            },
-            "forms": [
-                {
-                    "href": "http://192.168.0.113:8080/MotorController/actions/turnLeft{?speed}",
-                    "contentType": "application/json",
-                    "op": [
-                        "invokeaction"
-                    ],
-                    "htv:methodName": "POST"
-                }
-            ],
-            "idempotent": false,
-            "safe": false
-        },
-        "turnRight": {
-            "description": "Turning right with the given speed",
-            "uriVariables": {
-                "speed": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "maximum": 255
-                }
-            },
-            "forms": [
-                {
-                    "href": "http://192.168.0.113:8080/MotorController/actions/turnRight{?speed}",
-                    "contentType": "application/json",
-                    "op": [
-                        "invokeaction"
-                    ],
-                    "htv:methodName": "POST"
-                }
-            ],
-            "idempotent": false,
-            "safe": false
-        },
-        "turnAround": {
-            "description": "Turning around with the given speed (+ for turn from right - for left)",
-            "uriVariables": {
-                "speed": {
-                    "type": "integer",
-                    "minimum": -255,
-                    "maximum": 255
-                }
-            },
-            "forms": [
-                {
-                    "href": "http://192.168.0.113:8080/MotorController/actions/turnAround{?speed}",
-                    "contentType": "application/json",
-                    "op": [
-                        "invokeaction"
-                    ],
-                    "htv:methodName": "POST"
-                }
-            ],
-            "idempotent": false,
-            "safe": false
-        },
-        "setSpeeds": {
-            "description": "giving speed values without changing the direction, which may also be used rather than move functions",
-            "uriVariables": {
-                "leftSpeed": {
-                    "type": "integer",
-                    "minimum": -255,
-                    "maximum": 255
-                },
-                "rightSpeed": {
-                    "type": "integer",
-                    "minimum": -255,
-                    "maximum": 255
-                }
-            },
-            "forms": [
-                {
-                    "href": "http://192.168.0.113:8080/MotorController/actions/setSpeeds{?leftSpeed,rightSpeed}",
-                    "contentType": "application/json",
-                    "op": [
-                        "invokeaction"
-                    ],
-                    "htv:methodName": "POST"
-                }
-            ],
-            "idempotent": false,
-            "safe": false
-        }
-    },
-    "id": "de:tum:ei:esi:motorcontroller:192.168.0.113",
-    "forms": [
+    "isFaulty": {
+      "type": "boolean",
+      "readOnly": true,
+      "description": "Is there any fault in motors?",
+      "writeOnly": false,
+      "observable": false,
+      "forms": [
         {
-            "href": "http://192.168.0.113:8080/MotorController/all/properties",
-            "contentType": "application/json",
-            "op": [
-                "readallproperties",
-                "readmultipleproperties",
-                "writeallproperties",
-                "writemultipleproperties"
-            ]
+          "href": "http://192.168.0.113:8080/MotorController/properties/isFaulty",
+          "contentType": "application/json",
+          "op": [
+            "readproperty"
+          ],
+          "htv:methodName": "GET"
         }
-    ]
+      ]
+    }
+  },
+  "actions": {
+    "enable": {
+      "description": "Enables the motor to move",
+      "forms": [
+        {
+          "href": "http://192.168.0.113:8080/MotorController/actions/enable",
+          "contentType": "application/json",
+          "op": [
+            "invokeaction"
+          ],
+          "htv:methodName": "POST"
+        }
+      ],
+      "idempotent": true,
+      "output": "motors enabled",
+      "safe": false
+    },
+    "disable": {
+      "description": "Disables the motors",
+      "forms": [
+        {
+          "href": "http://192.168.0.113:8080/MotorController/actions/disable",
+          "contentType": "application/json",
+          "op": [
+            "invokeaction"
+          ],
+          "htv:methodName": "POST"
+        }
+      ],
+      "idempotent": true,
+       "output": "motors disabled",
+      "safe": false
+    },
+    "stop": {
+      "description": "Stops the motors",
+      "forms": [
+        {
+          "href": "http://192.168.0.113:8080/MotorController/actions/stop",
+          "contentType": "application/json",
+          "op": [
+            "invokeaction"
+          ],
+          "htv:methodName": "POST"
+        }
+      ],
+      "idempotent": true,
+      "output": "motors stopped",
+      "safe": false
+    },
+    "moveStraight": {
+      "description": "Moves the bot straigt (+ values to go forward - to go backward)",
+      "uriVariables": {
+        "speed": {
+          "type": "integer",
+          "minimum": -255,
+          "maximum": 255
+        }
+      },
+      "forms": [
+        {
+          "href": "http://192.168.0.113:8080/MotorController/actions/moveStraight{?speed}",
+          "contentType": "application/json",
+          "op": [
+            "invokeaction"
+          ],
+          "htv:methodName": "POST"
+        }
+      ],
+      "idempotent": false,
+      "safe": false
+    },
+    "turnLeft": {
+      "description": "Turning left with the given speed",
+      "uriVariables": {
+        "speed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255
+        }
+      },
+      "forms": [
+        {
+          "href": "http://192.168.0.113:8080/MotorController/actions/turnLeft{?speed}",
+          "contentType": "application/json",
+          "op": [
+            "invokeaction"
+          ],
+          "htv:methodName": "POST"
+        }
+      ],
+      "idempotent": false,
+      "safe": false
+    },
+    "turnRight": {
+      "description": "Turning right with the given speed",
+      "uriVariables": {
+        "speed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255
+        }
+      },
+      "forms": [
+        {
+          "href": "http://192.168.0.113:8080/MotorController/actions/turnRight{?speed}",
+          "contentType": "application/json",
+          "op": [
+            "invokeaction"
+          ],
+          "htv:methodName": "POST"
+        }
+      ],
+      "idempotent": false,
+      "safe": false
+    },
+    "turnAround": {
+      "description": "Turning around with the given speed (+ for turn from right - for left)",
+      "uriVariables": {
+        "speed": {
+          "type": "integer",
+          "minimum": -255,
+          "maximum": 255
+        }
+      },
+      "forms": [
+        {
+          "href": "http://192.168.0.113:8080/MotorController/actions/turnAround{?speed}",
+          "contentType": "application/json",
+          "op": [
+            "invokeaction"
+          ],
+          "htv:methodName": "POST"
+        }
+      ],
+      "idempotent": false,
+      "safe": false
+    },
+    "setSpeeds": {
+      "description": "giving speed values without changing the direction, which may also be used rather than move functions",
+      "uriVariables": {
+        "leftSpeed": {
+          "type": "integer",
+          "minimum": -255,
+          "maximum": 255
+        },
+        "rightSpeed": {
+          "type": "integer",
+          "minimum": -255,
+          "maximum": 255
+        }
+      },
+      "forms": [
+        {
+          "href": "http://192.168.0.113:8080/MotorController/actions/setSpeeds{?leftSpeed,rightSpeed}",
+          "contentType": "application/json",
+          "op": [
+            "invokeaction"
+          ],
+          "htv:methodName": "POST"
+        }
+      ],
+      "idempotent": false,
+      "safe": false
+    }
+  },
+  "id": "de:tum:ei:esi:motorcontroller:192.168.0.113",
+  "forms": [
+    {
+      "href": "http://192.168.0.113:8080/MotorController/all/properties",
+      "contentType": "application/json",
+      "op": [
+        "readallproperties",
+        "readmultipleproperties",
+        "writeallproperties",
+        "writemultipleproperties"
+      ]
+    }
+  ]
 }
