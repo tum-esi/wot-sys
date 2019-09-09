@@ -10,7 +10,7 @@ This is a project for making the proccess of creating a WoT enabled device easie
   fill in empty quotation marks in produce function
   fill in addProperties and addActions if needed
 *   #### If Coap or MQTT is needed 
-  add dependency @node-wot/binding-xxx
+  add dependency @node-wot/binding-xxx (e.g. binding-http, binding-mqtt)
   uncomment related lines in index.js
 
 *   #### Follow installation steps 

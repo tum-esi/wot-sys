@@ -9,7 +9,7 @@ HttpServer = require("@node-wot/binding-http").HttpServer
 const TD_DIRECTORY = ""
 
 //var coapServer = new CoapServer({port: 5683});
-//var mqttserver = new MQTTServer({port: 1234}):
+//var mqttserver = new MQTTServer({port: 1883}):
 var httpServer = new HttpServer({port: 8080});
 var servient = new Servient();
 

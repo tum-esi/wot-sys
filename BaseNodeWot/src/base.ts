@@ -28,6 +28,7 @@ export class WotDevice {
         this.thing.id = "new:thing";
         this.add_properties();
         this.add_actions();
+        this.add_events();
         this.thing.expose();
         console.log("thing expose done");
         if (tdDirectory) { this.register(tdDirectory); }
@@ -65,5 +66,9 @@ export class WotDevice {
     private add_actions() {
         //fill in add actions
         //  this.thing.addAction(
+    }
+    private add_events() {
+        //fill in add actions
+        //  this.thing.addEvent(
     }
 }
