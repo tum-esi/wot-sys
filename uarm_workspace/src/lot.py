@@ -5,6 +5,7 @@ import sys
 import rospy
 import time
 import threading
+import json
 
 
 from uarm.swift import Swift
@@ -13,6 +14,10 @@ from swiftpro.msg import SwiftproState
 from swiftpro.msg import position
 from swiftpro.msg import rotation
 from std_msgs.msg import UInt8
+
+from Uarm_TD import get_td
+#from jsonschema import validate
+from jsonschema import Draft6Validator
 
 def moveToCallback(position,sw):
     x = position.x
@@ -68,7 +73,15 @@ pub5 = rospy.Publisher('move_speed',position,queue_size = 10)
 pos_x = 128.58
 pos_y = 0
 pos_z = 19.72
+ip_adress= "192.168.0.112:8080"
+TD=get_td(ip_adress)
+
 app = Flask(__name__)
+
+
+@app.route('/')
+def thing_description():
+    return json.dumps(TD), {'Content-Type':'application/json'}
 
 @app.route('/actions/beep', methods=["post"])
 def beep():
@@ -113,6 +126,7 @@ def gohome():
 
 @app.route('/properties/homeloc', methods=["GET", "PUT"])  
 def homeloc():
+    
     if request.method == "PUT":
         if request.is_json:
             data = request.get_data()
@@ -127,7 +141,12 @@ def homeloc():
         else:
             abort(400)
     else:
-        return(pos_x, pos_y, pos_z)
+        return_object ={
+            "x": pos_x,
+            "y": pos_y,
+            "z": pos_z
+            }
+        return json.dumps(return_object), {'Content-Type':'application/json'}
 
 @app.route('/actions/turnleft', methods=["POST"])
 def turnleft():
@@ -221,8 +240,8 @@ def grip():
     rate.sleep()
     return jsonify("finish")
 
-@app.route('/actions/mgripclose', methods=["POST"])
-def mgripclose():
+@app.route('/actions/gripclose', methods=["POST"])
+def gripclose():
    
     msg3 = SwiftproState()
     msg3.gripper = 1
@@ -239,8 +258,8 @@ def mgripclose():
     rate.sleep()
     return jsonify("marcus1 works")
 
-@app.route('/actions/mgripopen', methods=["POST"])
-def mgripopen():
+@app.route('/actions/gripopen', methods=["POST"])
+def gripopen():
     
     msg3 = SwiftproState()
     msg3.gripper = 0
@@ -258,21 +277,28 @@ def mgripopen():
         
 @app.route('/actions/marcus', methods=["POST"])
 def marcus():
+    if request.is_json:
+        
+        schema=TD["actions"]["beepwithtime"]["input"]
+        valid_input= Draft6Validator(schema).is_valid(request.json)
+        
+        print(valid_input)
+        
+        if valid_input:
+            beep_duration = request.json
+            timeout = request.json
+            rate = rospy.Rate(1)
+            beep = 1
+            beep_start = time.time()
+            while time.time() < beep_start + beep_duration:
+                pub3.publish(beep)
+                rate.sleep()
+            return ("",204)
+        else:
+            abort(400)
+    else:
+        abort(415)
     
-    rate = rospy.Rate(10)
-    
-    msg3 = SwiftproState()
-    msg3.gripper = 1
-    pub2.publish(msg3)
-    rospy.sleep(10)
-    msg3.gripper = 0
-    pub2.publish(msg3)
-    rospy.sleep(10)
-    print("grip done good!")
-    rate.sleep()
-    return jsonify("finish")
- 
-
 @app.route('/actions/gripanddrop', methods=["POST"])
 def gripanddrop():
     rate = rospy.Rate(10)
@@ -322,7 +348,7 @@ def gripanddrop():
     return jsonify("finish")
 
 if __name__ == '__main__':
-    app.run(host=os.environ['ROS_IP'], port=5000)
+    app.run(host=os.environ['ROS_IP'], port=8080)
 
 
 
