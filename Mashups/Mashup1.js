@@ -46,7 +46,6 @@ WoT.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
                                 console.log("onCompleted");
                             }
                         )
-
                         setInterval(async () => {
                             var intensity = await lightSensorThing.properties.intensity.read();
                             if (intensity < 300) {
