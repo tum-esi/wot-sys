@@ -13,9 +13,21 @@ def get_td(ip_address):
 	    		"type":"object",
 	    		"required":["x","y","z"],
 	    		"properties":{
-	    			"x":{"type":"integer"},
-	    			"y":{"type":"integer"},
-	    			"z":{"type":"integer"}
+	    			"x":{
+						"type":"integer",
+						"minimum": 120,
+						"maximum": 200
+						},
+	    			"y":{
+						"type":"integer",
+						"minimum": -200,
+						"maximum": 200
+						},
+	    			"z":{
+						"type":"integer",
+						"minimum": 0,
+						"maximum": 60
+						}
 	    		},
 	    		"forms": [{"href": "http://{}/properties/homeloc".format(ip_address),
 				"op": ["readproperty","writeproperty"],
@@ -101,7 +113,7 @@ def get_td(ip_address):
 					"properties":{
 						"x":{
 							"type":"integer",
-							"minimum": -200,
+							"minimum": 120,
 							"maximum": 200
 						},
 						"y":{
@@ -112,7 +124,7 @@ def get_td(ip_address):
 						"z":{
 							"type":"integer",
 							"minimum": 0,
-							"maximum": 200
+							"maximum": 60
 						}
 					}
 	    		},
@@ -134,7 +146,7 @@ def get_td(ip_address):
 					"properties":{
 						"x":{
 							"type":"integer",
-							"minimum": -200,
+							"minimum": 120,
 							"maximum": 200
 						},
 						"y":{
@@ -145,12 +157,12 @@ def get_td(ip_address):
 						"z":{
 							"type":"integer",
 							"minimum": 0,
-							"maximum": 200
+							"maximum": 60
 						},
 						"speed":{
 							"type":"integer",
 							"minimum": 100,
-							"maximum": 5000
+							"maximum": 10000
 						}
 					}
 	    		},

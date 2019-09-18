@@ -87,9 +87,9 @@ def thing_description():
 def beep():
     rate = rospy.Rate(1)
     beep = 1
-    timeout = 1
-    timeout_start = time.time()
-    while time.time() < timeout_start + timeout:
+    beep_duration = 1
+    beep_start = time.time()
+    while time.time() < beep_start + beep_duration:
         pub3.publish(beep)
         rate.sleep()
         return jsonify("beeping")
@@ -97,20 +97,26 @@ def beep():
 @app.route('/actions/beepwithtime', methods=["POST"])
 def beepwithtime():
     if request.is_json:
-        timeout = request.json
-        if timeout <= 3:
-            print(timeout)
+        
+        schema=TD["actions"]["beepwithtime"]["input"]
+        valid_input= Draft6Validator(schema).is_valid(request.json)
+        
+        print(valid_input)
+        
+        if valid_input:
+            beep_duration = request.json
+            timeout = request.json
             rate = rospy.Rate(1)
             beep = 1
-            timeout_start = time.time()
-            while time.time() < timeout_start + timeout:
+            beep_start = time.time()
+            while time.time() < beep_start + beep_duration:
                 pub3.publish(beep)
                 rate.sleep()
-            return jsonify("beeping with time")
+            return ("",204)
         else:
-            return jsonify("please input a smaller beep duration between 1 and 3")
+            abort(400)
     else:
-        return jsonify("error")
+        abort(415)
 
 @app.route('/actions/gohome', methods=["POST"])
 def gohome():
@@ -175,37 +181,57 @@ def turnright():
 @app.route('/actions/goto', methods=["POST"])
 def goto():
     if request.is_json:
-        msg = position()
-        data = request.get_data()
-        json_data = json.loads(data)
-        msg.x = json_data['x']
-        msg.y = json_data['y']
-        msg.z = json_data['z']
-        rate = rospy.Rate(10)
-        while not rospy.is_shutdown():
-            pub1.publish(msg)
-            rate.sleep()
-            return jsonify("moving")
+        
+        schema=TD["actions"]["goto"]["input"]
+        valid_input= Draft6Validator(schema).is_valid(request.json)
+        
+        print(valid_input)
+        
+        if valid_input:
+        
+            msg = position()
+            data = request.get_data()
+            json_data = json.loads(data)
+            msg.x = json_data['x']
+            msg.y = json_data['y']
+            msg.z = json_data['z']
+            rate = rospy.Rate(10)
+            while not rospy.is_shutdown():
+                pub1.publish(msg)
+                rate.sleep()
+                return ("",204)
+        else:
+             abort(400)
     else:
-        return jsonify("error")
+         abort(415)
+    
 
 @app.route('/actions/gowithspeed', methods=["POST"])
 def gowithspeed():
     if request.is_json:
-        msg = position()
-        data = request.get_data()
-        json_data = json.loads(data)
-        msg.x = json_data['x']
-        msg.y = json_data['y']
-        msg.z = json_data['z']
-        msg.speed = json_data['speed']
-        rate = rospy.Rate(10)
-        while not rospy.is_shutdown():
-            pub5.publish(msg)
-            rate.sleep()
-            return jsonify("moving")
+        
+        schema=TD["actions"]["gowithspeed"]["input"]
+        valid_input= Draft6Validator(schema).is_valid(request.json)
+        
+        print(valid_input)
+        
+        if valid_input:
+            msg = position()
+            data = request.get_data()
+            json_data = json.loads(data)
+            msg.x = json_data['x']
+            msg.y = json_data['y']
+            msg.z = json_data['z']
+            msg.speed = json_data['speed']
+            rate = rospy.Rate(10)
+            while not rospy.is_shutdown():
+                pub5.publish(msg)
+                rate.sleep()
+                return ("",204)
+        else:
+            abort(400)
     else:
-        return jsonify("error")
+        abort(415)
 
 @app.route('/actions/grip', methods=["post"])
 def grip():
@@ -275,29 +301,38 @@ def gripopen():
     rate.sleep()
     return jsonify("marcus1 works")
         
-@app.route('/actions/marcus', methods=["POST"])
+@app.route('/actions/marcus', methods=["GET", "PUT"])
 def marcus():
-    if request.is_json:
+    if request.method == "PUT":
+        if request.is_json:
+            
+            schema=TD["properties"]["homeloc"]
+            valid_input= Draft6Validator(schema).is_valid(request.json)
         
-        schema=TD["actions"]["beepwithtime"]["input"]
-        valid_input= Draft6Validator(schema).is_valid(request.json)
+            print(valid_input)
         
-        print(valid_input)
-        
-        if valid_input:
-            beep_duration = request.json
-            timeout = request.json
-            rate = rospy.Rate(1)
-            beep = 1
-            beep_start = time.time()
-            while time.time() < beep_start + beep_duration:
-                pub3.publish(beep)
-                rate.sleep()
-            return ("",204)
+            if valid_input:
+            
+                data = request.get_data()
+                json_data = json.loads(data)
+                global pos_x
+                pos_x = json_data['x']
+                global pos_y
+                pos_y = json_data['y']
+                global pos_z
+                pos_z = json_data['z']
+                return jsonify("already set new home location")
+            else:
+                abort(400)
         else:
-            abort(400)
+            abort(415)
     else:
-        abort(415)
+        return_object ={
+            "x": pos_x,
+            "y": pos_y,
+            "z": pos_z
+            }
+        return json.dumps(return_object), {'Content-Type':'application/json'}
     
 @app.route('/actions/gripanddrop', methods=["POST"])
 def gripanddrop():
