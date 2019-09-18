@@ -135,17 +135,27 @@ def homeloc():
     
     if request.method == "PUT":
         if request.is_json:
-            data = request.get_data()
-            json_data = json.loads(data)
-            global pos_x
-            pos_x = json_data['x']
-            global pos_y
-            pos_y = json_data['y']
-            global pos_z
-            pos_z = json_data['z']
-            return jsonify("already set new home location")
+            
+            schema=TD["properties"]["homeloc"]
+            valid_input= Draft6Validator(schema).is_valid(request.json)
+        
+            print(valid_input)
+        
+            if valid_input:
+            
+                data = request.get_data()
+                json_data = json.loads(data)
+                global pos_x
+                pos_x = json_data['x']
+                global pos_y
+                pos_y = json_data['y']
+                global pos_z
+                pos_z = json_data['z']
+                return ("",204)
+            else:
+                abort(400)
         else:
-            abort(400)
+            abort(415)
     else:
         return_object ={
             "x": pos_x,
