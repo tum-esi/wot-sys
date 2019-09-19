@@ -166,25 +166,31 @@ class WotMotorLEDMashup {
     blinkRight() {
         return new Promise((resolve, reject) => {
             blinkingStatus = true;
-            this.openLedsYellow(12, 18);
             this.blinkingDirection = true;
+            this.blinkingInterval = setInterval(() => __awaiter(this, void 0, void 0, function* () {
+                this.openLedsYellow(12, 18);
+                yield this.sleep(500);
+                this.closeLeds();
+            }), 1000);
             resolve("Blinking right");
         });
     }
     blinkLeft() {
         return new Promise((resolve, reject) => {
             blinkingStatus = true;
-            this.openLedsYellow(23, 29);
             this.blinkingDirection = false;
+            this.blinkingInterval = setInterval(() => __awaiter(this, void 0, void 0, function* () {
+                this.openLedsYellow(23, 29);
+                yield this.sleep(500);
+                this.closeLeds();
+            }), 1000);
             resolve("Blinking left");
         });
     }
     stopBlinking() {
-        return new Promise((resolve, reject) => {
-            this.closeLeds();
-            blinkingStatus = false;
-            resolve("blink closed");
-        });
+        this.closeLeds();
+        clearInterval(this.blinkingInterval);
+        blinkingStatus = false;
     }
     //Led thing related functions
     closeLeds() {
@@ -214,6 +220,9 @@ class WotMotorLEDMashup {
                 "blue": 0
             }
         });
+    }
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }
 exports.WotMotorLEDMashup = WotMotorLEDMashup;

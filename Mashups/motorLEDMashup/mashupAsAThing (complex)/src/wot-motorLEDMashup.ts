@@ -164,13 +164,17 @@ export class WotMotorLEDMashup {
     }
     private turnLeft() {
         return new Promise((resolve, reject) => {
-            this.motorThing.actions["turnLeft"].invoke();
+            this.motorThing.actions["turnAround"].invoke({
+                "speed": -255
+             });
             resolve("Turning left full speed");
         });
     }
     private turnRight() {
         return new Promise((resolve, reject) => {
-            this.motorThing.actions["turnRight"].invoke();
+            this.motorThing.actions["turnAround"].invoke({
+                "speed": 255
+             });
             resolve("Turning right full speed");
         });
     }
