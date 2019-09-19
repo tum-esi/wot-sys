@@ -16,7 +16,6 @@ from swiftpro.msg import rotation
 from std_msgs.msg import UInt8
 
 from Uarm_TD import get_td
-#from jsonschema import validate
 from jsonschema import Draft6Validator
 
 def moveToCallback(position,sw):
@@ -100,7 +99,7 @@ def beepwithtime():
         
         schema=TD["actions"]["beepwithtime"]["input"]
         valid_input= Draft6Validator(schema).is_valid(request.json)
-        
+        print(request.json)
         print(valid_input)
         
         if valid_input:
@@ -128,6 +127,7 @@ def gohome():
     while not rospy.is_shutdown():
         pub1.publish(msg)
         rate.sleep()
+        print ("going Home")
         return jsonify("going home")
 
 @app.route('/properties/homeloc', methods=["GET", "PUT"])  

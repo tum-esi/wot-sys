@@ -55,7 +55,7 @@ def get_td(ip_address):
 				"description":"Beep for a time set between 1-3 sec",
 				"input":{
 					"type":"integer",
-					"minimum": 0,
+					"minimum": 1,
 					"maximum": 3
 				},
 				"forms":[{
