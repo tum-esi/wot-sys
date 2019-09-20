@@ -13,6 +13,7 @@ export class WotMotorLEDMashup {
 
     public thing: WoT.ExposedThing;
     public factory: WoT.WoTFactory;
+    private blinkingInterval: NodeJS.Timeout;
 
     constructor(thingFactory: WoT.WoTFactory, tdDirectory?: string) {
         //create mashup as a server
@@ -182,8 +183,12 @@ export class WotMotorLEDMashup {
     private blinkRight () {
         return new Promise((resolve, reject) => {
             blinkingStatus = true;
-            this.openLedsYellow(12,18)
             this.blinkingDirection = true;
+            this.blinkingInterval = setInterval(async() => {
+                this.openLedsYellow(12,18);
+                await this.sleep(500);
+                this.closeLeds();
+            },1000);
             resolve("Blinking right");
         });
     }
@@ -191,18 +196,20 @@ export class WotMotorLEDMashup {
     private blinkLeft () {
         return new Promise((resolve, reject) => {
             blinkingStatus = true;
-            this.openLedsYellow(23,29);
             this.blinkingDirection = false;
+            this.blinkingInterval = setInterval(async () => {
+                this.openLedsYellow(23,29);
+                await this.sleep(500);
+                this.closeLeds();
+            }, 1000);
             resolve("Blinking left");
         });
     }
 
     private stopBlinking () {
-        return new Promise((resolve, reject) => {
-            this.closeLeds();
-            blinkingStatus = false;
-            resolve("blink closed");
-        });
+        this.closeLeds();
+        clearInterval(this.blinkingInterval);
+        blinkingStatus = false;
     }
 
     //Led thing related functions
@@ -234,5 +241,9 @@ export class WotMotorLEDMashup {
                 "blue" : 0
             }
         });
+    }
+
+    private sleep(ms: number) {
+        return new Promise( resolve => setTimeout(resolve, ms) );
     }
 }
