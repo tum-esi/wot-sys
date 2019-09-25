@@ -1,5 +1,5 @@
 
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import paho.mqtt.client as mqtt
 
 import os
@@ -301,7 +301,8 @@ def parserMQTTpayload(MQTT_payload):
 
 	
 
-threading.Thread(target=lambda: rospy.init_node('gripper_node', disable_signals=True)).start()
+threading.Thread(target=lambda: rospy.init_node('gripper_MQTT_node', disable_signals=True)).start()
+#Next line in Robot.py
 sw = Swift(port='/dev/ttyACM0',timeout=20)
 rospy.Subscriber("move_to",position,moveToCallback,sw)
 rospy.Subscriber('move_speed',position,moveWithSpeed,sw)
@@ -317,7 +318,7 @@ pub5 = rospy.Publisher('move_speed',position,queue_size = 10)
 pos_x = 128.58
 pos_y = 0
 pos_z = 19.72
-ip_adress= "192.168.0.112:8080"
+ip_adress= "192.168.0.112:1883"
 TD=get_td(ip_adress)
 
 client = mqtt.Client()

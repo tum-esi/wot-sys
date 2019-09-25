@@ -58,11 +58,22 @@ def get_td(ip_address):
 					"minimum": 1,
 					"maximum": 3
 				},
-				"forms":[{
+				"forms":[
+					{
 					"href":"http://{}/actions/beepwithtime".format(ip_address),
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
+					},
+					{
+					"href":"mqtt://{}/actions/beepwithtime".format(ip_address),
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"mqv:commandCode":3,
+					"mqv:options":{
+						"mqv:optionName":"retain", 
+						"mqv:optionValue":  1
+					}
 				}],
 				"idempotent": True,
 				"safe": False

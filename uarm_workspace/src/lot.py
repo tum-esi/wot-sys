@@ -56,7 +56,7 @@ def buzzerCallback(beep,sw):
     else:
         pass
 
-threading.Thread(target=lambda: rospy.init_node('gripper_node', disable_signals=True)).start()
+threading.Thread(target=lambda: rospy.init_node('gripper_HTTP_node', disable_signals=True)).start()
 sw = Swift(port='/dev/ttyACM0',timeout=20)
 rospy.Subscriber("move_to",position,moveToCallback,sw)
 rospy.Subscriber('move_speed',position,moveWithSpeed,sw)
