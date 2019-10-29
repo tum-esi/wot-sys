@@ -46,7 +46,7 @@ def get_td(ip_address, leds):
                     },
                     "led_colors": {
                         "type": "array",
-                        "items": {
+                        "items": {   
                             "type": "array",
                             "items": [
                                 {

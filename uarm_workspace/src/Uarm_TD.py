@@ -186,11 +186,11 @@ def get_td(ip_address):
 				"idempotent": True,
 				"safe": False
 			},
-			"grip":{
+			"sequence1":{
 				"title":"Grip Routine",
 				"description":"Routine to move to a position and close the grip",
 				"forms":[{
-					"href":"http://{}/actions/grip".format(ip_address),
+					"href":"http://{}/actions/sequence1".format(ip_address),
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
@@ -215,19 +215,6 @@ def get_td(ip_address):
 				"description":"Opens the grip",
 				"forms":[{
 					"href":"http://{}/actions/gripopen".format(ip_address),
-					"contentType":"application/json",
-					"op":"invokeaction",
-					"htv:methodName":"POST"
-				}],
-				"idempotent": True,
-				"safe": False
-			},
-			
-			"gripanddrop":{
-				"title":"Grip and Drop Routine",
-				"description":"Routine to close grip at a fixed point and drag to another to open the grip",
-				"forms":[{
-					"href":"http://{}/actions/gripanddrop".format(ip_address),
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
