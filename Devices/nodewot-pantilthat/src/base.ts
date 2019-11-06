@@ -1,7 +1,6 @@
 import * as WoT from "wot-typescript-definitions"
 
 var request = require('request');
-var Servient = require("@node-wot/core").Servient
 const Ajv = require('ajv');
 var PanTilt = require('pan-tilt-hat');
 
@@ -30,15 +29,9 @@ export class WotDevice {
         this.thing.id = "esi:pantilt:1";
         this.add_properties();
         this.add_actions();
-        this.add_events();
         this.thing.expose();
-        console.log("thing expose done");
         if (tdDirectory) { this.register(tdDirectory); }
-        var servient = new Servient();
-        servient.start().then((thingFactory) => {
-            //fetch sub things
 
-        });
     }
     public register(directory: string) {
         console.log("Registering TD in directory: " + directory)
@@ -405,9 +398,5 @@ export class WotDevice {
             }
             );
         
-    }
-    private add_events() {
-        //fill in add events
-        //  this.thing.addEvent(
     }
 }

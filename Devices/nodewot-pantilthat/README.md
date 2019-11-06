@@ -1,19 +1,6 @@
-# BaseWoT
-This is a project for making the proccess of creating a WoT enabled device easier by giving base functions and code and putting fill in comments.
+# Pan Tilt HAT
 
-### Get it running
-*   #### Change name package.json file
-  Change name
-  Change description
-  Add needed dependencies
-*   #### Go to src/base.ts and fill needed places
-  fill in empty quotation marks in produce function
-  fill in addProperties and addActions if needed
-*   #### If Coap or MQTT is needed 
-  add dependency @node-wot/binding-xxx (e.g. binding-http, binding-mqtt)
-  uncomment related lines in index.js
-
-*   #### Follow installation steps 
+WoTified Pimoroni Pan Tilt HAT providing its basic functions as WoT property and actions over HTTP and MQTT
 
 ## Installation
 
@@ -22,12 +9,13 @@ This is a project for making the proccess of creating a WoT enabled device easie
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
-- To convert ts to js: `npm run build`
-- To install packages and convert ts to js  `npm run buildAll`
-- `npm run start` to run the code
+- To build (transcompiling Typescript to javascript): `npm run build`
+- To run the code: `npm run start` 
 
 
 ### API reference
+
+Below is the API reference used to build this project
 
 This library provides the following APIs
 1) Pimoroni API

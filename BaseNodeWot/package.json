@@ -4,12 +4,10 @@
   "description": "W3C WoT interface for base (!change here!)",
   "main": "index.js",
   "keywords": [
-    "raspberry",
-    "pi",
     "wot",
     "w3c"
   ],
-  "author": "Erkan Sen",
+  "author": "tumeiesi",
   "license": "MIT",
   "devDependencies": {
     "typescript": "3.3.1",
@@ -18,9 +16,10 @@
     "tslint": "5.12.1"
   },
   "dependencies": {
-    "@node-wot/binding-http": "0.6.2-SNAPSHOT.1",
+    "@node-wot/binding-http": "0.6.3-SNAPSHOT.2",
     "@node-wot/core": "0.6.2-SNAPSHOT.1",
-    "request": "2.88.0"
+    "request": "2.88.0",
+	"ajv": "^6.10.2"
   },
   "optionalDependencies": {},
   "scripts": {
