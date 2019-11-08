@@ -1,7 +1,10 @@
 import * as WoT from "wot-typescript-definitions"
-import { HttpClientFactory } from "@node-wot/binding-http";
+
 var request = require('request');
-var Servient = require("@node-wot/core").Servient
+
+const Ajv = require('ajv');
+var ajv = new Ajv();
+
 export class WotDevice {
     public thing: WoT.ExposedThing;
     public factory: WoT.WoTFactory;
@@ -25,23 +28,19 @@ export class WotDevice {
                 "security": ""
             }`
             );
-        this.thing.id = "new:thing";
+        this.thing.id = "new:thing"; //change the id to something unique in your case
         this.add_properties();
         this.add_actions();
         this.add_events();
+		this.listen_to_myEvent(); //used to listen to specific events provided by a library. If you don't have events, simply remove it
         this.thing.expose();
-        console.log("thing expose done");
-        if (tdDirectory) { this.register(tdDirectory); }
-        var servient = new Servient();
-        servient.addClientFactory(new HttpClientFactory());
-        servient.start().then((thingFactory) => {
-            //fetch sub things
 
-        });
+        if (tdDirectory) { this.register(tdDirectory); }
+
     }
     public register(directory: string) {
         console.log("Registering TD in directory: " + directory)
-        request.post(directory, {json: this.get_nonld_td()}, (error, response, body) => {
+        request.post(directory, {json: this.thing.getThingDescription()}, (error, response, body) => {
             if (!error && response.statusCode < 300) {
                 console.log("TD registered!");
             } else {
@@ -53,22 +52,77 @@ export class WotDevice {
             }
         });
     }
-    private get_nonld_td() {
-        let td = JSON.parse(this.thing.getThingDescription());
-        delete td["@context"];
-        delete td["@type"];
-        return td;
+
+    private myPropertyHandler(){
+		return new Promise((resolve, reject) => {
+			// read something
+			resolve();
+		});
     }
+
+    private myActionHandler(){
+		return new Promise((resolve, reject) => {
+			// do something
+			resolve();
+		});	
+    }
+
+    private listen_to_myEvent() {
+		specialLibrary.getMyEvent()
+		.then((thisEvent) => {
+			this.thing.events[""].emit(direction);
+    	});
+	}
+
     private add_properties() {
         //fill in add properties
-        //this.thing.addProperty
+        /*
+		this.thing.addProperty(
+			"",
+			{
+				title:"",
+				description: "",
+				type: ""
+			},
+			0
+		);
+		this.thing.setPropertyReadHandler("", this.myPropertyHandler)
+		*/
     }
+
     private add_actions() {
         //fill in add actions
-        //  this.thing.addAction(
+		/*
+        this.thing.addAction(
+            "myAction", 
+            {
+		        title:"",
+		        description: ""
+            }, 
+            (inputData) => { 
+		         return new Promise((resolve, reject) => {
+		            if (!ajv.validate(this.thing.actions.myAction.input, inputData)) {
+		                reject(new Error ("Invalid input"));
+		            }
+		            else {
+		                resolve(this.myActionHandler(inputData));
+		            }
+		        });
+            }
+        );
+		*/
     }
     private add_events() {
-        //fill in add actions
-        //  this.thing.addEvent(
+        //fill in add events
+		/*
+		this.thing.addEvent(
+		        "",
+		        {
+		            "data":{				
+						"type": ""
+					}	            
+				}
+		    );
+		*/
     }
 }
