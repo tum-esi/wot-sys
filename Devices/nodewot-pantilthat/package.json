@@ -1,7 +1,7 @@
 {
   "name": "wot-pantilt",
   "version": "1.0.0",
-  "description": "a particulate sensor that is web of things compatible",
+  "description": "A Pan and Tilt HAT that is Web of Things compatible",
   "main": "index.js",
   "scripts": {
     "build": "tsc",

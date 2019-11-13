@@ -7,31 +7,74 @@ var ajv = new Ajv();
 
 export class WotDevice {
     public thing: WoT.ExposedThing;
-    public factory: WoT.WoTFactory;
-    constructor(thingFactory: WoT.WoTFactory, tdDirectory?: string) {
+    public WoT: WoT.WoT;
+    public td: any;
+    constructor(WoT: WoT.WoT, tdDirectory?: string) {
         //create WotDevice as a server
-        this.factory = thingFactory;
-        this.thing = thingFactory.produce(
+        this.WoT = WoT;
+        this.WoT.produce(
             //fill in the empty quotation marks
-            `{
+            {
                 "@context": [
                     "https://www.w3.org/2019/wot/td/v1",
                     { "@language" : "en" }],
                 "@type": "",
-                "title" : "",
-                "description" : "",
-                "securityDefinitions": { 
+                id : "new:thing",
+                title : "",
+                description : "",
+                securityDefinitions: { 
                     "": { 
                         "scheme": "" 
                     }
                 },
-                "security": ""
-            }`
-            );
-        this.thing.id = "new:thing"; //change the id to something unique in your case
+                security: "",
+                properties:{
+                	myProperty:{
+							title:"A short title for User Interfaces",
+							description: "A longer string for humans to read and understand",
+							unit: "",
+							type: ""
+					}
+				},
+				actions:{
+            		myAction:{
+						title:"A short title for User Interfaces",
+						description: "A longer string for humans to read and understand",	
+						input:{
+							unit: "",
+							type: "number"
+						},
+						out:{
+							unit: "",
+							type: "string"
+						}
+					}
+				},
+                events:{
+                	myEvent:{
+							title:"A short title for User Interfaces",
+							description: "A longer string for humans to read and understand",
+							data:{
+								unit: "",
+								type: ""
+							}
+							
+					}
+				},
+            }
+        ).then((exposedThing)=>{
+			this.thing = exposedThing;
+			this.td = exposedThing.getThingDescription();
+		    this.add_properties();
+			this.add_actions();
+			this.thing.expose();
+			if (tdDirectory) { this.register(tdDirectory); }
+        });
+
         this.add_properties();
         this.add_actions();
         this.add_events();
+        
 		this.listen_to_myEvent(); //used to listen to specific events provided by a library. If you don't have events, simply remove it
         this.thing.expose();
 
@@ -60,69 +103,43 @@ export class WotDevice {
 		});
     }
 
-    private myActionHandler(){
+    private myActionHandler(inputData){
 		return new Promise((resolve, reject) => {
-			// do something
+			// do something with inputData
 			resolve();
 		});	
     }
 
     private listen_to_myEvent() {
-		specialLibrary.getMyEvent()
+    	/*
+		specialLibrary.getMyEvent()//change specialLibrary to your library
 		.then((thisEvent) => {
-			this.thing.events[""].emit(direction);
+			this.thing.emitEvent("myEvent",""); //change quotes to your own event data
     	});
+    	*/
 	}
 
     private add_properties() {
         //fill in add properties
-        /*
-		this.thing.addProperty(
-			"",
-			{
-				title:"",
-				description: "",
-				type: ""
-			},
-			0
-		);
-		this.thing.setPropertyReadHandler("", this.myPropertyHandler)
-		*/
+        this.thing.writeProperty("myProperty",""); //replace quotes with the initial value
+		this.thing.setPropertyReadHandler("myProperty", this.myPropertyHandler)
+		
     }
 
     private add_actions() {
         //fill in add actions
-		/*
-        this.thing.addAction(
-            "myAction", 
-            {
-		        title:"",
-		        description: ""
-            }, 
-            (inputData) => { 
-		         return new Promise((resolve, reject) => {
-		            if (!ajv.validate(this.thing.actions.myAction.input, inputData)) {
-		                reject(new Error ("Invalid input"));
-		            }
-		            else {
-		                resolve(this.myActionHandler(inputData));
-		            }
-		        });
-            }
-        );
-		*/
+        this.thing.setActionHandler("myAction",(inputData) => {            
+         	return new Promise((resolve, reject) => {
+	            if (!ajv.validate(this.td.actions.myAction.input, inputData)) {
+	                reject(new Error ("Invalid input"));
+	            }
+	            else {
+	                resolve(this.myActionHandler(inputData));
+	            }
+	        });
+        });
     }
     private add_events() {
-        //fill in add events
-		/*
-		this.thing.addEvent(
-		        "",
-		        {
-		            "data":{				
-						"type": ""
-					}	            
-				}
-		    );
-		*/
+		// can/should be removed, no need to add events anywhere, just emit them
     }
 }
