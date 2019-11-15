@@ -6,9 +6,15 @@ WoTified Pimoroni Pan Tilt HAT providing its basic functions as WoT property and
 
 - get the latest node: 
 ```bash
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
+- Install the python library that is used with this:
+	- Install pimoroni dashboard with `sudo apt-get install pimoroni`
+	- Open the GUI tool from accessories.
+	- Choose that your product is a HAT and then Pan-Tilt HAT
+- Alternatively, you can install only the Python library and also enable I2C interface.
+- Install the dependencies with `npm install`
 - To build (transcompiling Typescript to javascript): `npm run build`
 - To run the code: `npm run start` 
 
