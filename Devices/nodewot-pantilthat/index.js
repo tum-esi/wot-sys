@@ -13,6 +13,6 @@ var servient = new Servient();
 
 servient.addServer(httpServer);
 servient.addServer(mqttServer);
-servient.start().then((thingFactory) => {
-    pantilthat = new WotDevice(thingFactory, TD_DIRECTORY);
+servient.start().then((WoT) => {
+    pantilthat = new WotDevice(WoT, TD_DIRECTORY);
 });

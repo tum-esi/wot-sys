@@ -13,12 +13,12 @@ Servient = require("@node-wot/core").Servient
 //Importing the required bindings
 HttpServer = require("@node-wot/binding-http").HttpServer
 //CoapServer = require("@node-wot/binding-coap").CoapServer
-//MQTTServer = require("@node-wot/binding-mqtt").MqttBrokerServer
+//MqttBrokerServer = require("@node-wot/binding-mqtt").MqttBrokerServer
 
 //Creating the instances of the binding servers
 var httpServer = new HttpServer({port: 8080});
 //var coapServer = new CoapServer({port: 5683});
-//var mqttserver = new MQTTServer("test.mosquitto.org"); //change it according to the broker address
+//var mqttserver = new MqttBrokerServer("test.mosquitto.org"); //change it according to the broker address
 
 
 //Building the servient object
@@ -28,6 +28,6 @@ servient.addServer(httpServer);
 //servient.addServer(coapServer);
 //servient.addServer(mqttServer);
 
-servient.start().then((thingFactory) => {
-    wotDevice = new WotDevice(thingFactory, TD_DIRECTORY); // you can change the wotDevice to something that makes more sense
+servient.start().then((WoT) => {
+    wotDevice = new WotDevice(WoT, TD_DIRECTORY); // you can change the wotDevice to something that makes more sense
 });
