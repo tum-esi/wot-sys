@@ -30,5 +30,6 @@ curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 You will need to change 10.x to a newer version if needed
+- To install dependencies: `npm install`
 - To build (transcompiling Typescript to javascript): `npm run build`
 - To run the code: `npm run start` 
