@@ -67,20 +67,13 @@ export class WotDevice {
 			this.td = exposedThing.getThingDescription();
 		    this.add_properties();
 			this.add_actions();
+			this.add_events();
 			this.thing.expose();
 			if (tdDirectory) { this.register(tdDirectory); }
+			this.listen_to_myEvent(); //used to listen to specific events provided by a library. If you don't have events, simply remove it
         });
-
-        this.add_properties();
-        this.add_actions();
-        this.add_events();
-        
-		this.listen_to_myEvent(); //used to listen to specific events provided by a library. If you don't have events, simply remove it
-        this.thing.expose();
-
-        if (tdDirectory) { this.register(tdDirectory); }
-
     }
+    
     public register(directory: string) {
         console.log("Registering TD in directory: " + directory)
         request.post(directory, {json: this.thing.getThingDescription()}, (error, response, body) => {
