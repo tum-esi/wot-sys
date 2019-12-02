@@ -1,0 +1,33 @@
+{
+  "name": "infraredsensor",
+  "version": "1.0.0",
+  "description": "E18-D80NK on a RPi",
+  "main": "index.js",
+  "keywords": [
+    "wot",
+    "w3c"
+  ],
+  "author": "tumeiesi",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "11.9.4",
+    "tslint": "5.12.1",
+    "typescript": "^3.3.1",
+    "wot-typescript-definitions": "0.7.0"
+  },
+  "dependencies": {
+    "@node-wot/binding-http": "0.7.0-SNAPSHOT.3",
+    "@node-wot/binding-mqtt": "0.7.0-SNAPSHOT.3",
+    "@node-wot/core": "0.7.0-SNAPSHOT.3",
+    "ajv": "^6.10.2",
+    "onoff": "^5.0.0",
+    "request": "2.88.0"
+  },
+  "optionalDependencies": {},
+  "scripts": {
+    "build": "tsc",
+    "buildAll": "npm install; tsc;",
+    "start": "node index.js",
+    "clean": "rm -rf node_modules; rm -rf dist; rm -rf package-lock.json"
+  }
+}
