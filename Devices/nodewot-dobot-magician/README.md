@@ -4,7 +4,7 @@ Methods
 * **Dobot(port, verbose=False)** Creates an instance of dobot connected to given serial port.
     * **port**: _string_ with name of serial port to connect
     * **verbose**: _bool_ will print to console all serial comms
- 
+     
 
 * **.pose()** Returns the current pose of dobot, as a tuple (x, y, z, r, j1, j2, j3, j4)
     * **x**: _float_ current x cartesian coordinate 
