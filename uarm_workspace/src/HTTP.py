@@ -15,31 +15,29 @@ from swiftpro.msg import position
 from swiftpro.msg import rotation
 from std_msgs.msg import UInt8
 
-from Uarm_TD import get_td
 from jsonschema import Draft6Validator
 from Robot import *
-
 
 
 pos_x = 128.58
 pos_y = 0
 pos_z = 19.72
-
-ip_adress= "192.168.0.112:8080"
-TD=get_td(ip_adress)
+TD = 0
 
 app = Flask(__name__)
 
-
+# fct returns TD
 @app.route('/')
 def thing_description():
     return json.dumps(TD), {'Content-Type':'application/json'}
 
+# fct lets Uarm beep 1s
 @app.route('/actions/beep', methods=["POST"])
 def beep():
     if ROS_beep():
-        return jsonify("beeping")
+        return ("",204)
 
+# fct lets Uarm beep 1s-3s
 @app.route('/actions/beepwithtime', methods=["POST"])
 def beepwithtime():
     if request.is_json:
@@ -55,6 +53,7 @@ def beepwithtime():
     else:
         abort(415)
 
+# fct returns Uarm to its home location
 @app.route('/actions/gohome', methods=["POST"])
 def gohome():
     msg = position()
@@ -63,8 +62,9 @@ def gohome():
     msg.z = pos_z
     while not rospy.is_shutdown():
         ROS_gohome(msg)
-        return jsonify("going home")
+        return ("",204)
 
+# fct sets or gets Uarm home location
 @app.route('/properties/homeloc', methods=["GET", "PUT"])  
 def homeloc():
     
@@ -99,28 +99,58 @@ def homeloc():
             }
         return json.dumps(return_object), {'Content-Type':'application/json'}
 
+#fct returns current location
+@app.route('/properties/location', methods=["GET"])
+def getlocation():
+    
+    pos = ROS_getlocation()
+    return (jsonify(pos))
+    
+# fct turns Uarm left to a set position
 @app.route('/actions/turnleft', methods=["POST"])
 def turnleft():
-    msg = rotation()
-    msg.stretch = float(168.29)
-    msg.rotation = float(45)
-    msg.height = float(42)
-    
-    while not rospy.is_shutdown():
-        ROS_turnleft(msg)
-        return jsonify("going left")
-
+    [x,y,z] = ROS_getlocation()
+    y_new = y + 1
+		
+    msg = position()
+    msg.x = x
+    msg.y = y_new
+    msg.z = z
+		
+    schema=TD["actions"]["turnleft"]["input"]["properties"]["y"]
+    valid_input= Draft6Validator(schema).is_valid(y_new)
+			
+    if valid_input:
+        #ROS
+        ROS_goto(msg)
+        return ("",204)
+    else:
+        print("Reached Max Limit")
+        abort(400)
+            
+# fct turns Uarm right to a set position
 @app.route('/actions/turnright', methods=["POST"])
 def turnright():
-    msg = rotation()
-    msg.stretch = float(168.29)
-    msg.rotation = float(135)
-    msg.height = float(42)
-    rate = rospy.Rate(10)
-    while not rospy.is_shutdown():
-        ROS_turnright(msg)
-        return jsonify("going right")
-
+    [x,y,z] = ROS_getlocation()
+    y_new = y - 1
+		
+    msg = position()
+    msg.x = x
+    msg.y = y_new
+    msg.z = z
+		
+    schema=TD["actions"]["turnright"]["input"]["properties"]["y"]
+    valid_input= Draft6Validator(schema).is_valid(y_new)
+			
+    if valid_input:
+        #ROS
+        ROS_goto(msg)
+        return ("",204)
+    else:
+        print("Reached Max Limit")
+        abort(400)
+            
+# fct tells Uarm zu go to given position
 @app.route('/actions/goto', methods=["POST"])
 def goto():
     if request.is_json:
@@ -144,7 +174,7 @@ def goto():
     else:
          abort(415)
     
-
+# fct tells Uarm zu go to given position with an additional variable for speed
 @app.route('/actions/gowithspeed', methods=["POST"])
 def gowithspeed():
     if request.is_json:
@@ -168,6 +198,7 @@ def gowithspeed():
     else:
         abort(415)
 
+# fct for a specific sequence of steps. Uarm grips at a certain position
 @app.route('/actions/sequence1', methods=["POST"])
 def sequence1():
     
@@ -180,7 +211,6 @@ def sequence1():
     while duration <= 5:   
         ROS_goto(msg)
         duration = time.time() - start_time
-    rospy.sleep(8)
 
     msg2 = position()
     msg2.x = float(120)
@@ -191,16 +221,15 @@ def sequence1():
     while duration2 <= 5:
         ROS_goto(msg2)
         duration2 = time.time() - second_time
-    rospy.sleep(6)
 
     msg3 = SwiftproState()
     msg3.gripper = 1
     pub2.publish(msg3)
     rospy.sleep(2)
-    print("grip done!")
-    rate.sleep()
-    return jsonify("finish")
 
+    return jsonify("works")
+
+# fct closes Uarm gripper
 @app.route('/actions/gripclose', methods=["POST"])
 def gripclose():
    
@@ -212,8 +241,9 @@ def gripclose():
     while duration <= 4:
         ROS_gripaction(msg)
         duration = time.time() - second_time
-    return jsonify("works")
+    return ("",204)
 
+# fct opens Uarm gripper
 @app.route('/actions/gripopen', methods=["POST"])
 def gripopen():
     
@@ -225,7 +255,11 @@ def gripopen():
     while duration <= 4:
         ROS_gripaction(msg)
         duration = time.time() - second_time
-    return jsonify("works1")
+    return ("",204)
+
+def push_HTTP_TD(TD_HTTP):
+    global TD
+    TD = TD_HTTP
 
 if __name__ == '__main__':
     threading.Thread(target=lambda: rospy.init_node('gripper_HTTP_node', disable_signals=True)).start()

@@ -1,4 +1,4 @@
-
+#! /usr/bin/env python3
 
 import os
 import sys
@@ -15,6 +15,7 @@ from swiftpro.msg import position
 from swiftpro.msg import rotation
 from std_msgs.msg import UInt8
 
+Position = 0
 
 def moveToCallback(position,sw):
     x = position.x
@@ -54,17 +55,28 @@ def buzzerCallback(beep,sw):
     else:
         pass
 
+def temperatureCallback(location,sw):
+    if location.data == 1:
+        pos = sw.get_position()
+        global Position
+        Position = pos
+    else:
+        pass
+
 sw = Swift(port='/dev/ttyACM0',timeout=1)
 rospy.Subscriber("move_to",position,moveToCallback,sw)
 rospy.Subscriber('move_speed',position,moveWithSpeed,sw)
 rospy.Subscriber("turn",rotation,rotationCallback,sw)
 rospy.Subscriber("grip_state",SwiftproState, gripCallack,sw)
 rospy.Subscriber("buzzer_state",UInt8, buzzerCallback,sw)
+rospy.Subscriber("position",UInt8,temperatureCallback,sw)
+
 pub1 = rospy.Publisher('move_to',position,queue_size = 10)
 pub2 = rospy.Publisher('grip_state',SwiftproState,queue_size = 10)
 pub3 = rospy.Publisher('buzzer_state',UInt8,queue_size = 10)
 pub4 = rospy.Publisher('turn',rotation,queue_size = 10)
 pub5 = rospy.Publisher('move_speed',position,queue_size = 10)
+pub6 = rospy.Publisher('position',UInt8,queue_size = 10)
 
 def ROS_beep():
     rate = rospy.Rate(1)
@@ -76,6 +88,13 @@ def ROS_beep():
         rate.sleep()
         return True
 
+def ROS_getlocation():
+    rate = rospy.Rate(1)
+    location = 1
+    pub6.publish(location)
+    rospy.sleep(0.1)
+    return(Position)
+    
 def ROS_beepwithtime(payload):
     beep_duration = payload
     rate = rospy.Rate(1)

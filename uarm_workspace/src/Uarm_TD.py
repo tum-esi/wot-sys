@@ -29,10 +29,59 @@ def get_td(ip_address):
 						"maximum": 60
 						}
 	    		},
-	    		"forms": [{"href": "http://{}/properties/homeloc".format(ip_address),
-				"op": ["readproperty","writeproperty"],
-				"contentType":"application/json"
-				}]
+				"forms": [{"href": "http://{}/properties/homeloc".format(ip_address),
+					"op": ["readproperty","writeproperty"],
+					"contentType":"application/json"
+					},
+					{
+					"href":"mqtt://{}/properties/homeloc".format(ip_address),
+					"contentType":"application/json",
+					"op":["readproperty","observeproperty"],
+					"mqv:commandCode": 8
+					},
+					{
+					"href":"mqtt://{}/properties/homeloc/writeproperty".format(ip_address),
+					"contentType":"application/json",
+					"op":"writeproperty",
+					"description":"this is a comment",
+					"mqv:commandCode": 3
+					}
+				]
+	    	},
+			"location":{
+	    		"title":"Return location",
+	    		"description":"Gives back the currant location",
+	    		"type":"object",
+	    		"required":["x","y","z"],
+	    		"properties":{
+	    			"x":{
+						"type":"integer",
+						"minimum": 120,
+						"maximum": 200
+						},
+	    			"y":{
+						"type":"integer",
+						"minimum": -200,
+						"maximum": 200
+						},
+	    			"z":{
+						"type":"integer",
+						"minimum": 0,
+						"maximum": 60
+						}
+	    		},
+				"forms": [
+					{"href": "http://{}/properties/location".format(ip_address),
+					"op": ["readproperty"],
+					"contentType":"application/json"
+					},
+					{
+					"href":"mqtt://{}/properties/location".format(ip_address),
+					"contentType":"application/json",
+					"op":"readproperty",
+					"mqv:commandCode": 8
+					}
+				]
 	    	}
 	    },
 	    "actions":{
@@ -45,6 +94,12 @@ def get_td(ip_address):
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
+				},
+				{
+					"href":"mqtt://{}/actions/beep".format(ip_address),
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"mqv:commandCode": 3
 				}],
 				"idempotent": True,
 				"safe": False
@@ -86,6 +141,12 @@ def get_td(ip_address):
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
+				},
+				{
+					"href":"mqtt://{}/actions/beep".format(ip_address),
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"mqv:commandCode": 3
 				}],
 				"idempotent": False,
 				"safe": False
@@ -94,11 +155,29 @@ def get_td(ip_address):
 			"turnleft":{
 				"title":"Turn left",
 				"description":"Turn robot arm to left for a certain distance (  yet to be implemented in loT.py)",
+				"input":{
+					"type":"object",
+					"required":["y"],
+					"properties":{
+						
+						"y":{
+							"type":"number",
+							"minimum": -200,
+							"maximum": 200
+						}
+					}
+	    		},
 				"forms":[{
 					"href":"http://{}/actions/turnleft".format(ip_address),
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
+				},
+				{
+					"href":"mqtt://{}/actions/beep".format(ip_address),
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"mqv:commandCode": 3
 				}],
 				"idempotent": False,
 				"safe": False
@@ -106,11 +185,29 @@ def get_td(ip_address):
 			"turnright":{
 				"title":"Turn right",
 				"description":"Turn robot arm to right for a certain distance (has yet to be implemented in loT.py)",
+				"input":{
+					"type":"object",
+					"required":["y"],
+					"properties":{
+						
+						"y":{
+							"type":"number",
+							"minimum": -200,
+							"maximum": 200
+						}
+					}
+	    		},
 				"forms":[{
 					"href":"http://{}/actions/turnright".format(ip_address),
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
+				},
+				{
+					"href":"mqtt://{}/actions/beep".format(ip_address),
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"mqv:commandCode": 3
 				}],
 				"idempotent": False,
 				"safe": False
@@ -128,7 +225,7 @@ def get_td(ip_address):
 							"maximum": 200
 						},
 						"y":{
-							"type":"integer",
+							"type":"number",
 							"minimum": -200,
 							"maximum": 200
 						},
@@ -144,6 +241,12 @@ def get_td(ip_address):
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
+				},
+				{
+					"href":"mqtt://{}/actions/beep".format(ip_address),
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"mqv:commandCode": 3
 				}],
 				"idempotent": True,
 				"safe": False
@@ -182,6 +285,12 @@ def get_td(ip_address):
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
+				},
+				{
+					"href":"mqtt://{}/actions/beep".format(ip_address),
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"mqv:commandCode": 3
 				}],
 				"idempotent": True,
 				"safe": False
@@ -194,6 +303,12 @@ def get_td(ip_address):
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
+				},
+				{
+					"href":"mqtt://{}/actions/beep".format(ip_address),
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"mqv:commandCode": 3
 				}],
 				"idempotent": True,
 				"safe": False
@@ -206,6 +321,12 @@ def get_td(ip_address):
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
+				},
+				{
+					"href":"mqtt://{}/actions/beep".format(ip_address),
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"mqv:commandCode": 3
 				}],
 				"idempotent": True,
 				"safe": False
@@ -218,6 +339,12 @@ def get_td(ip_address):
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
+				},
+				{
+					"href":"mqtt://{}/actions/beep".format(ip_address),
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"mqv:commandCode": 3
 				}],
 				"idempotent": True,
 				"safe": False
