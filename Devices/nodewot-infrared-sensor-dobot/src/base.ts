@@ -29,27 +29,25 @@ export class WotDevice {
                     }
                 },
                 security: "nosec_sc",
-    properties:{
-                objectPresence:{
-				title:"Read infrared sensor",
-				description: "Reads the infrared sensor; 0: no object in front; 1: object in front.",
+                properties:{
+                    objectPresence:{
+				    title:"Read infrared sensor",
+				        description: "Reads the infrared sensor; 0: no object in front; 1: object in front.",
                             type: "boolean",
                             observable: true
-					}
-				},
-	            
-	events:{
-                detectedObject:{
-				title:"Object detected",
-				description: "Detects the rising edge of the signal of the infrared sensor.",
-				data:{
-					type: "boolean"
-				}
+					    }
+				},  
+	            events:{
+                    detectedObject:{
+				    title:"Object detected",
+				    description: "Detects the rising edge of the signal of the infrared sensor.",
+				    data:{
+					    type: "boolean"
+				    }
 							
-			}
-		}
-	
-            }
+			    }
+		    }
+        }
         ).then((exposedThing)=>{
 		    this.thing = exposedThing;
 		    this.td = exposedThing.getThingDescription();
