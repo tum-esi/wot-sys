@@ -1,6 +1,3 @@
-# Basic example
-
-
 Methods
 ---
 
