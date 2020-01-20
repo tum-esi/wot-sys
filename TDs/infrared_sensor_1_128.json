@@ -1,0 +1,51 @@
+{
+    "@context": ["https://www.w3.org/2019/wot/td/v1", {
+        "@language": "en"
+    }],
+    "id": "urn:dev:ops:32473-InfraredSensor-001",
+    "title": "InfraredSensor1",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "security": [
+        "nosec_sc"
+    ],
+    "property": {
+        "objectPresence": {
+            "title":"Read infrared sensor",
+            "description": "Reads the infrared sensor; 0: no object in front; 1: object in front.",
+            "type": "boolean",
+            "readOnly": true,
+            "writeOnly": false,
+            "observable": true,
+            "forms": [{
+                "href": "http://192.168.0.128:8080/InfraredSensor/properties/getobjectPresence",
+                "contentType": "application/json",
+                "op": "readproperty",
+                "htv:methodName": "GET"
+            },
+            {
+                "href": "http://192.168.0.128:8080/InfraredSensor/properties/observeobjectPresence", 
+                "contentType": "application/json",
+                "op": "observeproperty",
+                "htv:methodCode": "GET",
+		"subprotocol": "longpoll"
+            }]
+        }
+    },
+    "events": {
+        "detectedObject": {
+            "title": "Object detected",
+            "description": "Detects the rising edge of the signal of the infrared sensor.",
+            "data": { "const": "detectedObject" },
+            "forms": [{
+                "op": "subscribeevent",
+                "href": "http://192.168.0.128:8080/InfraredSensor/events/detectedObject",
+                "contentType": "application/json",
+                "subprotocol": "longpoll"
+            }] 
+        }
+    }
+}
