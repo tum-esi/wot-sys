@@ -1,3 +1,18 @@
+[![CircleCI](https://circleci.com/gh/luismesas/pydobot.svg?style=svg)](https://circleci.com/gh/luismesas/pydobot)
+
+Python library for Dobot Magician
+===
+
+Based on Communication Protocol V1.1.4 (_latest version [here](https://www.dobot.cc/downloadcenter.html?sub_cat=72#sub-download)_)
+
+
+Installation
+---
+
+```
+pip install pydobot
+```
+
 Methods
 ---
 
