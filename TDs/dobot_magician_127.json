@@ -1,0 +1,152 @@
+{
+    "@context": ["https://www.w3.org/2019/wot/td/v1", {
+        "@language": "en"
+    }],
+    "id": "urn:dev:ops:32473-DobotMagician-001",
+    "title": "DobotMagician",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "security": [
+        "nosec_sc"
+    ],
+    "actions": {
+        "startPosition": { 
+            "title": "Default start position",
+            "description": "The robot moves to the default start position", 
+            "output": {
+                "const": "Dobot magician is moving to the default start position"
+            },
+            "idempotent": false,
+            "safe": false,
+            "forms": [{
+                "href": "http://192.168.0.127:8080/DobotMagician/actions/startPosition",
+                "contentType": "application/json",
+                "op": "invokeaction",
+                "htv:methodName": "POST"
+            }]
+        },
+        "pickObjecktPosition1": { 
+            "title": "Pick object position 1",
+            "description": "The robot picks the object at position 1", 
+            "output": {
+                "const": "Dobot magician is picking object at position 1"
+            },
+            "idempotent": false,
+            "safe": false,
+            "forms": [{
+                "href": "http://192.168.0.127:8080/DobotMagician/actions/pickObjectPosition1",
+                "contentType": "application/json",
+                "op": "invokeaction",
+                "htv:methodName": "POST"
+            }]
+        },
+        "pickObjecktPosition2": { 
+            "title": "Pick object position 2",
+            "description": "The robot picks the object at position 2", 
+            "output": {
+                "const": "Dobot magician is picking object at position 2"
+            },
+            "idempotent": false,
+            "safe": false,
+            "forms": [{
+                "href": "http://192.168.0.127:8080/DobotMagician/actions/pickObjectPosition2",
+                "contentType": "application/json",
+                "op": "invokeaction",
+                "htv:methodName": "POST"
+            }]
+        },
+        "moveToColorSensor1": { 
+            "title": "Moves object to color sensor 1",
+            "description": "The robot moves the object at the color sensor 1 for reading the color of the object", 
+            "output": {
+                "const": "Dobot magician is moving object at the color sensor 1"
+            },
+            "idempotent": false,
+            "safe": false,
+            "forms": [{
+                "href": "http://192.168.0.127:8080/DobotMagician/actions/moveToColorSensor1",
+                "contentType": "application/json",
+                "op": "invokeaction",
+                "htv:methodName": "POST"
+            }]
+        },
+        "moveToColorSensor2": { 
+            "title": "Moves object to color sensor 2",
+            "description": "The robot moves the object at the color sensor 2 for reading the color of the object", 
+            "output": {
+                "const": "Dobot magician is moving object at the color sensor 2"
+            },
+            "idempotent": false,
+            "safe": false,
+            "forms": [{
+                "href": "http://192.168.0.127:8080/DobotMagician/actions/moveToColorSensor2",
+                "contentType": "application/json",
+                "op": "invokeaction",
+                "htv:methodName": "POST"
+            }]
+        },
+        "moveObjectRed": { 
+            "title": "Moves object to position red-color",
+            "description": "The robot moves the object to a colot dependend position", 
+            "output": {
+                "const": "Dobot magician is moving object at the color dependent position"
+            },
+            "idempotent": false,
+            "safe": false,
+            "forms": [{
+                "href": "http://192.168.0.127:8080/DobotMagician/actions/moveObjectRed",
+                "contentType": "application/json",
+                "op": "invokeaction",
+                "htv:methodName": "POST"
+            }]
+        },
+        "moveObjectGreen": { 
+            "title": "Moves object to position green-color",
+            "description": "The robot moves the object to a colot dependend position", 
+            "output": {
+                "const": "Dobot magician is moving object at the color dependent position"
+            },
+            "idempotent": false,
+            "safe": false,
+            "forms": [{
+                "href": "http://192.168.0.127:8080/DobotMagician/actions/moveObjectGreen",
+                "contentType": "application/json",
+                "op": "invokeaction",
+                "htv:methodName": "POST"
+            }]
+        },
+        "moveObjectBlue": { 
+            "title": "Moves object to position blue-color",
+            "description": "The robot moves the object to a colot dependend position", 
+            "output": {
+                "const": "Dobot magician is moving object at the color dependent position"
+            },
+            "idempotent": false,
+            "safe": false,
+            "forms": [{
+                "href": "http://192.168.0.127:8080/DobotMagician/actions/moveObjectBlue",
+                "contentType": "application/json",
+                "op": "invokeaction",
+                "htv:methodName": "POST"
+            }]
+        },
+        "moveObjectNone": { 
+            "title": "Moves object to position none-color",
+            "description": "The robot moves the object to a colot dependend position", 
+            "output": {
+                "const": "Dobot magician is moving object at the color dependent position"
+            },
+            "idempotent": false,
+            "safe": false,
+            "forms": [{
+                "href": "http://192.168.0.127:8080/DobotMagician/actions/moveObjectNone",
+                "contentType": "application/json",
+                "op": "invokeaction",
+                "htv:methodName": "POST"
+            }]
+        }   
+    }
+}
