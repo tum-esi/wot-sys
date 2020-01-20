@@ -1,0 +1,47 @@
+{
+    "@context": ["https://www.w3.org/2019/wot/td/v1", {
+        "@language": "en"
+    }],
+    "id": "urn:dev:ops:32473-ColorSensor-001",
+    "title": "ColorSensor",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "security": [
+        "nosec_sc"
+    ],
+    "actions": {
+        "readColor": { 
+            "title": "Read box-color",
+            "description": "Read the box color via the color sensor", 
+            "output": {
+                "enum": ["Red", "Green", "Blue", "None"]
+            },
+            "idempotent": true,
+            "safe": false,
+            "forms": [{
+                "href": "http://xxx.xxx.xxx.xxx:xxxx/ColorSensor/actions/readColor",
+                "contentType": "application/json",
+                "op": "invokeaction",
+                "htv:methodName": "POST"
+            }]
+        },
+        "lightUpLeds": { 
+            "title": "Light up leds",
+            "description": "Lights up the leds, so that a color detection can be done", 
+            "input": {
+                "enum": ["ON", "OFF"]
+            },
+            "idempotent": true,
+            "safe": false,
+            "forms": [{
+                "href": "http://xxx.xxx.xxx.xxx:xxxx/ColorSensor/actions/readColor",
+                "contentType": "application/json",
+                "op": "invokeaction",
+                "htv:methodName": "POST"
+            }]
+        }    
+    }
+}
