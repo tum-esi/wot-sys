@@ -39,10 +39,15 @@ The _ms1_, _ms2_, and _ms3_ parameters are optional, but required if you want mi
 
 ### Raspberry Pi Configuration
 
-* 
-* 
-* 
-* 
+* npm install
+* npm install pigpio
+* Raspberry Pi Configuration -> Enable remote connections -> Remote GPIO: enable
+* npm run build
+* instead of npm run start -> sudo npm run start
+
+In case of some problems with sudo npm run start, try:
+    sudo shutdown -r 0 
+and wait until the rpi is ready. 
 
 
 
