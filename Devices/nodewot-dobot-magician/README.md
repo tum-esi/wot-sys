@@ -50,3 +50,18 @@ Methods
     * **enable**: _bool_ enables/disables suction  
 * **.grip(enable)**
     * **enable**: _bool_ enables/disables gripper  
+
+
+### Autostart execution Raspberry Pi
+
+Use the following terminal command:
+```
+crontab -e
+```
+Write the commands that need to be executed at the reboot of the Raspberry Pi.
+Example text:
+
+```
+@reboot sleep 10 && ~/Desktop/FolderOfTheThingProgram && npm run start
+```
+Save and close.
