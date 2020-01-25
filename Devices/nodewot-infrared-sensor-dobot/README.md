@@ -9,9 +9,10 @@ Use the following terminal command:
 ```
 crontab -e
 ```
-
-example text:
+Write the commands that need to be executed at the reboot of the Raspberry Pi.
+Example text:
 
 ```
 @reboot sleep 10 && ~/Desktop/FolderOfTheThingProgram && npm run start
 ```
+Save and close.
