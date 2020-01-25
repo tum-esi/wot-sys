@@ -38,13 +38,13 @@ The _ms1_, _ms2_, and _ms3_ parameters are optional, but required if you want mi
 * 
 
 ### Raspberry Pi Configuration
-
+```javascript
 1)  npm install
 2)  npm install pigpio
 3)  Raspberry Pi Configuration -> Enable remote connections -> Remote GPIO: enable
 4)  npm run build
 5)  instead of npm run start -> sudo npm run start
-
+```
 In case of some problems with sudo npm run start, try:
 ```javascript
 sudo shutdown -r 0 
