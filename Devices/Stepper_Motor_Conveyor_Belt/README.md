@@ -1,4 +1,4 @@
-[![github](https://github.com/echicken/A4988)](https://github.com/echicken/A4988)
+[![github - A4988](https://github.com/echicken/A4988)](https://github.com/echicken/A4988)
 
 # A4988
 Use an A4988 stepper motor controller on a Raspberry Pi with node.js
@@ -40,8 +40,8 @@ The _ms1_, _ms2_, and _ms3_ parameters are optional, but required if you want mi
 ### Raspberry Pi Configuration
 
 You can find more information about the following steps here:
-[![CircleCI](https://gpiozero.readthedocs.io/en/stable/remote_gpio.html)]
-[![CircleCI](https://www.npmjs.com/package/pigpio)]
+ [![gpiozero - remote_gpio](https://gpiozero.readthedocs.io/en/stable/remote_gpio.html)](https://gpiozero.readthedocs.io/en/stable/remote_gpio.html)
+ [![npmjs - pigpio](https://www.npmjs.com/package/pigpio)](https://www.npmjs.com/package/pigpio)
 
 ```
 1)  npm install
