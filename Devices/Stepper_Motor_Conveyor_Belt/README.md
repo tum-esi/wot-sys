@@ -1,4 +1,4 @@
-[![CircleCI](https://github.com/echicken/A4988)]
+[![github](https://github.com/echicken/A4988)](https://github.com/echicken/A4988)
 
 # A4988
 Use an A4988 stepper motor controller on a Raspberry Pi with node.js
