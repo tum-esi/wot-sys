@@ -1,0 +1,45 @@
+@startuml
+header basic full
+footer Page %page% of %lastpage%
+
+title Mashup detect&stop&movebelt
+
+skinparam ParticipantPadding 20
+skinparam BoxPadding 10
+
+participant MashupControl as MC
+
+box "Part 1"
+participant ConveyorBelt1 as CB1
+participant InfraredSensor1 as IS1
+end box
+
+box "Part 2"
+participant ConveyorBelt2 as CB2
+participant InfraredSensor2 as IS2
+end box
+
+
+== Initialization ==
+
+MC -> CB1: invokeAction("startBeltForward")
+activate CB1
+MC -> CB2: invokeAction("startBeltForward")
+activate CB2
+
+== Repetition ==
+
+MC <-- IS1: subscribeEvent("detectedObject")
+MC -> CB1: invokeAction("stopBelt")
+deactivate CB1
+...5 seconds later...
+MC -> CB1: invokeAction("startBeltForward")
+activate CB1
+
+MC <-- IS2: subscribeEvent("detectedObject")
+MC -> CB2: invokeAction("stopBelt")
+deactivate CB2
+...5 seconds later...
+MC -> CB2: invokeAction("startBeltForward")
+activate CB2
+@enduml
