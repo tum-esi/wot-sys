@@ -40,8 +40,10 @@ The _ms1_, _ms2_, and _ms3_ parameters are optional, but required if you want mi
 ### Raspberry Pi Configuration
 
 You can find more information about the following steps here:
- [![gpiozero - remote_gpio](https://gpiozero.readthedocs.io/en/stable/remote_gpio.html)](https://gpiozero.readthedocs.io/en/stable/remote_gpio.html)
- [![npmjs - pigpio](https://www.npmjs.com/package/pigpio)](https://www.npmjs.com/package/pigpio)
+
+[![gpiozero - remote_gpio](https://gpiozero.readthedocs.io/en/stable/remote_gpio.html)](https://gpiozero.readthedocs.io/en/stable/remote_gpio.html)
+
+[![npmjs - pigpio](https://www.npmjs.com/package/pigpio)](https://www.npmjs.com/package/pigpio)
 
 ```
 1)  npm install
