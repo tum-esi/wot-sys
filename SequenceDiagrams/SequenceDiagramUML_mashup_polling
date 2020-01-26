@@ -1,0 +1,140 @@
+@startuml
+header basic full
+footer Page %page% of %lastpage%
+
+title Mashup polling
+
+skinparam ParticipantPadding 20
+skinparam BoxPadding 10
+
+participant MashupControl as MC
+participant DobotMagician as DM
+
+box "Part 1"
+participant ConveyorBelt1 as CB1
+participant InfraredSensor1 as IS1
+participant ColorSensor1 as CS1
+end box
+
+box "Part 2"
+participant ConveyorBelt2 as CB2
+participant InfraredSensor2 as IS2
+participant ColorSensor2 as CS2
+end box
+
+
+== Initialization ==
+
+MC -> DM: invokeAction("startPosition")
+activate DM
+DM -> DM: done
+deactivate DM
+
+MC -> CB1: invokeAction("startBeltForward")
+activate CB1
+MC -> CB2: invokeAction("startBeltForward")
+activate CB2
+
+== Repetition ==
+
+loop repeat every 50 ms
+MC -> IS1: readProperty("objectPresence")
+MC <-- IS1: objectPresence
+alt objectPresence == 1
+MC -> MC: myVar = false;
+MC -> CB1: invokeAction("stopBelt")
+deactivate CB1
+MC -> DM: invokeAction("pickObjectPosition1")
+activate DM
+MC <-- DM: done
+deactivate DM
+MC -> DM: invokeAction("moveToColorSensor1")
+activate DM
+MC <-- DM: done
+deactivate DM
+MC -> CS1: invokeAction("readColor")
+activate CS1
+MC <-- CS1: done with Output: myOutputColor1
+deactivate CS1
+group Color dependent
+alt Red
+MC -> DM: invokeAction("moveObjectRed")
+activate DM
+MC <-- DM: done
+deactivate DM
+else Green
+MC -> DM: invokeAction("moveObjectGreen")
+activate DM
+MC <-- DM: done
+deactivate DM
+else Blue
+MC -> DM: invokeAction("moveObjectBlue")
+activate DM
+MC <-- DM: done
+deactivate DM
+else None
+MC -> DM: invokeAction("moveObjectNone")
+activate DM
+MC <-- DM: done
+deactivate DM
+end
+end
+MC -> CB1: invokeAction("startBeltForward")
+activate CB1
+MC -> MC: myVar = true;
+else objectPresence == 0
+end
+end
+
+
+loop repeat every 50 ms
+MC -> IS2: readProperty("objectPresence")
+MC <-- IS2: objectPresence
+alt objectPresence == 1
+MC -> MC: myVar = false;
+MC -> CB2: invokeAction("stopBelt")
+deactivate CB2
+MC -> DM: invokeAction("pickObjectPosition2")
+activate DM
+MC <-- DM: done
+deactivate DM
+MC -> DM: invokeAction("moveToColorSensor2")
+activate DM
+MC <-- DM: done
+deactivate DM
+MC -> CS2: invokeAction("readColor")
+activate CS2
+MC <-- CS2: done with Output: myOutputColor2
+deactivate CS2
+group Color dependent
+alt Red
+MC -> DM: invokeAction("moveObjectRed")
+activate DM
+MC <-- DM: done
+deactivate DM
+else Green
+MC -> DM: invokeAction("moveObjectGreen")
+activate DM
+MC <-- DM: done
+deactivate DM
+else Blue
+MC -> DM: invokeAction("moveObjectBlue")
+activate DM
+MC <-- DM: done
+deactivate DM
+else None
+MC -> DM: invokeAction("moveObjectNone")
+activate DM
+MC <-- DM: done
+deactivate DM
+end
+end
+MC -> CB2: invokeAction("startBeltForward")
+activate CB2
+MC -> MC: myVar = true;
+else objectPresence == 0
+end
+end
+
+
+@enduml
