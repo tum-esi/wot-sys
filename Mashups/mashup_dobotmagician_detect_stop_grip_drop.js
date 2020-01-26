@@ -8,7 +8,7 @@ This mashup contains the following things:
     - two conveyor belts, moved by stepper motors
     - one dobot magician
 
-Each conveyor belt starts at the beginning, and stops when the infrared sensor detects an object. After that, the robot the robot moves the object still to the same specified position. 
+Each conveyor belt starts at the beginning, and stops when the infrared sensor detects an object. After that, the robot moves the object still to the same specified position. 
 After that the robot is ready for a new command from the same conveyor belt or for a command from the other conveyor belt. At the end of the moving operation, the conveyor belt 
 restarts automatically again. 
 
