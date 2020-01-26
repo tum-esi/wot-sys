@@ -10,7 +10,7 @@ This mashup contains the following things:
     - one dobot magician
 
 Each conveyor belt starts at the beginning, and stops when the infrared sensor detects an object. After that, the robot moves this object to a color detection. Depending on the color, 
-the robot moves the object to a specified position. After that the robot is ready for a new command from the same conveyor belt or for a command from the other conveyor belt. At the 
+the robot moves the object to a specified position. After that, the robot is ready for a new command from the same conveyor belt or for a command from the other conveyor belt. At the 
 end of the moving operation, the conveyor belt restarts automatically again. 
 
 
@@ -23,6 +23,8 @@ const ConveyorBelt1_TD_ADDRESS = "http://192.168.0.130:8080/StepperMotor";
 const ConveyorBelt2_TD_ADDRESS = "http://192.168.0.131:8080/StepperMotor";
 const VirtualColorSensor1_TD_ADDRESS = "http://localhost:8081/ColorSensor";
 const VirtualColorSensor2_TD_ADDRESS = "http://localhost:8082/ColorSensor";
+const CheckInfraredSensor1 = 50; // ms
+const CheckInfraredSensor2 = 50; // ms
 
 WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
     let robotThing = await WoT.consume(robotTD);
@@ -59,7 +61,7 @@ WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
                     else {
                         // no object in front of the sensor
                     }
-                }, 10);     // repeat every 10 ms
+                }, CheckInfraredSensor1);     // repeat every ... ms
 
                 async function detectedObjectPosition1(){
                     // Stop the conveyor belt
@@ -123,7 +125,7 @@ WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
                     else {
                         // no object in front of the sensor
                     }
-                }, 10);     // repeat every 10 ms
+                }, CheckInfraredSensor2);     // repeat every ... ms
 
                async function detectedObjectPosition2(){
                     // Stop the conveyor belt
