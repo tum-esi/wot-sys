@@ -23,7 +23,7 @@ end box
 
 MC -> DM: invokeAction("startPosition")
 activate DM
-DM -> DM: done
+MC <-- DM: done
 deactivate DM
 
 MC -> CB1: invokeAction("startBeltForward")
