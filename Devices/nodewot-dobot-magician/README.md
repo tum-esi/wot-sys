@@ -1,17 +1,44 @@
-[![CircleCI](https://circleci.com/gh/luismesas/pydobot.svg?style=svg)](https://circleci.com/gh/luismesas/pydobot)
+![DobotMagician](Devices/nodewot-dobot-magician/Images/Dobot_Magician.png)
+
+### Raspberry Pi Configuration
+
+You can find more information about the following step "pip install pydobot" 
+
+```
+1)  npm install
+2)  pip install pydobot 
+3)  npm run build
+4)  npm run start
+```
+In case of some problems with npm run start, try:
+```
+sudo shutdown -r 0 
+```
+and wait until the rpi is ready. 
+
 
 Python library for Dobot Magician
 ===
 
+You can find more information about the original files here:
+[![CircleCI](https://circleci.com/gh/luismesas/pydobot.svg?style=svg)](https://circleci.com/gh/luismesas/pydobot)
+
 Based on Communication Protocol V1.1.4 (_latest version [here](https://www.dobot.cc/downloadcenter.html?sub_cat=72#sub-download)_)
 
 
-Installation
+Installation of the pydobot library:
 ---
 
 ```
 pip install pydobot
 ```
+
+Then replace the following file given here in the directory lib -> pydobot.
+```
+dobot.py
+```
+This file contains also the commands for the sliding rail of the dobot magician. 
+
 
 Methods
 ---
