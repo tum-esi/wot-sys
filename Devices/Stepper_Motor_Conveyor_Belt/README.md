@@ -73,7 +73,7 @@ Save and close.
 
 ### Schematics
 
-![wiring](https://gitlab.lrz.de/tum-ei-esi/wot-sys/blob/emil-fp/Devices/Stepper_Motor_Conveyor_Belt/Schematics/Schematics_Stepper_Motor.png)
+![wiring](https://gitlab.lrz.de/tum-ei-esi/wot-sys/blob/emil-fp/Devices/Stepper_Motor_Conveyor_Belt/Schematics/Schematics_Stepper_Motor.jpg)
 
 ![A4988](https://gitlab.lrz.de/tum-ei-esi/wot-sys/blob/emil-fp/Devices/Stepper_Motor_Conveyor_Belt/Schematics/A4988_Stepper_Motor_Driver.png)
 
