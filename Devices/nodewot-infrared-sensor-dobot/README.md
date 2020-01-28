@@ -16,3 +16,7 @@ Example text:
 @reboot sleep 10 && ~/Desktop/FolderOfTheThingProgram && npm run start
 ```
 Save and close.
+
+### Schematics
+
+![wiring](Devices/nodewot-infrared-sensor-dobot/Schematics/Schematics_Infrared_Sensor.png)
