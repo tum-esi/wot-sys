@@ -41,6 +41,8 @@ deactivate CB1
 MC -> CB1: invokeAction("startBeltForward")
 activate CB1
 
+... after some time ...
+
 MC <-- IS2: emitEvent("detectedObject")
 MC -> CB2: invokeAction("stopBelt")
 deactivate CB2
