@@ -21,6 +21,8 @@ end box
 
 == Initialization ==
 
+activate MC
+
 MC -> DM: invokeAction("startPosition")
 activate DM
 MC <-- DM: done
