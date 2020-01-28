@@ -2,7 +2,7 @@
 
 ### Raspberry Pi Configuration
 
-You can find more information about the following step "pip install pydobot" 
+You can find more information about the following step "pip install pydobot" after the Raspberry Pi Configuration at Python library for Dobot Magician with sliding rail.
 
 ```
 1)  npm install
@@ -17,7 +17,7 @@ sudo shutdown -r 0
 and wait until the rpi is ready. 
 
 
-Python library for Dobot Magician
+Python library for Dobot Magician with sliding rail
 ===
 
 You can find more information about the original files here:
