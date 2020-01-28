@@ -35,7 +35,6 @@ The _ms1_, _ms2_, and _ms3_ parameters are optional, but required if you want mi
 * **stop()** - Abort a turn in progress
 * **enable()** - boolean-format like above
 * **disable()** - boolean-format like above
-* 
 
 ### Raspberry Pi Configuration
 
