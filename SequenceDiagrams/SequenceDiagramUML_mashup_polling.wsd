@@ -1,6 +1,4 @@
 @startuml
-header basic full
-footer Page %page% of %lastpage%
 
 title Mashup polling
 
