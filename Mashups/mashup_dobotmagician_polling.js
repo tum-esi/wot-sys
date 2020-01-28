@@ -1,5 +1,5 @@
 /*
-This is a mashup that uses the devices of the dobot magician setup and is based SETINTERVAL for triggering the ACTIONS.
+This is a mashup that uses the devices of the dobot magician setup and is based on SETINTERVAL for triggering the ACTIONS.
 
 Description:
 
