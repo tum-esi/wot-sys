@@ -57,12 +57,10 @@ activate CS1
 MC <-- CS1: done with Output: myOutputColor1
 deactivate CS1
 group Color independent
-alt None
 MC -> DM: invokeAction("moveObjectNone")
 activate DM
 MC <-- DM: done
 deactivate DM
-end
 end
 MC -> CB1: invokeAction("startBeltForward")
 activate CB1
@@ -84,12 +82,10 @@ activate CS2
 MC <-- CS2: done with Output: myOutputColor2
 deactivate CS2
 group Color independent
-alt None
 MC -> DM: invokeAction("moveObjectNone")
 activate DM
 MC <-- DM: done
 deactivate DM
-end
 end
 MC -> CB2: invokeAction("startBeltForward")
 activate CB2
@@ -115,12 +111,10 @@ activate CS1
 MC <-- CS1: done with Output: myOutputColor1
 deactivate CS1
 group Color independent
-alt None
 MC -> DM: invokeAction("moveObjectNone")
 activate DM
 MC <-- DM: done
 deactivate DM
-end
 end
 MC -> CB1: invokeAction("startBeltForward")
 activate CB1
@@ -138,12 +132,10 @@ activate CS2
 MC <-- CS2: done with Output: myOutputColor2
 deactivate CS2
 group Color independent
-alt None
 MC -> DM: invokeAction("moveObjectNone")
 activate DM
 MC <-- DM: done
 deactivate DM
-end
 end
 MC -> CB2: invokeAction("startBeltForward")
 activate CB2
