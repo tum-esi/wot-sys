@@ -22,10 +22,11 @@ sudo shutdown -r 0
 and wait until the rpi is ready. 
 
 
-[![github - A4988](https://github.com/echicken/A4988)](https://github.com/echicken/A4988)
-
 # A4988
 Use an A4988 stepper motor controller on a Raspberry Pi with node.js
+
+You can find more about the original files here:
+[![github - A4988](https://github.com/echicken/A4988)](https://github.com/echicken/A4988)
 
 ```javascript
 const A4988 = require('A4988');
