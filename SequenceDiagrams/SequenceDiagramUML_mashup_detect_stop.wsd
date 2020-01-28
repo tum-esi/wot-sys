@@ -20,6 +20,8 @@ end box
 
 == Initialization ==
 
+activate MC
+
 MC -> CB1: invokeAction("startBeltForward")
 activate CB1
 MC -> CB2: invokeAction("startBeltForward")
