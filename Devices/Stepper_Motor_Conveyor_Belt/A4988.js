@@ -1,4 +1,4 @@
-const Gpio = require('/home/pi/Desktop/Stepper_Motor/node_modules/pigpio').Gpio;
+const Gpio = require('../node_modules/pigpio').Gpio;
 
 class A4988 {
 
@@ -13,7 +13,7 @@ class A4988 {
         this._turning = false;
 
         this._step = new Gpio(step, { mode: Gpio.OUTPUT });
-        this._dir = new Gpio(dir, { mode: Gpio.OUTPUT });;
+        this._dir = new Gpio(dir, { mode: Gpio.OUTPUT });
         this._step.digitalWrite(false);
         this._dir.digitalWrite(false);
 
