@@ -1,4 +1,4 @@
-Dobo tMagician
+# Dobot Magician
 
 ![DobotMagician](Devices/nodewot-dobot-magician/Images/Dobot_Magician.png)
 
