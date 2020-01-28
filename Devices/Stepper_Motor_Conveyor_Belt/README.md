@@ -1,3 +1,27 @@
+![ConveyorBelt](Devices/Stepper_Motor_Conveyor_Belt/Images/ConveyorBelt.png)
+
+The conveyor belt is moved by a stepper motor, which is controlled by a Raspberry Pi over a A4988 stepper motor driver. You can find more about the nodejs library for the A4988 after the Raspberry Pi Configuration. 
+
+### Raspberry Pi Configuration
+
+You can find more information about the following steps here:  
+* [![gpiozero - remote_gpio](https://gpiozero.readthedocs.io/en/stable/remote_gpio.html)](https://gpiozero.readthedocs.io/en/stable/remote_gpio.html)   
+* [![npmjs - pigpio](https://www.npmjs.com/package/pigpio)](https://www.npmjs.com/package/pigpio)
+
+```
+1)  npm install
+2)  npm install pigpio
+3)  Raspberry Pi Configuration -> Enable remote connections -> Remote GPIO: enable
+4)  npm run build
+5)  instead of npm run start -> sudo npm run start
+```
+In case of some problems with sudo npm run start, try:
+```
+sudo shutdown -r 0 
+```
+and wait until the rpi is ready. 
+
+
 [![github - A4988](https://github.com/echicken/A4988)](https://github.com/echicken/A4988)
 
 # A4988
@@ -35,26 +59,6 @@ The _ms1_, _ms2_, and _ms3_ parameters are optional, but required if you want mi
 * **stop()** - Abort a turn in progress
 * **enable()** - boolean-format like above
 * **disable()** - boolean-format like above
-
-### Raspberry Pi Configuration
-
-You can find more information about the following steps here:  
-* [![gpiozero - remote_gpio](https://gpiozero.readthedocs.io/en/stable/remote_gpio.html)](https://gpiozero.readthedocs.io/en/stable/remote_gpio.html)   
-* [![npmjs - pigpio](https://www.npmjs.com/package/pigpio)](https://www.npmjs.com/package/pigpio)
-
-```
-1)  npm install
-2)  npm install pigpio
-3)  Raspberry Pi Configuration -> Enable remote connections -> Remote GPIO: enable
-4)  npm run build
-5)  instead of npm run start -> sudo npm run start
-```
-In case of some problems with sudo npm run start, try:
-```
-sudo shutdown -r 0 
-```
-and wait until the rpi is ready. 
-
 
 ### Autostart execution Raspberry Pi
 
