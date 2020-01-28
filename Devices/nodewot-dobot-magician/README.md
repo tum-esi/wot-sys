@@ -1,3 +1,5 @@
+Dobo tMagician
+
 ![DobotMagician](Devices/nodewot-dobot-magician/Images/Dobot_Magician.png)
 
 ### Raspberry Pi Configuration
