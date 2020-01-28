@@ -1,6 +1,4 @@
 @startuml
-header basic full
-footer Page %page% of %lastpage%
 
 title Mashup detect&stop&color
 
@@ -35,9 +33,15 @@ activate CB1
 MC -> CB2: invokeAction("startBeltForward")
 activate CB2
 
+MC -> IS1: subscribeEvent("detectObject")
+activate IS1
+
+MC -> IS2: subscribeEvent("detectObject")
+activate IS2
+
 == Repetition ==
 
-MC <-- IS1: subscribeEvent("detectedObject")
+MC <-- IS1: emitEvent("detectedObject")
 MC -> CB1: invokeAction("stopBelt")
 deactivate CB1
 MC -> DM: invokeAction("pickObjectPosition1")
@@ -64,7 +68,7 @@ MC -> CB1: invokeAction("startBeltForward")
 activate CB1
 
 
-MC <-- IS2: subscribeEvent("detectedObject")
+MC <-- IS2: emitEvent("detectedObject")
 MC -> CB2: invokeAction("stopBelt")
 deactivate CB2
 MC -> DM: invokeAction("pickObjectPosition2")
@@ -90,7 +94,7 @@ end
 MC -> CB2: invokeAction("startBeltForward")
 activate CB2
 
-MC <-- IS1: subscribeEvent("detectedObject")
+MC <-- IS1: emitEvent("detectedObject")
 MC -> CB1: invokeAction("stopBelt")
 deactivate CB1
 MC -> DM: invokeAction("pickObjectPosition1")
@@ -98,7 +102,7 @@ activate DM
 MC <-- DM: done
 deactivate DM
 
-MC <-- IS2: subscribeEvent("detectedObject")
+MC <-- IS2: emitEvent("detectedObject")
 MC -> CB2: invokeAction("stopBelt")
 deactivate CB2
 
