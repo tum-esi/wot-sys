@@ -22,10 +22,13 @@ end box
 
 MC -> CB1: invokeAction("startBeltForward")
 activate CB1
+
 MC -> CB2: invokeAction("startBeltForward")
 activate CB2
+
 MC -> IS1: subscribeEvent("detectObject")
 activate IS1
+
 MC -> IS2: subscribeEvent("detectObject")
 activate IS2
 
