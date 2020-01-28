@@ -59,6 +59,7 @@ end
 MC -> CB1: invokeAction("startBeltForward")
 activate CB1
 
+... after some time ...
 
 MC <-- IS2: emitEvent("detectedObject")
 MC -> CB2: invokeAction("stopBelt")
@@ -77,6 +78,8 @@ end
 end
 MC -> CB2: invokeAction("startBeltForward")
 activate CB2
+
+... after some time ...
 
 MC <-- IS1: emitEvent("detectedObject")
 MC -> CB1: invokeAction("stopBelt")
