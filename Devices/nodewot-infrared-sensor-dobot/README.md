@@ -2,6 +2,22 @@
 
 ![Infrared Sensor](https://www.microchip.lk/wp-content/uploads/2018/03/ir-barrier-sensor-e18-d80nk.jpg)
 
+### Raspberry Pi Configuration
+
+You can find more information about the following steps here:  
+* [![onoff](https://www.npmjs.com/package/onoff)](https://www.npmjs.com/package/onoff)   
+
+```
+1)  npm install
+2)  npm install onoff
+3)  npm run build
+4)  npm run start
+```
+In case of some problems with npm run start, try:
+```
+sudo shutdown -r 0 
+```
+and wait until the rpi is ready. 
 
 ### Autostart execution Raspberry Pi
 
