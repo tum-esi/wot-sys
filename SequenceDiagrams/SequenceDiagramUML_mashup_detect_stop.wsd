@@ -38,6 +38,8 @@ MC <-- IS1: emitEvent("detectedObject")
 MC -> CB1: invokeAction("stopBelt")
 deactivate CB1
 
+... after some time ...
+
 MC <-- IS2: emitEvent("detectedObject")
 MC -> CB2: invokeAction("stopBelt")
 deactivate CB2
