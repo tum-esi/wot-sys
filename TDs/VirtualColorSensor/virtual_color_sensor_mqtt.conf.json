@@ -1,0 +1,18 @@
+{
+	"servient": {
+		"staticAddress": "localhost",
+		"mqtt": {
+			"local": {
+				"port": 1884
+			}
+		}
+	},
+	"log": {
+		"level": 4
+	},
+	"things": {
+		"urn:dev:ops:32473-ColorSensor-001": {
+			"eventIntervals": {}
+		}
+	}
+}
