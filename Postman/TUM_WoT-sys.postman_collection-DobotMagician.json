@@ -1,0 +1,858 @@
+{
+	"info": {
+		"_postman_id": "40874350-e8b7-424f-b129-77a8a0e02e66",
+		"name": "Mashup",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "DobotMagician",
+			"item": [
+				{
+					"name": "DobotMagician/actions/startPosition",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.127:8080/DobotMagician/actions/startPosition",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"127"
+							],
+							"port": "8080",
+							"path": [
+								"DobotMagician",
+								"actions",
+								"startPosition"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DobotMagician/actions/pickObjectPosition1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.127:8080/DobotMagician/actions/pickObjectPosition1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"127"
+							],
+							"port": "8080",
+							"path": [
+								"DobotMagician",
+								"actions",
+								"pickObjectPosition1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DobotMagician/actions/pickObjectPosition2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.127:8080/DobotMagician/actions/pickObjectPosition2",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"127"
+							],
+							"port": "8080",
+							"path": [
+								"DobotMagician",
+								"actions",
+								"pickObjectPosition2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DobotMagician/actions/moveToColorSensor1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.127:8080/DobotMagician/actions/moveToColorSensor1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"127"
+							],
+							"port": "8080",
+							"path": [
+								"DobotMagician",
+								"actions",
+								"moveToColorSensor1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DobotMagician/actions/moveToColorSensor2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.127:8080/DobotMagician/actions/moveToColorSensor2",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"127"
+							],
+							"port": "8080",
+							"path": [
+								"DobotMagician",
+								"actions",
+								"moveToColorSensor2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DobotMagician/actions/moveObjectRed",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.127:8080/DobotMagician/actions/moveObjectRed",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"127"
+							],
+							"port": "8080",
+							"path": [
+								"DobotMagician",
+								"actions",
+								"moveObjectRed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DobotMagician/actions/moveObjectGreen",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.127:8080/DobotMagician/actions/moveObjectGreen",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"127"
+							],
+							"port": "8080",
+							"path": [
+								"DobotMagician",
+								"actions",
+								"moveObjectGreen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DobotMagician/actions/moveObjectBlue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.127:8080/DobotMagician/actions/moveObjectBlue",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"127"
+							],
+							"port": "8080",
+							"path": [
+								"DobotMagician",
+								"actions",
+								"moveObjectBlue"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DobotMagician/actions/moveObjectNone",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.127:8080/DobotMagician/actions/moveObjectNone",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"127"
+							],
+							"port": "8080",
+							"path": [
+								"DobotMagician",
+								"actions",
+								"moveObjectNone"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "InfraredSensor1",
+			"item": [
+				{
+					"name": "InfraredSensor1/properties/getobjectPresence",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.0.128:8080/InfraredSensor/properties/getobjectPresence",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"128"
+							],
+							"port": "8080",
+							"path": [
+								"InfraredSensor",
+								"properties",
+								"getobjectPresence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "InfraredSensor1/properties/observeobjectPresence",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.0.128:8080/InfraredSensor/properties/observeobjectPresence",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"128"
+							],
+							"port": "8080",
+							"path": [
+								"InfraredSensor",
+								"properties",
+								"observeobjectPresence"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "InfraredSensor2",
+			"item": [
+				{
+					"name": "InfraredSensor2/properties/observeobjectPresence",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.0.130:8080/StepperMotor/properties/speed",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"130"
+							],
+							"port": "8080",
+							"path": [
+								"StepperMotor",
+								"properties",
+								"speed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "InfraredSensor2/properties/getobjectPresence",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.0.129:8080/InfraredSensor/properties/getobjectPresence",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"129"
+							],
+							"port": "8080",
+							"path": [
+								"InfraredSensor",
+								"properties",
+								"getobjectPresence"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ConveyorBelt1/StepperMotor1",
+			"item": [
+				{
+					"name": "StepperMotor1/properties/speed",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.0.130:8080/StepperMotor/properties/speed",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"130"
+							],
+							"port": "8080",
+							"path": [
+								"StepperMotor",
+								"properties",
+								"speed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StepperMotor1/properties/speed",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7cde2635-f16e-44a7-b235-fd8d1585afa1",
+								"exec": [
+									"pm.environment.set(\"variable_key\", \"variable_value\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "1",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.0.130:8080/StepperMotor/properties/speed",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"130"
+							],
+							"port": "8080",
+							"path": [
+								"StepperMotor",
+								"properties",
+								"speed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StepperMotor1/actions/startBeltForward",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.130:8080/StepperMotor/actions/startBeltForward",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"130"
+							],
+							"port": "8080",
+							"path": [
+								"StepperMotor",
+								"actions",
+								"startBeltForward"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StepperMotor1/actions/startBeltBackward",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.130:8080/StepperMotor/actions/startBeltBackward",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"130"
+							],
+							"port": "8080",
+							"path": [
+								"StepperMotor",
+								"actions",
+								"startBeltBackward"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StepperMotor1/actions/stopBelt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.130:8080/StepperMotor/actions/stopBelt",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"130"
+							],
+							"port": "8080",
+							"path": [
+								"StepperMotor",
+								"actions",
+								"stopBelt"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ConveyorBelt2/StepperMotor2",
+			"item": [
+				{
+					"name": "StepperMotor2/properties/speed",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.0.131:8080/StepperMotor/properties/speed",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"131"
+							],
+							"port": "8080",
+							"path": [
+								"StepperMotor",
+								"properties",
+								"speed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StepperMotor2/properties/speed",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7cde2635-f16e-44a7-b235-fd8d1585afa1",
+								"exec": [
+									"pm.environment.set(\"variable_key\", \"variable_value\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "1",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.0.131:8080/StepperMotor/properties/speed",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"131"
+							],
+							"port": "8080",
+							"path": [
+								"StepperMotor",
+								"properties",
+								"speed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StepperMotor2/actions/startBeltForward",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.131:8080/StepperMotor/actions/startBeltForward",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"131"
+							],
+							"port": "8080",
+							"path": [
+								"StepperMotor",
+								"actions",
+								"startBeltForward"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StepperMotor2/actions/startBeltBackward",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.131:8080/StepperMotor/actions/startBeltBackward",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"131"
+							],
+							"port": "8080",
+							"path": [
+								"StepperMotor",
+								"actions",
+								"startBeltBackward"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StepperMotor2/actions/stopBelt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.0.131:8080/StepperMotor/actions/stopBelt",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"131"
+							],
+							"port": "8080",
+							"path": [
+								"StepperMotor",
+								"actions",
+								"stopBelt"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "VirtualColorSensor1",
+			"item": [
+				{
+					"name": "ColorSensor1/actions/readColor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/ColorSensor/actions/readColor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"ColorSensor",
+								"actions",
+								"readColor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ColorSensor1/actions/lightUpLeds",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/ColorSensor/actions/lightUpLeds",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"ColorSensor",
+								"actions",
+								"lightUpLeds"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "VirtualColorSensor2",
+			"item": [
+				{
+					"name": "ColorSensor2/actions/readColor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/ColorSensor/actions/readColor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"ColorSensor",
+								"actions",
+								"readColor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ColorSensor2/actions/lightUpLeds",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/ColorSensor/actions/lightUpLeds",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"ColorSensor",
+								"actions",
+								"lightUpLeds"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
