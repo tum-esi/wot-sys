@@ -9,7 +9,7 @@ You can find more information about the following steps here:
 
 ```
 1)  npm install
-2)  npm install onoff
+2)  (npm install onoff) -> already included in package.json
 3)  npm run build
 4)  npm run start
 ```
