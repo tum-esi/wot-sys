@@ -1,5 +1,5 @@
 # Virtual Color Sensor
-## You can simulate one or more color sensors using the TD and the appropriate prepared configuration file 
+## You can simulate one or more color sensors using the TD files and the appropriate prepared configuration files 
 
 ## Prerequisites
 All systems require:
