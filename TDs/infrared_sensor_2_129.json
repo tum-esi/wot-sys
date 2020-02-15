@@ -21,13 +21,13 @@
             "writeOnly": false,
             "observable": true,
             "forms": [{
-                "href": "http://192.168.0.129:8080/InfraredSensor/properties/getobjectPresence",
+                "href": "http://192.168.0.129:8080/InfraredSensor2/properties/objectPresence",
                 "contentType": "application/json",
                 "op": "readproperty",
                 "htv:methodName": "GET"
             },
             {
-                "href": "http://192.168.0.129:8080/InfraredSensor/properties/observeobjectPresence", 
+                "href": "http://192.168.0.129:8080/InfraredSensor2/properties/objectPresence/observeable", 
                 "contentType": "application/json",
                 "op": "observeproperty",
                 "htv:methodCode": "GET",
@@ -42,7 +42,7 @@
             "data": { "const": "detectedObject" },
             "forms": [{
                 "op": "subscribeevent",
-                "href": "http://192.168.0.129:8080/InfraredSensor/events/detectedObject",
+                "href": "http://192.168.0.129:8080/InfraredSensor2/events/detectedObject",
                 "contentType": "application/json",
                 "subprotocol": "longpoll"
             }] 
