@@ -3,7 +3,7 @@
         "@language": "en"
     }],
     "id": "urn:dev:ops:32473-StepperMotor-002",
-    "title": "StepperMotor2",
+    "title": "StepperMotor",
     "securityDefinitions": {
         "nosec_sc": {
             "scheme": "nosec"
