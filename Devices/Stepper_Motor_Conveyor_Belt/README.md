@@ -12,7 +12,7 @@ You can find more information about the following steps here:
 
 ```
 1)  npm install
-2)  npm install pigpio
+2)  (npm install pigpio) -> already included in package.json
 3)  Raspberry Pi Configuration -> Enable remote connections -> Remote GPIO: enable
 4)  npm run build
 5)  instead of npm run start -> sudo npm run start
