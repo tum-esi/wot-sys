@@ -21,8 +21,8 @@ const Infrared1_TD_ADDRESS = "http://192.168.0.128:8080/InfraredSensor1";
 const Infrared2_TD_ADDRESS = "http://192.168.0.129:8080/InfraredSensor2";
 const ConveyorBelt1_TD_ADDRESS = "http://192.168.0.130:8080/StepperMotor";
 const ConveyorBelt2_TD_ADDRESS = "http://192.168.0.131:8080/StepperMotor";
-const VirtualColorSensor1_TD_ADDRESS = "http://localhost:8081/ColorSensor";
-const VirtualColorSensor2_TD_ADDRESS = "http://localhost:8082/ColorSensor";
+const VirtualColorSensor1_TD_ADDRESS = "http://localhost:8081/VirtualColorSensor1";
+const VirtualColorSensor2_TD_ADDRESS = "http://localhost:8082/VirtualColorSensor2";
 const CheckInfraredSensor1 = 50; // ms
 const CheckInfraredSensor2 = 50; // ms
 
