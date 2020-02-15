@@ -38,9 +38,9 @@ npm run build
 ### Start the virtual color sensor based on its TD and configuration file
 you can create the described virtual color sensors based on its TD using the configuration files in the following way:
 ```
-node -c virtual_color_sensor_http_localhost_8081.conf.json virtual_color_sensor_http_localhost_8081.json
-node -c virtual_color_sensor_http_localhost_8082.conf.json virtual_color_sensor_http_localhost_8082.json
-node -c virtual_color_sensor_mqtt.conf.json virtual_color_sensor_mqtt.json
+node dist/cli.js -c virtual_color_sensor_http_localhost_8081.conf.json virtual_color_sensor_http_localhost_8081.json
+node dist/cli.js -c virtual_color_sensor_http_localhost_8082.conf.json virtual_color_sensor_http_localhost_8082.json
+node dist/cli.js -c virtual_color_sensor_mqtt.conf.json virtual_color_sensor_mqtt.json
 ```
 
 
