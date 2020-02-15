@@ -766,14 +766,14 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/ColorSensor/actions/readColor",
+							"raw": "http://localhost:8081/VirtualColorSensor1/actions/readColor",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"ColorSensor",
+								"VirtualColorSensor1",
 								"actions",
 								"readColor"
 							]
@@ -787,14 +787,14 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/ColorSensor/actions/lightUpLeds",
+							"raw": "http://localhost:8081/VirtualColorSensor1/actions/lightUpLeds",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8081",
 							"path": [
-								"ColorSensor",
+								"VirtualColorSensor1",
 								"actions",
 								"lightUpLeds"
 							]
@@ -814,14 +814,14 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8082/ColorSensor/actions/readColor",
+							"raw": "http://localhost:8082/VirtualColorSensor2/actions/readColor",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8082",
 							"path": [
-								"ColorSensor",
+								"VirtualColorSensor2",
 								"actions",
 								"readColor"
 							]
@@ -835,14 +835,14 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8082/ColorSensor/actions/lightUpLeds",
+							"raw": "http://localhost:8082/VirtualColorSensor2/actions/lightUpLeds",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8082",
 							"path": [
-								"ColorSensor",
+								"VirtualColorSensor2",
 								"actions",
 								"lightUpLeds"
 							]
