@@ -37,7 +37,7 @@
             "idempotent": true,
             "safe": false,
             "forms": [{
-                "href": "http://localhost:8081/ColorSensor/actions/readColor",
+                "href": "http://localhost:8081/ColorSensor/actions/lightUpLeds",
                 "contentType": "application/json",
                 "op": "invokeaction",
                 "htv:methodName": "POST"
