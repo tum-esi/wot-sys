@@ -18,6 +18,8 @@ sudo shutdown -r 0
 ```
 and wait until the rpi is ready. 
 
+### Note
+All the movement actions are synchronous, which means thath the request comes to the robot, the robot completes the movement and then responds.
 
 Python library for Dobot Magician with sliding rail
 ===
