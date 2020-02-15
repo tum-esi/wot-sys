@@ -1,4 +1,6 @@
 @startuml
+header basic full
+footer Page %page% of %lastpage%
 
 title Mashup only1side
 
@@ -16,22 +18,17 @@ end box
 
 == Initialization ==
 
-activate MC
-
 MC -> DM: invokeAction("startPosition")
 activate DM
-MC <-- DM: done
+DM -> DM: done
 deactivate DM
 
 MC -> CB1: invokeAction("startBeltForward")
 activate CB1
 
-MC -> IS1: subscribeEvent("detectObject")
-activate IS1
+loop endless
 
-== Repetition ==
-
-MC <-- IS1: emitEvent("detectedObject")
+MC <-- IS1: subscribeEvent("detectedObject")
 MC -> CB1: invokeAction("stopBelt")
 deactivate CB1
 MC -> DM: invokeAction("pickObjectPosition1")
@@ -74,7 +71,7 @@ activate CB1
 
 ... after some time ...
 
-MC <-- IS1: emitEvent("detectedObject")
+MC <-- IS1: subscribeEvent("detectedObject")
 MC -> CB1: invokeAction("stopBelt")
 deactivate CB1
 MC -> DM: invokeAction("pickObjectPosition1")
@@ -114,4 +111,7 @@ end
 end
 MC -> CB1: invokeAction("startBeltForward")
 activate CB1
+
+end 
+
 @enduml
