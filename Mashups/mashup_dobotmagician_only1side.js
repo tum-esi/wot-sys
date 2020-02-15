@@ -18,7 +18,7 @@ restarts automatically again.
 const Robot_TD_ADDRESS = "http://192.168.0.127:8080/DobotMagician";
 const Infrared1_TD_ADDRESS = "http://192.168.0.128:8080/InfraredSensor1";
 const ConveyorBelt1_TD_ADDRESS = "http://192.168.0.130:8080/StepperMotor";
-const VirtualColorSensor1_TD_ADDRESS = "http://localhost:8081/ColorSensor";
+const VirtualColorSensor1_TD_ADDRESS = "http://localhost:8081/VirtualColorSensor1";
 
 WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
     let robotThing = await WoT.consume(robotTD);
