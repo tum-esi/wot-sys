@@ -255,7 +255,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.0.128:8080/InfraredSensor/properties/getobjectPresence",
+							"raw": "http://192.168.0.128:8080/InfraredSensor1/properties/objectPresence",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -265,9 +265,9 @@
 							],
 							"port": "8080",
 							"path": [
-								"InfraredSensor",
+								"InfraredSensor1",
 								"properties",
-								"getobjectPresence"
+								"objectPresence"
 							]
 						}
 					},
@@ -298,7 +298,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.0.128:8080/InfraredSensor/properties/observeobjectPresence",
+							"raw": "http://192.168.0.128:8080/InfraredSensor1/properties/objectPresence/observable",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -308,9 +308,10 @@
 							],
 							"port": "8080",
 							"path": [
-								"InfraredSensor",
+								"InfraredSensor1",
 								"properties",
-								"observeobjectPresence"
+								"objectPresence",
+								"observable"
 							]
 						}
 					},
@@ -347,19 +348,19 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.0.130:8080/StepperMotor/properties/speed",
+							"raw": "http://192.168.0.129:8080/InfraredSensor2/properties/objectPresence",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"0",
-								"130"
+								"129"
 							],
 							"port": "8080",
 							"path": [
-								"StepperMotor",
+								"InfraredSensor2",
 								"properties",
-								"speed"
+								"objectPresence"
 							]
 						}
 					},
@@ -390,7 +391,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.0.129:8080/InfraredSensor/properties/getobjectPresence",
+							"raw": "http://192.168.0.129:8080/InfraredSensor2/properties/objectPresence/observeable",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -400,9 +401,10 @@
 							],
 							"port": "8080",
 							"path": [
-								"InfraredSensor",
+								"InfraredSensor2",
 								"properties",
-								"getobjectPresence"
+								"objectPresence",
+								"observeable"
 							]
 						}
 					},
