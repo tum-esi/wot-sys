@@ -1,0 +1,16 @@
+{
+	"servient": {
+		"staticAddress": "localhost",
+		"http": {
+			"port": 8081
+		}
+	},
+	"log": {
+		"level": 4
+	},
+	"things": {
+		"urn:dev:ops:32473-ColorSensor-001": {
+			"eventIntervals": {}
+		}
+	}
+}
