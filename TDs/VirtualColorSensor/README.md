@@ -34,7 +34,7 @@ Install dependencies and build project:
 ```
 npm install 
 npm run build
-``
+```
 ### Start the virtual color sensor based on its TD and configuration file
 you can create the described virtual color sensors based on its TD using the configuration files in the following way:
 ```
