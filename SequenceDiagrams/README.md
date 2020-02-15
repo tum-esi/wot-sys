@@ -9,10 +9,10 @@ Each sequence diagram has an own mashup. You can find these in the mashup direct
 Description:
 
 This mashup contains the following things:
-    - two color sensors
-    - two infrared sensors
-    - two conveyor belts, moved by stepper motors
-    - one dobot magician
+- two color sensors
+- two infrared sensors
+- two conveyor belts, moved by stepper motors
+- one dobot magician
 
 Each conveyor belt starts at the beginning, and stops when the infrared sensor detects an object. After that, the robot moves this object to a color detection. Depending on the color, 
 the robot moves the object to a specified position. After that the robot is ready for a new command from the same conveyor belt or for a command from the other conveyor belt. At the 
@@ -23,8 +23,8 @@ end of the moving operation, the conveyor belt restarts automatically again.
 Description:
 
 This mashup contains the following things:
-    - two infrared sensors
-    - two conveyor belts, moved by stepper motors
+- two infrared sensors
+- two conveyor belts, moved by stepper motors
 
 Each conveyor belt starts at the beginning, and stops when the infrared sensor detects an object.
 
@@ -34,10 +34,10 @@ Each conveyor belt starts at the beginning, and stops when the infrared sensor d
 Description:
 
 This mashup contains the following things:
-    - two color sensors
-    - two infrared sensors
-    - two conveyor belts, moved by stepper motors
-    - one dobot magician
+- two color sensors
+- two infrared sensors
+- two conveyor belts, moved by stepper motors
+- one dobot magician
 
 Each conveyor belt starts at the beginning, and stops when the infrared sensor detects an object. After that, the robot moves this object to a color detection. Regardless the color, 
 the robot moves the object still to the same specified position. After that the robot is ready for a new command from the same conveyor belt or for a command from the other conveyor belt. 
@@ -48,9 +48,9 @@ At the end of the moving operation, the conveyor belt restarts automatically aga
 Description:
 
 This mashup contains the following things:
-    - two infrared sensors
-    - two conveyor belts, moved by stepper motors
-    - one dobot magician
+- two infrared sensors
+- two conveyor belts, moved by stepper motors
+- one dobot magician
 
 Each conveyor belt starts at the beginning, and stops when the infrared sensor detects an object. After that, the robot moves the object still to the same specified position. 
 After that the robot is ready for a new command from the same conveyor belt or for a command from the other conveyor belt. At the end of the moving operation, the conveyor belt 
@@ -61,8 +61,8 @@ restarts automatically again.
 Description:
 
 This mashup contains the following things:
-    - two infrared sensors
-    - two conveyor belts, moved by stepper motors
+- two infrared sensors
+- two conveyor belts, moved by stepper motors
 
 Each conveyor belt starts at the beginning, and stops when the infrared sensor detects an object. After that, the corresponding conveyor belt restarts after some time.
 
@@ -71,10 +71,10 @@ Each conveyor belt starts at the beginning, and stops when the infrared sensor d
 Description:
 
 This mashup contains the following things:
-    - one color sensors
-    - one infrared sensors
-    - one conveyor belts, moved by stepper motors
-    - one dobot magician
+- one color sensors
+- one infrared sensors
+- one conveyor belts, moved by stepper motors
+- one dobot magician
 
 The conveyor belt starts at the beginning, and stops when the infrared sensor detects an object. After that, the robot moves this object to a color detection. Depending on the color, 
 the robot moves the object to a specified position. After that the robot is ready for a new command from the conveyor belt. At the end of the moving operation, the conveyor belt 
@@ -89,10 +89,10 @@ This is a mashup that uses the devices of the dobot magician setup and is based 
 Description:
 
 This mashup contains the following things:
-    - two color sensors
-    - two infrared sensors
-    - two conveyor belts, moved by stepper motors
-    - one dobot magician
+- two color sensors
+- two infrared sensors
+- two conveyor belts, moved by stepper motors
+- one dobot magician
 
 Each conveyor belt starts at the beginning, and stops when the infrared sensor detects an object. After that, the robot moves this object to a color detection. Depending on the color, 
 the robot moves the object to a specified position. After that, the robot is ready for a new command from the same conveyor belt or for a command from the other conveyor belt. At the 
