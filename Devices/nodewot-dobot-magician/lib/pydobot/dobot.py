@@ -48,7 +48,7 @@ class Dobot:
         self._set_ptp_coordinate_params(velocity=200, acceleration=200)
         self._set_ptp_jump_params(10, 200)
         self._set_ptp_common_params(velocity=100, acceleration=100)
-        self._set_ptp_l_params(velocity=150, acceleration=200)
+        self._set_ptp_l_params(velocity=100, acceleration=100)
         self._get_pose()
 
     def close(self):
