@@ -25,6 +25,8 @@ const VirtualColorSensor1_TD_ADDRESS = "http://localhost:8081/VirtualColorSensor
 const VirtualColorSensor2_TD_ADDRESS = "http://localhost:8082/VirtualColorSensor2";
 const CheckInfraredSensor1 = 50; // ms
 const CheckInfraredSensor2 = 50; // ms
+// Variable robot busy 
+var robotBusy = false;
 
 WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
     let robotThing = await WoT.consume(robotTD);
@@ -33,7 +35,39 @@ WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
     console.info("==========");
 
     // Move dobot magician to default start position
-    robotThing.invokeAction("startPosition");
+    await robotThing.invokeAction("startPosition");
+
+    async function resolveIfRobotNotBusy1(){
+        return new Promise(resolve => { 
+            var setIntervalID1 = setInterval(() => {
+                if (!robotBusy){
+                    setRobotBusy();
+                    clearInterval(setIntervalID1);
+                    resolve();
+                } 
+            }, 250);     // repeat every 250 ms
+        });
+    }
+
+    async function resolveIfRobotNotBusy2(){
+        return new Promise(resolve => {
+            var setIntervalID2 = setInterval(() => {
+                if (!robotBusy){
+                    setRobotBusy();
+                    clearInterval(setIntervalID2);
+                    resolve();
+                } 
+            }, 250);     // repeat every 250 ms
+        });
+    }
+
+    async function setRobotBusy(){
+        robotBusy = true;    
+    }
+
+    async function setRobotNotBusy(){
+        robotBusy = false; 
+    }
     
     WoTHelpers.fetch(ConveyorBelt1_TD_ADDRESS).then(async (conveyorbelt1TD) => {
         let conveyorThing1 = await WoT.consume(conveyorbelt1TD);
@@ -45,17 +79,16 @@ WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
                 let infraredThing1 = await WoT.consume(infrared1TD);
 
                 // Start moving conveyor belt 1
-                conveyorThing1.invokeAction("startBeltForward");
-                
-                // In case of an event of the infrared sensor, call function detectedObjectPosition1
-                var myVar = true;
+                await conveyorThing1.invokeAction("startBeltForward");
+                // In case of an event of the infrared sensor, call function detectedObjectPosition2
+                var myVar1 = true;
                 setInterval( async () => {
-                    myObjectPresence = infraredThing1.readProperty("objectPresence");
-                    if (myObjectPresence = true && myVar) {
-                        myVar = false;
+                    myObjectPresence = await infraredThing1.readProperty("objectPresence");
+                    if (myObjectPresence && myVar1) {
+                        myVar1 = false;
                         console.log("Object present in front of infrared sensor 1");
-                        detectedObjectPosition1();
-                        myVar = true;
+                        await detectedObjectPosition1();
+                        myVar1 = true;
                         console.log("The whole function for the object at position 1 was completed");
                     }
                     else {
@@ -66,12 +99,15 @@ WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
                 async function detectedObjectPosition1(){
                     // Stop the conveyor belt
                     await conveyorThing1.invokeAction("stopBelt");
+                    // Wait until the robot has finished all tasks
+                    await resolveIfRobotNotBusy1();
                     // The robot picks the object and moves it to the color sensor
                     await robotThing.invokeAction("pickObjectPosition1");
                     await robotThing.invokeAction("moveToColorSensor1");
                     // Read the color sensor and call the function colorDetectedPosition1
                     myColorOutput1 = await colorThing1.invokeAction("readColor");
                     await colorDetectedPosition1(myColorOutput1)
+                    await setRobotNotBusy();
                     // Restart the conveyor belt
                     await conveyorThing1.invokeAction("startBeltForward");
                 }
@@ -94,13 +130,13 @@ WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
                     }
                 }    
             }).catch( ()=>{
-                console.log("Could not get the ConveyorBelt1 TD")
+                console.log("Could not get the InfraredSensor1 TD")
             });
         }).catch( ()=>{
             console.log("Could not get the ColorSensor1 TD")
         });
     }).catch( ()=>{
-        console.log("Could not get the Infrared1 TD")
+        console.log("Could not get the ConveyorBelt1 TD")
     });   
 
     WoTHelpers.fetch(ConveyorBelt2_TD_ADDRESS).then(async (conveyorbelt2TD) => {
@@ -113,13 +149,16 @@ WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
                 let infraredThing2 = await WoT.consume(infrared2TD);
 
                 // Start moving conveyor belt 2
-                conveyorThing2.invokeAction("startBeltForward");
+                await conveyorThing2.invokeAction("startBeltForward");
                 // In case of an event of the infrared sensor, call function detectedObjectPosition2
+                var myVar2 = true;
                 setInterval( async () => {
-                    myObjectPresence = infraredThing2.readProperty("objectPresence");
-                    if (myObjectPresence = true) {
+                    myObjectPresence = await infraredThing2.readProperty("objectPresence");
+                    if (myObjectPresence && myVar2) {
+                        myVar2 = false;
                         console.log("Object present in front of infrared sensor 2");
-                        detectedObjectPosition2();
+                        await detectedObjectPosition2();
+                        myVar2 = true;
                         console.log("The whole function for the object at position 2 was completed");
                     }
                     else {
@@ -130,12 +169,15 @@ WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
                async function detectedObjectPosition2(){
                     // Stop the conveyor belt
                     await conveyorThing2.invokeAction("stopBelt");
+                    // Wait until the robot has finished all tasks
+                    await resolveIfRobotNotBusy2();
                     // The robot picks the object and moves it to the color sensor
                     await robotThing.invokeAction("pickObjectPosition2");
                     await robotThing.invokeAction("moveToColorSensor2");
                     // Read the color sensor and call the function colorDetectedPosition2
                     myColorOutput2 = await colorThing2.invokeAction("readColor");
                     await colorDetectedPosition2(myColorOutput2)
+                    await setRobotNotBusy();
                     // Restart the conveyor belt
                     await conveyorThing2.invokeAction("startBeltForward");
                 }
@@ -158,7 +200,7 @@ WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
                     }
                 }
             }).catch( ()=>{
-                console.log("Could not get the ConveyorBelt2 TD")
+                console.log("Could not get the InfraredSensor2 TD")
             });
         }).catch( ()=>{
             console.log("Could not get the ColorSensor2 TD")
