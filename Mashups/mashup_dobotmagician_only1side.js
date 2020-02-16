@@ -78,13 +78,13 @@ WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
                     }
                 }    
             }).catch( ()=>{
-                console.log("Could not get the ConveyorBelt1 TD")
+                console.log("Could not get the InfraredSensor1 TD")
             });
         }).catch( ()=>{
             console.log("Could not get the ColorSensor1 TD")
         });
     }).catch( ()=>{
-        console.log("Could not get the Infrared1 TD")
+        console.log("Could not get the ConveyorBelt1 TD")
     });   
          
 }).catch( ()=>{
