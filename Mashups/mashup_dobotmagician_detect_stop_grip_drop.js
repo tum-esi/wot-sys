@@ -19,6 +19,8 @@ const Infrared1_TD_ADDRESS = "http://192.168.0.128:8080/InfraredSensor1";
 const Infrared2_TD_ADDRESS = "http://192.168.0.129:8080/InfraredSensor2";
 const ConveyorBelt1_TD_ADDRESS = "http://192.168.0.130:8080/StepperMotor";
 const ConveyorBelt2_TD_ADDRESS = "http://192.168.0.131:8080/StepperMotor";
+// Variable robot busy 
+var robotBusy = false;
 
 WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
     let robotThing = await WoT.consume(robotTD);
@@ -28,6 +30,38 @@ WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
 
     // Move dobot magician to default start position
     robotThing.invokeAction("startPosition");
+
+    async function resolveIfRobotNotBusy1(){
+        return new Promise(resolve => { 
+            var setIntervalID1 = setInterval(() => {
+                if (!robotBusy){
+                    setRobotBusy();
+                    clearInterval(setIntervalID1);
+                    resolve();
+                } 
+            }, 250);     // repeat every 250 ms
+        });
+    }
+
+    async function resolveIfRobotNotBusy2(){
+        return new Promise(resolve => {
+            var setIntervalID2 = setInterval(() => {
+                if (!robotBusy){
+                    setRobotBusy();
+                    clearInterval(setIntervalID2);
+                    resolve();
+                } 
+            }, 250);     // repeat every 250 ms
+        });
+    }
+
+    async function setRobotBusy(){
+        robotBusy = true;    
+    }
+
+    async function setRobotNotBusy(){
+        robotBusy = false; 
+    }
 
     WoTHelpers.fetch(ConveyorBelt1_TD_ADDRESS).then(async (conveyorbelt1TD) => {
         let conveyorThing1 = await WoT.consume(conveyorbelt1TD);
@@ -47,19 +81,22 @@ WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
                 async function detectedObjectPosition1(){
                     // Stop the conveyor belt
                     await conveyorThing1.invokeAction("stopBelt");
+                    // Wait until the robot has finished all tasks
+                    await resolveIfRobotNotBusy1();
                     // The robot picks the object
                     await robotThing.invokeAction("pickObjectPosition1");
                     // The robot moves the object to a specified position
                     await robotThing.invokeAction("moveObjectNone");
+                    await setRobotNotBusy();
                     // Restart the conveyor belt
                     await conveyorThing1.invokeAction("startBeltForward");
                 }
     
             }).catch( ()=>{
-                console.log("Could not get the ConveyorBelt1 TD")
+                console.log("Could not get the InfraredSensor1 TD")
             });
     }).catch( ()=>{
-        console.log("Could not get the Infrared1 TD")
+        console.log("Could not get the ConveyorBelt1 TD")
     });   
 
     WoTHelpers.fetch(ConveyorBelt2_TD_ADDRESS).then(async (conveyorbelt2TD) => {
@@ -80,19 +117,22 @@ WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
                async function detectedObjectPosition2(){
                     // Stop the conveyor belt
                     await conveyorThing2.invokeAction("stopBelt");
+                    // Wait until the robot has finished all tasks
+                    await resolveIfRobotNotBusy2();
                     // The robot picks the object
                     await robotThing.invokeAction("pickObjectPosition2");
                     // The robot moves the object to a specified position
                     await robotThing.invokeAction("moveObjectNone");
                     // Restart the conveyor belt
+                    await setRobotNotBusy();
                     await conveyorThing2.invokeAction("startBeltForward");
                 }
 
             }).catch( ()=>{
-                console.log("Could not get the ConveyorBelt2 TD")
+                console.log("Could not get the InfraredSensor2 TD")
             });
     }).catch( ()=>{
-        console.log("Could not get the Infrared2 TD")
+        console.log("Could not get the ConveyorBelt2 TD")
     });         
 }).catch( ()=>{
     console.log("Could not get the Robot TD")
