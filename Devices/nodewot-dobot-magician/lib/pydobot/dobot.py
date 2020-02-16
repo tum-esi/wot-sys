@@ -47,8 +47,8 @@ class Dobot:
         self._set_ptp_joint_params(200, 200, 200, 200, 200, 200, 200, 200)
         self._set_ptp_coordinate_params(velocity=200, acceleration=200)
         self._set_ptp_jump_params(10, 200)
-        self._set_ptp_common_params(velocity=100, acceleration=100)
-        self._set_ptp_l_params(velocity=100, acceleration=100)
+        self._set_ptp_common_params(velocity=80, acceleration=40)
+        self._set_ptp_l_params(velocity=80, acceleration=40)
         self._get_pose()
 
     def close(self):
@@ -205,7 +205,7 @@ class Dobot:
         msg.params.extend(bytearray(struct.pack('f', r)))
         return self._send_command(msg, wait)
     
-    def _set_ptp_l_params(self,  velocity, acceleration):
+    def _set_ptp_l_params(self, velocity, acceleration):
         msg = Message()
         msg.id = 85
         msg.ctrl = 0x03
