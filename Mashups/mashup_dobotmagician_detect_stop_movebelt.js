@@ -15,7 +15,8 @@ const Infrared1_TD_ADDRESS = "http://192.168.0.128:8080/InfraredSensor1";
 const Infrared2_TD_ADDRESS = "http://192.168.0.129:8080/InfraredSensor2";
 const ConveyorBelt1_TD_ADDRESS = "http://192.168.0.130:8080/StepperMotor";
 const ConveyorBelt2_TD_ADDRESS = "http://192.168.0.131:8080/StepperMotor";
-
+const WaitingTimeForRestartConveyorBelt1 = 5000; // ms
+const WaitingTimeForRestartConveyorBelt2 = 5000; // ms
 
     WoTHelpers.fetch(ConveyorBelt1_TD_ADDRESS).then(async (conveyorbelt1TD) => {
         let conveyorThing1 = await WoT.consume(conveyorbelt1TD);
@@ -35,17 +36,17 @@ const ConveyorBelt2_TD_ADDRESS = "http://192.168.0.131:8080/StepperMotor";
                 async function detectedObjectPosition1(){
                     // Stop the conveyor belt
                     await conveyorThing1.invokeAction("stopBelt");
-                    setTimeout(function(){ 
+                    setTimeout( async () => { 
                         // Restart the conveyor belt
                         await conveyorThing1.invokeAction("startBeltForward");
-                    }, 5000);
+                    }, WaitingTimeForRestartConveyorBelt1);     // restart after conveyor belt after ... ms 
                 }
    
             }).catch( ()=>{
-                console.log("Could not get the ConveyorBelt1 TD")
+                console.log("Could not get the InfraredSensor1 TD")
             });
     }).catch( ()=>{
-        console.log("Could not get the Infrared1 TD")
+        console.log("Could not get the ConveyorBelt1 TD")
     });   
 
     WoTHelpers.fetch(ConveyorBelt2_TD_ADDRESS).then(async (conveyorbelt2TD) => {
@@ -66,16 +67,16 @@ const ConveyorBelt2_TD_ADDRESS = "http://192.168.0.131:8080/StepperMotor";
                async function detectedObjectPosition2(){
                     // Stop the conveyor belt
                     await conveyorThing2.invokeAction("stopBelt");
-                    setTimeout(function(){ 
+                    setTimeout( async () => { 
                     // Restart the conveyor belt
                     await conveyorThing2.invokeAction("startBeltForward");
-                    }, 5000);
+                    }, WaitingTimeForRestartConveyorBelt2);     // restart after conveyor belt after ... ms 
                 }
 
             }).catch( ()=>{
-                console.log("Could not get the ConveyorBelt2 TD")
+                console.log("Could not get the InfraredSensor2 TD")
             });
     }).catch( ()=>{
-        console.log("Could not get the Infrared2 TD")
+        console.log("Could not get the ConveyorBelt2 TD")
     });         
 
