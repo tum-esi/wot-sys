@@ -38,11 +38,11 @@ const ConveyorBelt2_TD_ADDRESS = "http://192.168.0.131:8080/StepperMotor";
                 }   
 
             }).catch( ()=>{
-                console.log("Could not get the ConveyorBelt1 TD")
+                console.log("Could not get the InfraredSensor1 TD")
             });
-        }).catch( ()=>{
-            console.log("Could not get the ColorSensor1 TD")
-        });   
+    }).catch( ()=>{
+        console.log("Could not get the ConveyorBelt1 TD")
+    });   
 
     WoTHelpers.fetch(ConveyorBelt2_TD_ADDRESS).then(async (conveyorbelt2TD) => {
         let conveyorThing2 = await WoT.consume(conveyorbelt2TD);
@@ -65,8 +65,8 @@ const ConveyorBelt2_TD_ADDRESS = "http://192.168.0.131:8080/StepperMotor";
                 }
 
             }).catch( ()=>{
-                console.log("Could not get the ConveyorBelt2 TD")
+                console.log("Could not get the InfraredSensor2 TD")
             });
-        }).catch( ()=>{
-            console.log("Could not get the ColorSensor2 TD")
-        });         
+    }).catch( ()=>{
+         console.log("Could not get the ConveyorBelt2 TD")
+    });         
