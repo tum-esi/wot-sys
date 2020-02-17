@@ -1,6 +1,8 @@
 /*
 This is a mashup that uses the devices of the dobot magician setup and is based on EVENTS for triggering ACTIONS.
 
+It corresponds to the SequenceDiagramUML_mashup_detect_stop_grip_drop.wsd
+
 Description:
 
 This mashup contains the following things:
