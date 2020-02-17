@@ -2,6 +2,9 @@
 
 ![DobotMagician](Devices/nodewot-dobot-magician/Images/Dobot_Magician.png)
 
+## Exposed Thing implementation based on: Exposed Thing with node-wot as Dependency
+![Exposed Thing with node-wot as Dependency](https://github.com/eclipse/thingweb.node-wot/tree/master/examples/templates/exposed-thing)
+
 ### Raspberry Pi Configuration
 
 You can find more information about the following step "pip install pydobot" after the Raspberry Pi Configuration at Python library for Dobot Magician with sliding rail.
