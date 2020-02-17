@@ -5,7 +5,7 @@ var request = require('request');
 const Ajv = require('ajv');
 var ajv = new Ajv();
 
-const A4988 = require('../A4988');
+const A4988 = require('/home/pi/Desktop/Stepper_Motor/A4988');
 const a4988 = new A4988({ step: 15, dir: 14, ms1: 24, ms2: 23, ms3: 18, enable: 25 }); 
 
 export class WotDevice {
@@ -51,6 +51,7 @@ export class WotDevice {
 						"output": {
 							"const": "Conveyor belt started"
 						},
+						"synchronous":true,
 						"idempotent": false,
 						"safe": false
 					},
@@ -60,6 +61,7 @@ export class WotDevice {
 						"output": {
 							"const": "Conveyor belt started"
 						},
+						"synchronous":true,
 						"idempotent": false,
 						"safe": false
 					},
@@ -69,6 +71,7 @@ export class WotDevice {
 						"output": {
 							"const": "Conveyor belt stopped"
 						},
+						"synchronous":true,
 						"idempotent": false,
 						"safe": false
 					}     
