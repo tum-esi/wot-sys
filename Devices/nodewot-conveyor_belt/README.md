@@ -35,7 +35,7 @@ You can find more about the original files here:
 
 #### The following changes were added in the pydobot library
 
-The following lines contain the original code (commented out) and some new lines that have been added for the purpose to not only turn the stepper motor for a certain number of steps, but to start the stepper motor with the start command and to stop it with the stop command.
+The following lines contain the original code (commented out) and some lines that have been added or changed for the purpose to not only turn the stepper motor for a certain number of steps, but to start the stepper motor with the start command and to stop it with the stop command.
 
     // _turn(steps, res) {
     _turn(res) {
@@ -70,6 +70,7 @@ The following lines contain the original code (commented out) and some new lines
         }
     }
 
+### Use the library
 
 ```javascript
 const A4988 = require('A4988');
