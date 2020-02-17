@@ -44,6 +44,7 @@
             "output": {
                 "const": "Conveyor belt started"
             },
+            "synchronous":true,
             "idempotent": false,
             "safe": false,
             "forms": [{
@@ -59,6 +60,7 @@
             "output": {
                 "const": "Conveyor belt started"
             },
+            "synchronous":true,
             "idempotent": false,
             "safe": false,
             "forms": [{
@@ -74,6 +76,7 @@
             "output": {
                 "const": "Conveyor belt stopped"
             },
+            "synchronous":false,
             "idempotent": false,
             "safe": false,
             "forms": [{
