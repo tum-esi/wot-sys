@@ -29,7 +29,7 @@ WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
     console.info("==========");
 
     // Move dobot magician to default start position
-    robotThing.invokeAction("startPosition");
+    await robotThing.invokeAction("startPosition");
 
     async function resolveIfRobotNotBusy1(){
         return new Promise(resolve => { 
