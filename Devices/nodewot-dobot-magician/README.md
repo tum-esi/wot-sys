@@ -31,50 +31,50 @@ Based on Communication Protocol V1.1.4 (_latest version [here](https://www.dobot
 
 #### The following changes were added in the pydobot library
 
-VER_V1 = 0x00  
-VER_V2 = 0x01  
-WITH_L = 0x01  
+    VER_V1 = 0x00  
+    VER_V2 = 0x01  
+    WITH_L = 0x01  
 
-self._set_ptp_l_params(velocity=80, acceleration=40)  
+    self._set_ptp_l_params(velocity=80, acceleration=40)  
 
-def _get_pose_l(self):  
->     msg = Message()  
->     msg.id = 13  
->     response = self._send_command(msg)  
-    self.l = struct.unpack_from('f', response.params, 0)[0]  
-    if self.verbose:  
-        print("pydobot: l:%03.1f" % (self.l))  
-    return response  
+    def _get_pose_l(self):  
+        msg = Message()  
+        msg.id = 13  
+        response = self._send_command(msg)  
+        self.l = struct.unpack_from('f', response.params, 0)[0]  
+        if self.verbose:  
+            print("pydobot: l:%03.1f" % (self.l))  
+        return response  
 
-def _set_ptp_l_params(self, velocity, acceleration):  
-    msg = Message()  
-    msg.id = 85  
-    msg.ctrl = 0x03  
-    msg.params = bytearray([])  
-    msg.params.extend(bytearray(struct.pack('f', velocity)))  
-    msg.params.extend(bytearray(struct.pack('f', acceleration)))  
-    return self._send_command(msg)  
+    def _set_ptp_l_params(self, velocity, acceleration):  
+        msg = Message()  
+        msg.id = 85  
+        msg.ctrl = 0x03  
+        msg.params = bytearray([])  
+        msg.params.extend(bytearray(struct.pack('f', velocity)))  
+        msg.params.extend(bytearray(struct.pack('f', acceleration)))  
+        return self._send_command(msg)  
 
-def _set_ptp_with_l_cmd(self, x, y, z, r, l, mode, wait):  
-    msg = Message()  
-    msg.id = 86  
-    msg.ctrl = 0x03  
-    msg.params = bytearray([])  
-    msg.params.extend(bytearray([mode]))  
-    msg.params.extend(bytearray(struct.pack('f', x)))  
-    msg.params.extend(bytearray(struct.pack('f', y)))  
-    msg.params.extend(bytearray(struct.pack('f', z)))  
-    msg.params.extend(bytearray(struct.pack('f', r)))  
-    msg.params.extend(bytearray(struct.pack('f', l)))  
-    return self._send_command(msg, wait)  
+    def _set_ptp_with_l_cmd(self, x, y, z, r, l, mode, wait):  
+        msg = Message()  
+        msg.id = 86  
+        msg.ctrl = 0x03  
+        msg.params = bytearray([])  
+        msg.params.extend(bytearray([mode]))  
+        msg.params.extend(bytearray(struct.pack('f', x)))  
+        msg.params.extend(bytearray(struct.pack('f', y)))  
+        msg.params.extend(bytearray(struct.pack('f', z)))  
+        msg.params.extend(bytearray(struct.pack('f', r)))  
+        msg.params.extend(bytearray(struct.pack('f', l)))  
+        return self._send_command(msg, wait)  
 
-def move_to_with_l(self, x, y, z, r, l, wait=False):  
-    self._set_ptp_with_l_cmd(x, y, z, r, l, mode=MODE_PTP_MOVL_XYZ, wait=wait)  
+    def move_to_with_l(self, x, y, z, r, l, wait=False):  
+        self._set_ptp_with_l_cmd(x, y, z, r, l, mode=MODE_PTP_MOVL_XYZ, wait=wait)  
 
-def pose_l(self):  
-    response = self._get_pose_l()  
-    l = struct.unpack_from('f', response.params, 0)[0]  
-    return l  
+    def pose_l(self):  
+        response = self._get_pose_l()  
+        l = struct.unpack_from('f', response.params, 0)[0]  
+        return l  
 
 Installation of the pydobot library:
 ---
