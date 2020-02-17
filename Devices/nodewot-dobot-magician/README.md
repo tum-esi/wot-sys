@@ -28,7 +28,7 @@ Python library for Dobot Magician with sliding rail
 ===
 
 You can find more information about the original files here:
-[![CircleCI](https://circleci.com/gh/luismesas/pydobot)](https://circleci.com/gh/luismesas/pydobot)
+![GitHub pydobot](https://github.com/luismesas/pydobot)
 
 Based on Communication Protocol V1.1.4 (_latest version [here](https://www.dobot.cc/downloadcenter.html?sub_cat=72#sub-download)_)
 
