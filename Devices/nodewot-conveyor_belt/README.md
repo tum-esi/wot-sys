@@ -98,7 +98,7 @@ The _ms1_, _ms2_, and _ms3_ parameters are optional, but required if you want mi
 ### Methods
 
 * **turn(1 _[, callback]_)** - Will fire _callback_ when turn is complete (or aborted).  If _callback_ not given, returns a Promise
-* **turn_step_size(tss)** - tss = step_size-sting-format like above
+* **turn_step_size(tss)** - tss = step_size-string-format like above
 * **turn_speed(s)** - s = delay-number-format like above
 * **turn_direction(td)** - td = direction-boolean-format like above
 * **stop()** - Abort a turn in progress
