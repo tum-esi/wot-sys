@@ -12,6 +12,7 @@
     "security": [
         "nosec_sc"
     ],
+    "description":"A Dobot Magician that is preprogrammed to go to specific locations and interact with cubes. Each move action overwrites(cancels) the previous one",
     "actions": {
         "startPosition": { 
             "title": "Default start position",
@@ -19,6 +20,7 @@
             "output": {
                 "const": "Dobot magician is moving to the default start position"
             },
+            "synchronous":true,
             "idempotent": false,
             "safe": false,
             "forms": [{
@@ -34,6 +36,7 @@
             "output": {
                 "const": "Dobot magician is picking object at position 1"
             },
+            "synchronous":true,
             "idempotent": false,
             "safe": false,
             "forms": [{
@@ -49,6 +52,7 @@
             "output": {
                 "const": "Dobot magician is picking object at position 2"
             },
+            "synchronous":true,
             "idempotent": false,
             "safe": false,
             "forms": [{
@@ -64,6 +68,7 @@
             "output": {
                 "const": "Dobot magician is moving object at the color sensor 1"
             },
+            "synchronous":true,
             "idempotent": false,
             "safe": false,
             "forms": [{
@@ -79,6 +84,7 @@
             "output": {
                 "const": "Dobot magician is moving object at the color sensor 2"
             },
+            "synchronous":true,
             "idempotent": false,
             "safe": false,
             "forms": [{
@@ -94,6 +100,7 @@
             "output": {
                 "const": "Dobot magician is moving object at the color dependent position"
             },
+            "synchronous":true,
             "idempotent": false,
             "safe": false,
             "forms": [{
@@ -109,6 +116,7 @@
             "output": {
                 "const": "Dobot magician is moving object at the color dependent position"
             },
+            "synchronous":true,
             "idempotent": false,
             "safe": false,
             "forms": [{
@@ -124,6 +132,7 @@
             "output": {
                 "const": "Dobot magician is moving object at the color dependent position"
             },
+            "synchronous":true,
             "idempotent": false,
             "safe": false,
             "forms": [{
@@ -139,6 +148,7 @@
             "output": {
                 "const": "Dobot magician is moving object at the color dependent position"
             },
+            "synchronous":true,
             "idempotent": false,
             "safe": false,
             "forms": [{
