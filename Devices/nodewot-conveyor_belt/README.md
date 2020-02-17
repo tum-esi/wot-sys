@@ -33,6 +33,44 @@ Use an A4988 stepper motor controller on a Raspberry Pi with node.js
 You can find more about the original files here:
 [![github - A4988](https://github.com/echicken/A4988)](https://github.com/echicken/A4988)
 
+#### The following changes were added in the pydobot library
+
+The following lines contain the original code (commented out) and some new lines that have been added for the purpose to not only turn the stepper motor for a certain number of steps, but to start the stepper motor with the start command and to stop it with the stop command.
+
+    // _turn(steps, res) {
+    _turn(res) {
+        if (this._abort) {
+            this._turning = false;
+            res(this._steps);
+            return;
+        }
+        // this._steps++;
+        this._step.digitalWrite(true);
+        this._step.digitalWrite(false);
+        // if (this._steps == steps) {
+            // this._turning = false;
+        //     res(this._steps);
+        //     return;
+        // }
+        // setTimeout(() => this._turn(steps, res), this._delay);
+        setTimeout(() => this._turn(res), this._delay);
+    }
+
+    turn(steps = 1, callback) {
+        if (this._turning) return Promise.reject(new Error('Motor already running'));
+        this._steps = 0;
+        this._abort = false;
+        this._turning = true;
+        if (typeof callback == 'function') {
+            // this._turn(steps, callback);
+            this._turn(callback);
+        } else {
+            // return new Promise(res => this._turn(steps, res));
+            return new Promise(res => this._turn(res));
+        }
+    }
+
+
 ```javascript
 const A4988 = require('A4988');
 const a4988 = new A4988({ step: 6, dir: 5 });
