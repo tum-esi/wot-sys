@@ -38,13 +38,13 @@ WITH_L = 0x01
 self._set_ptp_l_params(velocity=80, acceleration=40)  
 
 def _get_pose_l(self):  
-      msg = Message()  
-    msg.id = 13  
-    response = self._send_command(msg)  
-    self.l = struct.unpack_from('f', response.params, 0)[0]  
-    if self.verbose:  
-        print("pydobot: l:%03.1f" % (self.l))  
-    return response  
+        msg = Message()  
+        msg.id = 13  
+        response = self._send_command(msg)  
+        self.l = struct.unpack_from('f', response.params, 0)[0]  
+        if self.verbose:  
+            print("pydobot: l:%03.1f" % (self.l))  
+        return response  
 
 def _set_ptp_l_params(self, velocity, acceleration):  
     msg = Message()  
