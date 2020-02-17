@@ -4,6 +4,9 @@
 
 The conveyor belt is moved by a stepper motor, which is controlled by a Raspberry Pi over a A4988 stepper motor driver. You can find more information about the nodejs library for the A4988 after the Raspberry Pi Configuration. 
 
+## Exposed Thing implementation based on: Exposed Thing with node-wot as Dependency
+![Exposed Thing with node-wot as Dependency](https://github.com/eclipse/thingweb.node-wot/tree/master/examples/templates/exposed-thing)
+
 ### Raspberry Pi Configuration
 
 You can find more information about the following steps here:  
