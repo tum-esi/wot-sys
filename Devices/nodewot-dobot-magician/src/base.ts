@@ -34,6 +34,7 @@ export class WotDevice {
                         output: {
                             "const": "Dobot magician is moving to the default start position"
                         },
+                        synchronous:true,
                         idempotent: false,
                         safe: false,
                     },
@@ -42,7 +43,8 @@ export class WotDevice {
 						description: "The robot picks the object at position 1", 
 						output: {
 							"const": "Dobot magician is picking object at position 1"
-						},
+                        },
+                        synchronous:true,
 						idempotent: false,
 						safe: false,
 					},
@@ -51,7 +53,8 @@ export class WotDevice {
 						description: "The robot picks the object at position 2", 
 						output: {
 							"const": "Dobot magician is picking object at position 2"
-						},
+                        },
+                        synchronous:true,
 						idempotent: false,
 						safe: false,
                     },
@@ -61,6 +64,7 @@ export class WotDevice {
                         output: {
                             "const": "Dobot magician is moving object at the color sensor 1"
                         },
+                        synchronous:true,
                         idempotent: false,
                         safe: false, 
                     },
@@ -70,6 +74,7 @@ export class WotDevice {
                         output: {
                             "const": "Dobot magician is moving object at the color sensor 2"
                         },
+                        synchronous:true,
                         idempotent: false,
                         safe: false,
                     },
@@ -79,6 +84,7 @@ export class WotDevice {
                         output: {
                             "const": "Dobot magician is moving object at the color dependent position"
                         },
+                        synchronous:true,
                         idempotent: false,
                         safe: false,
                     },
@@ -88,6 +94,7 @@ export class WotDevice {
                         output: {
                             "const": "Dobot magician is moving object at the color dependent position"
                         },
+                        synchronous:true,
                         idempotent: false,
                         safe: false,
                     },
@@ -97,6 +104,7 @@ export class WotDevice {
                         output: {
                             "const": "Dobot magician is moving object at the color dependent position"
                         },
+                        synchronous:true,
                         idempotent: false,
                         safe: false,
                     },
@@ -106,6 +114,7 @@ export class WotDevice {
                         output: {
                             "const": "Dobot magician is moving object at the color dependent position"
                         },
+                        synchronous:true,
                         idempotent: false,
                         safe: false,
                     }
