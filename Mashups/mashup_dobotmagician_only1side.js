@@ -27,7 +27,7 @@ WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
     console.info("==========");
 
     // Move dobot magician to default start position
-    robotThing.invokeAction("startPosition");
+    await robotThing.invokeAction("startPosition");
 
     WoTHelpers.fetch(ConveyorBelt1_TD_ADDRESS).then(async (conveyorbelt1TD) => {
         let conveyorThing1 = await WoT.consume(conveyorbelt1TD);
