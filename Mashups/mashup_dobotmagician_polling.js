@@ -80,7 +80,7 @@ WoTHelpers.fetch(Robot_TD_ADDRESS).then(async (robotTD) => {
 
                 // Start moving conveyor belt 1
                 await conveyorThing1.invokeAction("startBeltForward");
-                // In case of an event of the infrared sensor, call function detectedObjectPosition2
+                // In case of an event of the infrared sensor, call function detectedObjectPosition1
                 var myVar1 = true;
                 setInterval( async () => {
                     myObjectPresence = await infraredThing1.readProperty("objectPresence");
