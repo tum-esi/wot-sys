@@ -2,6 +2,9 @@
 
 ![Infrared Sensor](https://www.microchip.lk/wp-content/uploads/2018/03/ir-barrier-sensor-e18-d80nk.jpg)
 
+## Exposed Thing implementation based on: Exposed Thing with node-wot as Dependency
+![Exposed Thing with node-wot as Dependency](https://github.com/eclipse/thingweb.node-wot/tree/master/examples/templates/exposed-thing)
+
 ### Raspberry Pi Configuration
 
 You can find more information about the following steps here:  
