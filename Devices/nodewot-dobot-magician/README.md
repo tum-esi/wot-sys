@@ -28,7 +28,7 @@ Python library for Dobot Magician with sliding rail
 ===
 
 You can find more information about the original files here:
-[![CircleCI](https://circleci.com/gh/luismesas/pydobot.svg?style=svg)](https://circleci.com/gh/luismesas/pydobot)
+[![CircleCI](https://circleci.com/gh/luismesas/pydobot)](https://circleci.com/gh/luismesas/pydobot)
 
 Based on Communication Protocol V1.1.4 (_latest version [here](https://www.dobot.cc/downloadcenter.html?sub_cat=72#sub-download)_)
 
@@ -50,6 +50,7 @@ This file contains also the commands for the sliding rail of the dobot magician.
 Methods
 ---
 
+* **list_ports.comports()[0].device** Chooses the port used for the dobot, which is in this case the USB port.
 * **Dobot(port, verbose=False)** Creates an instance of dobot connected to given serial port.
     * **port**: _string_ with name of serial port to connect
     * **verbose**: _bool_ will print to console all serial comms  
