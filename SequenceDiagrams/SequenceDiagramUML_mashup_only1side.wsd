@@ -1,0 +1,117 @@
+@startuml
+header basic full
+footer Page %page% of %lastpage%
+
+title Mashup only1side
+
+skinparam ParticipantPadding 20
+skinparam BoxPadding 10
+
+participant MashupControl as MC
+participant DobotMagician as DM
+
+box "Part 1"
+participant ConveyorBelt1 as CB1
+participant InfraredSensor1 as IS1
+participant ColorSensor1 as CS1
+end box
+
+== Initialization ==
+
+MC -> DM: invokeAction("startPosition")
+activate DM
+DM -> DM: done
+deactivate DM
+
+MC -> CB1: invokeAction("startBeltForward")
+activate CB1
+
+loop endless
+
+MC <-- IS1: subscribeEvent("detectedObject")
+MC -> CB1: invokeAction("stopBelt")
+deactivate CB1
+MC -> DM: invokeAction("pickObjectPosition1")
+activate DM
+MC <-- DM: done
+deactivate DM
+MC -> DM: invokeAction("moveToColorSensor1")
+activate DM
+MC <-- DM: done
+deactivate DM
+MC -> CS1: invokeAction("readColor")
+activate CS1
+MC <-- CS1: done with Output: myOutputColor1
+deactivate CS1
+group Color dependent
+alt Red
+MC -> DM: invokeAction("moveObjectRed")
+activate DM
+MC <-- DM: done
+deactivate DM
+else Green
+MC -> DM: invokeAction("moveObjectGreen")
+activate DM
+MC <-- DM: done
+deactivate DM
+else Blue
+MC -> DM: invokeAction("moveObjectBlue")
+activate DM
+MC <-- DM: done
+deactivate DM
+else None
+MC -> DM: invokeAction("moveObjectNone")
+activate DM
+MC <-- DM: done
+deactivate DM
+end
+end
+MC -> CB1: invokeAction("startBeltForward")
+activate CB1
+
+... after some time ...
+
+MC <-- IS1: subscribeEvent("detectedObject")
+MC -> CB1: invokeAction("stopBelt")
+deactivate CB1
+MC -> DM: invokeAction("pickObjectPosition1")
+activate DM
+MC <-- DM: done
+deactivate DM
+MC -> DM: invokeAction("moveToColorSensor1")
+activate DM
+MC <-- DM: done
+deactivate DM
+MC -> CS1: invokeAction("readColor")
+activate CS1
+MC <-- CS1: done with Output: myOutputColor1
+deactivate CS1
+group Color dependent
+alt Red
+MC -> DM: invokeAction("moveObjectRed")
+activate DM
+MC <-- DM: done
+deactivate DM
+else Green
+MC -> DM: invokeAction("moveObjectGreen")
+activate DM
+MC <-- DM: done
+deactivate DM
+else Blue
+MC -> DM: invokeAction("moveObjectBlue")
+activate DM
+MC <-- DM: done
+deactivate DM
+else None
+MC -> DM: invokeAction("moveObjectNone")
+activate DM
+MC <-- DM: done
+deactivate DM
+end
+end
+MC -> CB1: invokeAction("startBeltForward")
+activate CB1
+
+end 
+
+@enduml

@@ -1,0 +1,90 @@
+{
+    "@context": ["https://www.w3.org/2019/wot/td/v1", {
+        "@language": "en"
+    }],
+    "id": "urn:dev:ops:32473-StepperMotor-002",
+    "title": "StepperMotor",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "security": [
+        "nosec_sc"
+    ],
+    "properties":  {
+        "speed": {
+            "title": "Speed",
+            "description": "Speed of the conveyor belt",
+            "type": "integer",
+            "unit": "%",
+            "minimum": 1,
+            "maximum": 100,
+            "readOnly": false,
+            "writeOnly": false,
+            "observable": false, 
+            "forms": [{
+                "href": "http://192.168.0.131:8080/StepperMotor/properties/speed",
+                "contentType": "application/xml",
+                "op": "readproperty",
+                "htv:methodName": "GET"
+            },
+            {
+                "href": "http://192.168.0.131:8080/StepperMotor/properties/speed",
+                "contentType": "application/json",
+                "op": "writeproperty",
+                "htv:methodName": "PUT"
+            }]
+        }
+    },
+    "actions": {
+        "startBeltForward": { 
+            "title": "Start conveyor belt",
+            "description": "This action starts moving the conveyor belt forward", 
+            "output": {
+                "const": "Conveyor belt started"
+            },
+            "synchronous":true,
+            "idempotent": false,
+            "safe": false,
+            "forms": [{
+                "href": "http://192.168.0.131:8080/StepperMotor/actions/startBeltForward",
+                "contentType": "application/json",
+                "op": "invokeaction",
+                "htv:methodName": "POST"
+            }]
+        },
+        "startBeltBackward": { 
+            "title": "Start conveyor belt",
+            "description": "This action starts moving the conveyor belt backward", 
+            "output": {
+                "const": "Conveyor belt started"
+            },
+            "synchronous":true,
+            "idempotent": false,
+            "safe": false,
+            "forms": [{
+                "href": "http://192.168.0.131:8080/StepperMotor/actions/startBeltBackward",
+                "contentType": "application/json",
+                "op": "invokeaction",
+                "htv:methodName": "POST"
+            }]
+        },
+        "stopBelt": { 
+            "title": "Stop conveyor belt",
+            "description": "This action stops moving the conveyor belt", 
+            "output": {
+                "const": "Conveyor belt stopped"
+            },
+            "synchronous":false,
+            "idempotent": false,
+            "safe": false,
+            "forms": [{
+                "href": "http://192.168.0.131:8080/StepperMotor/actions/stopBelt",
+                "contentType": "application/json",
+                "op": "invokeaction",
+                "htv:methodName": "POST"
+            }]
+        }     
+    }
+}
