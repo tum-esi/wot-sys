@@ -38,4 +38,4 @@ Save and close.
 
 ### Schematics
 
-![wiring](Devices/nodewot-infrared-sensor-dobot/Schematics/Schematics_Infrared_Sensor.png)
+![wiring](Schematics/Schematics_Infrared_Sensor.png)
