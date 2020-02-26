@@ -1,6 +1,6 @@
 # Dobot Magician
 
-![DobotMagician](Devices/nodewot-dobot-magician/Images/Dobot_Magician.png)
+![DobotMagician](Images/Dobot_Magician.png)
 
 ## Exposed Thing implementation based on: Exposed Thing with node-wot as Dependency
 ![Exposed Thing with node-wot as Dependency](https://github.com/eclipse/thingweb.node-wot/tree/master/examples/templates/exposed-thing)
