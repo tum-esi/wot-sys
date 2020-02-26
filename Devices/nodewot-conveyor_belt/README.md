@@ -1,6 +1,6 @@
 # Conveyor Belt
 
-![ConveyorBelt](Devices/Stepper_Motor_Conveyor_Belt/Images/ConveyorBelt.png)
+![ConveyorBelt](Images/ConveyorBelt.png)
 
 The conveyor belt is moved by a stepper motor, which is controlled by a Raspberry Pi over a A4988 stepper motor driver. You can find more information about the nodejs library for the A4988 after the Raspberry Pi Configuration. 
 
@@ -121,9 +121,9 @@ Save and close.
 
 ### Schematics
 
-![wiring](Devices/Stepper_Motor_Conveyor_Belt/Schematics/Schematics_Stepper_Motor.png)
+![wiring](Schematics/Schematics_Stepper_Motor.png)
 
-![A4988](Devices/Stepper_Motor_Conveyor_Belt/Schematics/A4988_Stepper_Motor_Driver.png)
+![A4988](Schematics/A4988_Stepper_Motor_Driver.png)
 
 
 
