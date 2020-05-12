@@ -1,7 +1,0 @@
-<launch>
-
-	<node name="control_node.py" pkg="swiftpro" type="control_node.py" />
-	<node name="uarm_node.py" pkg="swiftpro" type="uarm_node.py" output="screen"/>
-	
-
-</launch>

@@ -1,8 +1,0 @@
-prefix=/home/bowen/uarm_workspace/devel
-
-Name: swiftpro
-Description: Description of swiftpro
-Version: 0.0.0
-Cflags: -I/home/bowen/uarm_workspace/devel/include
-Libs: -L/home/bowen/uarm_workspace/devel/lib -lswiftpro
-Requires: roscpp rospy std_msgs tf sensor_msgs message_runtime

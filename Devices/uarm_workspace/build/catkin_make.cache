@@ -1,2 +1,0 @@
-swiftpro
--DCATKIN_DEVEL_PREFIX=/home/bowen/uarm_workspace/devel -DCMAKE_INSTALL_PREFIX=/home/bowen/uarm_workspace/install -G Unix Makefiles
