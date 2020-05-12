@@ -1,7 +1,0 @@
-<launch>
-
-	<node name="pump_node.py" pkg="swiftpro" type="pump_node.py" />
-	<node name="uarm_core.py" pkg="swiftpro" type="uarm_core.py" output="screen"/>
-	
-
-</launch>

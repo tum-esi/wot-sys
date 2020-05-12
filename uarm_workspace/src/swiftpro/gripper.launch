@@ -1,7 +1,0 @@
-<launch>
-
-	<node name="grip.py" pkg="swiftpro" type="grip.py" output="screen"/>
-	<node name="core.py" pkg="swiftpro" type="core.py" output="screen"/>
-	
-
-</launch>
