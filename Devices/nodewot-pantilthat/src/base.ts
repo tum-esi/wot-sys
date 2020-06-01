@@ -19,13 +19,13 @@ export class WotDevice {
         this.WoT = WoT;
         this.WoT.produce(
 			{
-                "@context": [
-                    "https://www.w3.org/2019/wot/td/v1",
-                    { "@language" : "en" }],
-                title : "PanTilt",
-                id : "esi:pantilt:1",
-                description : "A Pan and Tilt platform on top of a Raspberry",
-                properties:{
+              "@context": [
+                  "https://www.w3.org/2019/wot/td/v1",
+                  { "@language" : "en" }],
+              title : "PanTilt",
+              id : "esi:pantilt:1",
+              description : "A Pan and Tilt platform on top of a Raspberry",
+              properties:{
                 	panPosition:{
 							title:"Pan Position",
 							readOnly: true,
@@ -151,12 +151,12 @@ export class WotDevice {
                 }
             }
         ).then((exposedThing)=>{
-		    this.thing = exposedThing;
-		    this.td = exposedThing.getThingDescription();
-            this.add_properties();
+		    	this.thing = exposedThing;
+		    	this.td = exposedThing.getThingDescription();
+          this.add_properties();
         	this.add_actions();
-		    this.thing.expose();
-		    if (tdDirectory) { this.register(tdDirectory); }
+		    	this.thing.expose();
+		    	if (tdDirectory) { this.register(tdDirectory); }
         });
 
 
