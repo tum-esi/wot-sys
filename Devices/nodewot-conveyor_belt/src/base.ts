@@ -22,15 +22,9 @@ export class WotDevice {
                     "https://www.w3.org/2019/wot/td/v1",
                     { "@language" : "en" }],
                 "@type": "",
-                id : "urn:dev:ops:32473-StepperMotor-001",
-                title : "StepperMotor",
-                description : "Stepper motor on a Rpi",
-                securityDefinitions: { 
-                    "nosec_sc": { 
-                        "scheme": "nosec" 
-                    }
-                },
-                security: "nosec_sc",
+                id : "urn:dev:ops:32473-ConveyorBelt-001",
+                title : "ConveyorBelt1",
+                description : "Conveyor Belt with a Stepper Motor on a RPi",
 				properties:  {
 					speed: {
 						"title": "Speed",
@@ -49,7 +43,7 @@ export class WotDevice {
 						"title": "Start conveyor belt",
 						"description": "This action starts moving the conveyor belt forward", 
 						"output": {
-							"const": "Conveyor belt started"
+							"const": "Conveyor belt started forwards"
 						},
 						"synchronous":true,
 						"idempotent": false,
@@ -59,7 +53,7 @@ export class WotDevice {
 						"title": "Start conveyor belt",
 						"description": "This action starts moving the conveyor belt backward", 
 						"output": {
-							"const": "Conveyor belt started"
+							"const": "Conveyor belt started backwards"
 						},
 						"synchronous":true,
 						"idempotent": false,
@@ -71,7 +65,7 @@ export class WotDevice {
 						"output": {
 							"const": "Conveyor belt stopped"
 						},
-						"synchronous":true,
+						"synchronous":false,
 						"idempotent": false,
 						"safe": false
 					}     
@@ -122,7 +116,7 @@ export class WotDevice {
 				a4988.turn_direction(true);
 				a4988.turn_step_size('FULL');
 				a4988.turn(1); 
-				resolve();
+				resolve("Conveyor belt started forwards");
 			});				
 	}
     private startBeltBackward(){
@@ -130,13 +124,13 @@ export class WotDevice {
 				a4988.turn_direction(false);
 				a4988.turn_step_size('FULL');
 				a4988.turn(1);			
-				resolve();
+				resolve("Conveyor belt started backwards");
 			});
 	}
 	private stopBelt(){
 		return new Promise((resolve, reject) => {
 				a4988.stop();
-				resolve();
+				resolve("Conveyor belt stopped");
 			});	
     }
 
@@ -154,7 +148,6 @@ export class WotDevice {
 				   reject(new Error ("Invalid input"));
 			   }
 			   else {
-				//    resolve(this.speedWriteHandler(newSpeed));
 				this.setSpeedStepperMotor(newSpeed);
 				resolve(newSpeed);
 			   }
