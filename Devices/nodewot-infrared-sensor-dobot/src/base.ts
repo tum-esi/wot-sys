@@ -4,7 +4,7 @@ var request = require('request');
 
 const Gpio = require('onoff').Gpio;
 const infraredSensor = new Gpio(17, 'in', 'both', {debounceTimeout: 10});
-const risingEdge_infraredSensor = new Gpio(17, 'in', 'rising', {debounceTimeout: 10});
+const fallingEdge_infraredSensor = new Gpio(17, 'in', 'falling', {debounceTimeout: 10});
 
 export class WotDevice {
     public thing: WoT.ExposedThing;
@@ -15,39 +15,32 @@ export class WotDevice {
         this.WoT = WoT;
         this.WoT.produce(
             //fill in the empty quotation marks
-            {
-                "@context": [
-                    "https://www.w3.org/2019/wot/td/v1",
-                    { "@language" : "en" }],
-                "@type": "",
-                id : "urn:dev:ops:32473-InfraredSensor-001",
-                title : "InfraredSensor",
-                description : "Infrared sensor for the detection of objects",
-                securityDefinitions: { 
-                    "nosec_sc": { 
-                        "scheme": "nosec_sc" 
-                    }
-                },
-                security: "nosec_sc",
-                properties:{
-                    objectPresence:{
-				    title:"Read infrared sensor",
-				        description: "Reads the infrared sensor; 0: no object in front; 1: object in front.",
-                            type: "boolean",
-                            observable: true
-					    }
-				},  
-	            events:{
-                    detectedObject:{
-				    title:"Object detected",
-				    description: "Detects the rising edge of the signal of the infrared sensor.",
-				    data:{
-					    type: "boolean"
-				    }
-							
-			    }
-		    }
-        }
+{
+	"@context": [
+		"https://www.w3.org/2019/wot/td/v1",
+		{ "@language" : "en" }],
+	"@type": "",
+	id : "urn:dev:ops:32473-InfraredSensor-001",
+	title : "InfraredSensor1",
+	description : "Infrared sensor for the detection of objects",
+	properties:{
+		objectPresence:{
+			title:"Read infrared sensor",
+			description: "Reads the infrared sensor; 0: no object in front; 1: object in front.",
+			type: "boolean",
+			observable: true
+		}
+	},		
+	events:{
+		detectedObject:{
+			title:"Object detected",
+			description: "Detects the rising edge of the signal of the infrared sensor.",
+			data:{
+				type: "boolean"
+			}			
+		}
+	}
+}
         ).then((exposedThing)=>{
 		    this.thing = exposedThing;
 		    this.td = exposedThing.getThingDescription();
@@ -59,8 +52,6 @@ export class WotDevice {
 
 		this.listen_to_detectedObjectEvent(); //used to listen to specific events provided by a library. If you don't have events, simply remove it
         this.listen_to_objectPresenceProperty();
-
-        if (tdDirectory) { this.register(tdDirectory); }
 
     }
     public register(directory: string) {
@@ -92,7 +83,6 @@ export class WotDevice {
         // OBSERVEABLE -> 0: no object in front; 1: object in front
         infraredSensor.watch((err, value) => {
 			this.thing.writeProperty("objectPresence", 1-value);
-			console.log(1-value);
 		});
 	}
 
@@ -100,9 +90,8 @@ export class WotDevice {
 
     private listen_to_detectedObjectEvent() {
         // SUBCRIBEEVENT -> Detects the rising edge of the signal of the infrared sensor.
-        risingEdge_infraredSensor.watch((err, value) => {
+        fallingEdge_infraredSensor.watch((err, value) => {
 			this.thing.emitEvent("detectedObject", 1-value);
-			console.log(1-value);
 		});
 	}
 

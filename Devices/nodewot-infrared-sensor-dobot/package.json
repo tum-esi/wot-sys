@@ -16,9 +16,9 @@
     "wot-typescript-definitions": "0.7.0"
   },
   "dependencies": {
-    "@node-wot/binding-http": "0.7.0-SNAPSHOT.3",
-    "@node-wot/binding-mqtt": "0.7.0-SNAPSHOT.3",
-    "@node-wot/core": "0.7.0-SNAPSHOT.3",
+    "@node-wot/binding-http": "0.7.0",
+    "@node-wot/binding-mqtt": "0.7.0",
+    "@node-wot/core": "0.7.0",
     "ajv": "^6.10.2",
     "onoff": "^5.0.0",
     "request": "2.88.0"
