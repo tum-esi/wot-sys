@@ -6,7 +6,7 @@ This project supports the registration of the generated TD to a TD directory
 Fill in the directory URI where the HTTP POST request to send the TD will be made
 If you leave it empty, registration thread will never execute, otherwise it will try to register every 10 seconds 
 */
-const TD_DIRECTORY = ""
+const TD_DIRECTORY = "http://172.16.1.100:8080/api/td/"
 
 
 Servient = require("@node-wot/core").Servient

@@ -12,7 +12,6 @@ export class WotDevice {
         //create WotDevice as a server
         this.WoT = WoT;
         this.WoT.produce(
-            //fill in the empty quotation marks
             {
                 "@context": [
                     "https://www.w3.org/2019/wot/td/v1",
@@ -20,100 +19,109 @@ export class WotDevice {
                 "@type": "",
                 id : "urn:dev:ops:32473-DobotMagician-001",
                 title : "DobotMagician",
-                description : "Dobot Magician control for ",
-                securityDefinitions: { 
-                    "": { 
-                        "scheme": "" 
-                    }
-                },
-                security: "",
+                description : "Robot arm on a sliding rail",
+                properties:{
+					position:{
+						type:"object",
+						description:"Position of the end effector. x,y,z are dependent of each other",
+						properties:{
+							x:{
+								type:"number",
+								maximum:180
+								minimum: 0
+							},
+							y:{
+								type:"number",
+								maximum:180
+								minimum: 0
+							},
+							z:{
+								type:"number",
+								maximum:45
+								minimum: -110
+							},
+							r:{
+								type:"number",
+								maximum:180
+								minimum: -180
+							},
+							l:{
+								type:"number",
+								maximum:1000
+								minimum: 0
+							}
+						}
+					}
+				},
 				actions:{
-                    startPosition: { 
-                        title: "Default start position",
+                    moveToStartPosition: {
+						title: "Move to Start Position",
                         description: "The robot moves to the default start position", 
-                        output: {
-                            "const": "Dobot magician is moving to the default start position"
-                        },
+                        output: {"const": "At the start position"},
                         synchronous:true,
                         idempotent: false,
                         safe: false,
                     },
 					pickObjectPosition1: { 
-						title: "Pick object position 1",
-						description: "The robot picks the object at position 1", 
-						output: {
-							"const": "Dobot magician is picking object at position 1"
-                        },
-                        synchronous:true,
+						title: "Pick Object at Position 1",
+						description: "The robot picks the object at the preprogrammed position 1", 
+						output: {"const": "Dobot magician is picking object at position 1"},
+						synchronous:true,
 						idempotent: false,
 						safe: false,
 					},
 					pickObjectPosition2: { 
-						title: "Pick object position 2",
+						title: "Pick Object at Position 2",
 						description: "The robot picks the object at position 2", 
-						output: {
-							"const": "Dobot magician is picking object at position 2"
-                        },
-                        synchronous:true,
+						output: {"const": "Dobot magician is picking object at position 2"},
+						synchronous:true,
 						idempotent: false,
 						safe: false,
                     },
-                    moveToColorSensor1: { 
-                        title: "Moves object to color sensor 1",
-                        description: "The robot moves the object at the color sensor 1 for reading the color of the object", 
-                        output: {
-                            "const": "Dobot magician is moving object at the color sensor 1"
-                        },
+                    moveToColorSensor1: {
+						title: "Move to Color Sensor 1",
+                        description: "Robot moves the object to the preprogrammed location of color sensor 1",
+                        output: {"const": "Dobot magician is moving object to the color sensor 1"},
                         synchronous:true,
                         idempotent: false,
                         safe: false, 
                     },
-                    moveToColorSensor2: { 
-                        title: "Moves object to color sensor 2",
-                        description: "The robot moves the object at the color sensor 2 for reading the color of the object", 
-                        output: {
-                            "const": "Dobot magician is moving object at the color sensor 2"
-                        },
+                    moveToColorSensor2: {
+						title: "Move to Color Sensor 2",
+                        description: "Robot moves the object to the preprogrammed location of color sensor 2",
+                        output: {"const": "Dobot magician is moving object to the color sensor 2"},
                         synchronous:true,
                         idempotent: false,
                         safe: false,
                     },
-                    moveObjectRed: { 
-                        title: "Moves object to position red-color",
-                        description: "The robot moves the object to a colot dependend position", 
-                        output: {
-                            "const": "Dobot magician is moving object at the color dependent position"
-                        },
+                    moveToObjectRed: {
+						title:"Move to Object Red",
+                        description: "Robot moves the object to the preprogrammed location for red colored objects",
+                        output: {"const": "Dobot magician is moving object at the color dependent position"},
                         synchronous:true,
                         idempotent: false,
                         safe: false,
                     },
-                    moveObjectGreen: { 
-                        title: "Moves object to position green-color",
-                        description: "The robot moves the object to a colot dependend position", 
-                        output: {
-                            "const": "Dobot magician is moving object at the color dependent position"
-                        },
+                    moveToObjectGreen: { 
+                        title: "Move to Object Green",
+                        description: "Robot moves the object to the preprogrammed location for green colored objects",
+                        output: {"const": "Dobot magician is moving object at the color dependent position"},
                         synchronous:true,
                         idempotent: false,
                         safe: false,
                     },
-                    moveObjectBlue: { 
-                        title: "Moves object to position blue-color",
-                        description: "The robot moves the object to a colot dependend position", 
-                        output: {
-                            "const": "Dobot magician is moving object at the color dependent position"
-                        },
+                    moveToObjectBlue: { 
+                        title: "Move to Object Blue",
+                        description: "Robot moves the object to the preprogrammed location for blue colored objects",
+                        output: {"const": "Dobot magician is moving object at the color dependent position"},
                         synchronous:true,
                         idempotent: false,
                         safe: false,
                     },
-                    moveObjectNone: { 
-                        title: "Moves object to position none-color",
-                        description: "The robot moves the object to a colot dependend position", 
-                        output: {
-                            "const": "Dobot magician is moving object at the color dependent position"
-                        },
+                    moveToObjectNone: { 
+                        title: "Move to Object None",
+                        description: "The robot moves the object to preprogrammed position for objects whose color cannot be detected",
+                        output: {"const": "Dobot magician is moving object at the color dependent position"},
                         synchronous:true,
                         idempotent: false,
                         safe: false,
@@ -123,7 +131,8 @@ export class WotDevice {
         ).then((exposedThing)=>{
 			this.thing = exposedThing;
 			this.td = exposedThing.getThingDescription();
-			this.add_actions();
+			this.addPropertyHandlers();
+			this.addActionHandlers();
 			this.thing.expose();
 			if (tdDirectory) { this.register(tdDirectory); }
         });
@@ -145,14 +154,21 @@ export class WotDevice {
     }
 
 	// ------------------------  Properties  ------------------------
-
+    private getPosition(){
+		return new Promise((resolve, reject) => {
+			const process = spawn('python3', ['./lib/getPosition.py']);
+				process.stdout.on('data', (data) => {
+				resolve(JSON.parse(data));
+			});			
+		});	
+	}
 	// ------------------------    Actions   ------------------------
 
     private actionHandlerStartPosition(){
 		return new Promise((resolve, reject) => {
 			const process = spawn('python3', ['./lib/startPosition.py']);
 				process.stdout.on('data', (data) => {
-				resolve();
+				resolve("At the start position");
 			});			
 		});	
 	}
@@ -160,7 +176,7 @@ export class WotDevice {
 		return new Promise((resolve, reject) => {
 			const process = spawn('python3', ['./lib/pickObjectPosition1.py']);
 				process.stdout.on('data', (data) => {
-				resolve();
+				resolve("Picked object at position 1");
 			});			
 		});	
 	}
@@ -168,7 +184,7 @@ export class WotDevice {
 		return new Promise((resolve, reject) => {
 			const process = spawn('python3', ['./lib/pickObjectPosition2.py']);
 				process.stdout.on('data', (data) => {
-				resolve();
+				resolve("Picked object at position 2");
 			});
 		});	
     }
@@ -176,7 +192,7 @@ export class WotDevice {
 		return new Promise((resolve, reject) => {
 			const process = spawn('python3', ['./lib/moveToColorSensor1.py']);
 				process.stdout.on('data', (data) => {
-				resolve();
+				resolve("At color sensor 1");
 			});
 		});	
     }
@@ -184,7 +200,7 @@ export class WotDevice {
 		return new Promise((resolve, reject) => {
 			const process = spawn('python3', ['./lib/moveToColorSensor2.py']);
 				process.stdout.on('data', (data) => {
-				resolve();
+				resolve("At color sensor 2");
 			});
 		});	
     }
@@ -192,7 +208,7 @@ export class WotDevice {
 		return new Promise((resolve, reject) => {
 			const process = spawn('python3', ['./lib/moveObjectRed.py']);
 				process.stdout.on('data', (data) => {
-				resolve();
+				resolve("At red object location");
 			});
 		});	
     }
@@ -200,7 +216,7 @@ export class WotDevice {
 		return new Promise((resolve, reject) => {
 			const process = spawn('python3', ['./lib/moveObjectGreen.py']);
 				process.stdout.on('data', (data) => {
-				resolve();
+				resolve("At green object location");
 			});
 		});	
     }
@@ -208,7 +224,7 @@ export class WotDevice {
 		return new Promise((resolve, reject) => {
 			const process = spawn('python3', ['./lib/moveObjectBlue.py']);
 				process.stdout.on('data', (data) => {
-				resolve();
+				resolve("At blue object location");
 			});
 		});	
     }
@@ -216,7 +232,7 @@ export class WotDevice {
 		return new Promise((resolve, reject) => {
 			const process = spawn('python3', ['./lib/moveObjectNone.py']);
 				process.stdout.on('data', (data) => {
-				resolve();
+				resolve("At undefined color object location");
 			});
 		});	
     }
@@ -225,9 +241,13 @@ export class WotDevice {
 
  	// -----------------------  ADD P, A & E  -----------------------
 
-    private add_actions() {
+	private addPropertyHandlers(){
+		this.thing.setPropertyReadHandler("position", this.getPosition);
+	}
+
+    private addActionHandlers() {
         //fill in add actions
-        this.thing.setActionHandler("startPosition", () => {            
+        this.thing.setActionHandler("moveToStartPosition", () => {            
 			return this.actionHandlerStartPosition();
 		});
         this.thing.setActionHandler("pickObjectPosition1", () => {            
@@ -242,16 +262,16 @@ export class WotDevice {
         this.thing.setActionHandler("moveToColorSensor2", () => {            
 			return this.actionHandlerMoveToColorSensor2();
         });
-        this.thing.setActionHandler("moveObjectRed", () => {            
+        this.thing.setActionHandler("moveToObjectRed", () => {            
 			return this.actionHandlerMoveObjectRed();
         });
-        this.thing.setActionHandler("moveObjectGreen", () => {            
+        this.thing.setActionHandler("moveToObjectGreen", () => {            
 			return this.actionHandlerMoveObjectGreen();
         });
-        this.thing.setActionHandler("moveObjectBlue", () => {            
+        this.thing.setActionHandler("moveToObjectBlue", () => {            
 			return this.actionHandlerMoveObjectBlue();
         });
-        this.thing.setActionHandler("moveObjectNone", () => {            
+        this.thing.setActionHandler("moveToObjectNone", () => {            
 			return this.actionHandlerMoveObjectNone();
         });
     }

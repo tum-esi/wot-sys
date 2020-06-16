@@ -1,5 +1,5 @@
 {
-  "name": "dobot_magician",
+  "name": "dobot-magician",
   "version": "1.0.0",
   "description": "Dobot Magician on a RPi",
   "main": "index.js",
@@ -16,10 +16,10 @@
     "tslint": "5.12.1"
   },
   "dependencies": {
-    "@node-wot/binding-http": "0.7.0-SNAPSHOT.3",
-    "@node-wot/core": "0.7.0-SNAPSHOT.3",
+    "@node-wot/binding-http": "0.7.0",
+    "@node-wot/core": "0.7.0",
     "request": "2.88.0",
-	"ajv": "^6.10.2"
+    "ajv": "^6.10.2"
   },
   "optionalDependencies": {},
   "scripts": {
