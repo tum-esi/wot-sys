@@ -1,41 +1,35 @@
-# E18-D80NK Infrared Sensor
+# Base node-wot
 
-![Infrared Sensor](https://www.microchip.lk/wp-content/uploads/2018/03/ir-barrier-sensor-e18-d80nk.jpg)
+This is a project for making the proccess of creating a WoT enabled device easier by giving base functions and code and putting fill in comments.
+You should start from this project by copying it and adapting it according to your specific application
 
-## Exposed Thing implementation based on: Exposed Thing with node-wot as Dependency
-![Exposed Thing with node-wot as Dependency](https://github.com/eclipse/thingweb.node-wot/tree/master/examples/templates/exposed-thing)
+## Adapting to your needs
 
-### Raspberry Pi Configuration
+### Changing package.json file
+  * Open package.json file in the root of the folder
+  * Change name of the package
+  * Change description
+  * Add needed dependencies: Here you should add other bindings of node-wot if needed
 
-You can find more information about the following steps here:  
-* [![onoff](https://www.npmjs.com/package/onoff)](https://www.npmjs.com/package/onoff)   
+### Changing base.ts
+  * Open src/base.ts
+  * Fill in empty quotation marks in produce function
+  * Fill in addProperties, addActions and addEvents if needed
 
+### If CoAP or MQTT is needed 
+  * Add dependency @node-wot/binding-xxx (e.g. binding-http, binding-mqtt) in your package.json
+  * Uncomment related lines in index.js
+
+### Follow installation steps 
+
+## Installation
+
+- Get the latest node.js: 
+```bash
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt-get install -y nodejs
 ```
-1)  npm install
-2)  (npm install onoff) -> already included in package.json
-3)  npm run build
-4)  npm run start
-```
-In case of some problems with npm run start, try:
-```
-sudo shutdown -r 0 
-```
-and wait until the rpi is ready. 
-
-### Autostart execution Raspberry Pi
-
-Use the following terminal command:
-```
-crontab -e
-```
-Write the commands that need to be executed at the reboot of the Raspberry Pi.
-Example text:
-
-```
-@reboot sleep 10 && ~/Desktop/FolderOfTheThingProgram && npm run start
-```
-Save and close.
-
-### Schematics
-
-![wiring](Schematics/Schematics_Infrared_Sensor.png)
+You will need to change 10.x to a newer version if needed
+- To install dependencies: `npm install`
+- To build (transcompiling Typescript to javascript): `npm run build`
+- To run the code: `npm run start` 

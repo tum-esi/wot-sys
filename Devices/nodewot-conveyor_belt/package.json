@@ -16,8 +16,8 @@
     "tslint": "5.12.1"
   },
   "dependencies": {
-    "@node-wot/binding-http": "0.7.0-SNAPSHOT.3",
-    "@node-wot/core": "0.7.0-SNAPSHOT.3",
+    "@node-wot/binding-http": "0.7.0",
+    "@node-wot/core": "0.7.0",
     "ajv": "^6.10.2",
     "pigpio": "^2.0.1",
     "request": "2.88.0"
