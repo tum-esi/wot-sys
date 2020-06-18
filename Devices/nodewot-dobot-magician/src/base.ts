@@ -27,27 +27,27 @@ export class WotDevice {
 						properties:{
 							x:{
 								type:"number",
-								maximum:180
-								minimum: 0
+								maximum:300,
+								minimum: 220
 							},
 							y:{
 								type:"number",
-								maximum:180
-								minimum: 0
+								maximum:40,
+								minimum: 5
 							},
 							z:{
 								type:"number",
-								maximum:45
-								minimum: -110
+								maximum:45,
+								minimum: -45
 							},
 							r:{
 								type:"number",
-								maximum:180
+								maximum:180,
 								minimum: -180
 							},
 							l:{
 								type:"number",
-								maximum:1000
+								maximum:1000,
 								minimum: 0
 							}
 						}
@@ -78,6 +78,7 @@ export class WotDevice {
 						idempotent: false,
 						safe: false,
                     },
+                    /*
                     moveToColorSensor1: {
 						title: "Move to Color Sensor 1",
                         description: "Robot moves the object to the preprogrammed location of color sensor 1",
@@ -94,6 +95,7 @@ export class WotDevice {
                         idempotent: false,
                         safe: false,
                     },
+                    */
                     moveToObjectRed: {
 						title:"Move to Object Red",
                         description: "Robot moves the object to the preprogrammed location for red colored objects",
@@ -188,6 +190,7 @@ export class WotDevice {
 			});
 		});	
     }
+    /*
     private actionHandlerMoveToColorSensor1(){
 		return new Promise((resolve, reject) => {
 			const process = spawn('python3', ['./lib/moveToColorSensor1.py']);
@@ -204,6 +207,7 @@ export class WotDevice {
 			});
 		});	
     }
+    */
     private actionHandlerMoveObjectRed(){
 		return new Promise((resolve, reject) => {
 			const process = spawn('python3', ['./lib/moveObjectRed.py']);
@@ -256,12 +260,14 @@ export class WotDevice {
 		this.thing.setActionHandler("pickObjectPosition2", () => {            
 			return this.actionHandlerPickObjectPosition2();
         });
+        /*
         this.thing.setActionHandler("moveToColorSensor1", () => {            
 			return this.actionHandlerMoveToColorSensor1();
         });
         this.thing.setActionHandler("moveToColorSensor2", () => {            
 			return this.actionHandlerMoveToColorSensor2();
         });
+        * */
         this.thing.setActionHandler("moveToObjectRed", () => {            
 			return this.actionHandlerMoveObjectRed();
         });

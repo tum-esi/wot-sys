@@ -11,8 +11,9 @@ device = Dobot(port=port, verbose=True)
 (l) = device.pose_l()
 
 device.grip(False)
-device.move_to_with_l(268, 23, 20, 5, 0, wait=True) # we wait until this movement is done before continuing
-device.move_to_with_l(268, 23, -47, 5, 0, wait=True) # we wait until this movement is done before continuing
+device.move_to_with_l(x, y, 20, r, l, wait=True)
+device.move_to_with_l(215, 18, 20, 7, 10, wait=True) # we wait until this movement is done before continuing
+device.move_to_with_l(215, 18, -45, 7, 10, wait=True) # we wait until this movement is done before continuing
 device.grip(True)
 time.sleep(0.5)
 device.suck(False)
