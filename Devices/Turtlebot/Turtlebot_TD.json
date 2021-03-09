@@ -4,260 +4,234 @@
 	    "securityDefinitions": { "nosec_sc": {"scheme": "nosec"}
 	    },
 	    "security": ["nosec_sc"],
-	    "properties": {
-	    	"location":{
-	    		"title":"Location",
-	    		"description":"Stores the current Location",
-				"type":"object",
-				"required":["x","y"],
-				"properties": {
-					"x":{
-						"type":"integer",
-						"minimum" : 200,
-						"maximum" : 200
-					},
-					"y":{
-						"type":"integer",
-						"minimum" : 200,
-						"maximum" : 200
-					}
-				},
-				"forms": [{"href": "http://localhost:8000/properties/location",
-					"op": ["readproperty"],
-					"contentType":"application/json"
-					}
-				]
-	    	},
-			"home":{
-	    		"title":"Home",
-	    		"description":"Stores value of the Home Location",
-	    		"type":"object",
-				"required":["x","y"],
-				"properties": {
-					"x":{
-						"type":"integer",
-						"minimum" : 200,
-						"maximum" : 200
-					},
-					"y":{
-						"type":"integer",
-						"minimum" : 200,
-						"maximum" : 200
-					}
-				},
-				"forms": [
-					{"href": "http://localhost:8000/properties/home",
-					"op": ["readproperty", "writeproperty"],
-					"contentType":"application/json"
-					}
-				]
-			},
-			"locationArm":{
-	    		"title":"Location",
-	    		"description":"Stores the current Location of the Arm",
-                "type":"object",
-				"required":["x","y","z"],
-				"properties": {
-					"x":{
-						"type":"integer",
-						"minimum" : 200,
-						"maximum" : 200
-					},
-					"y":{
-						"type":"integer",
-						"minimum" : 200,
-						"maximum" : 200
-					},
-					"z":{
-						"type":"integer",
-						"minimum" : 200,
-						"maximum" : 200
-					}
-				},
-				"forms": [{"href": "http://localhost:8000/properties/locationarm",
-					"op": ["readproperty"],
-					"contentType":"application/json"
-					}
-				]
-	    	},
-            "homeArm":{
-	    		"title":"Home Arm",
-	    		"description":"Stores value of the Arm Home Location",
-	    		"type":"object",
-				"required":["x","y","z"],
-				"properties": {
-					"x":{
-						"type":"integer",
-						"minimum" : 200,
-						"maximum" : 200
-					},
-					"y":{
-						"type":"integer",
-						"minimum" : 200,
-						"maximum" : 200
-					},
-					"z":{
-						"type":"integer",
-						"minimum" : 200,
-						"maximum" : 200
-					}
-				},
-				"forms": [
-					{"href": "http://localhost:8000/properties/homearm",
-					"op": ["readproperty", "writeproperty"],
-					"contentType":"application/json"
-					}
-				]
-	    	}
-	    },
+	    "properties": {},
 	    "actions":{
 	
-			"moveForward":{
+			"baseForward":{
 				"title":"Move Base Forward",
 				"description":"Move forward for 1 second",
 				"forms":[{
-					"href":"http://localhost:8000/actions/moveforward",
+					"href":"http://localhost:8000/turtlebot3/actions/baseforward",
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
 				}],
-				"idempotent": true,
+				"idempotent": false,
 				"safe": false
 			},
-            "moveBackward":{
+			"baseForwardWithTime":{
+				"title":"Move Base Forward with a set time",
+				"description":"Move forward for set second",
+				"input": "integer",
+				"forms":[{
+					"href":"http://localhost:8000/turtlebot3/actions/baseforwardwithtime",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": false,
+				"safe": false
+			},
+            "baseBackward":{
 				"title":"Move Base Backward",
 				"description":"Move backward for 1 second",
 				"forms":[{
-					"href":"http://localhost:8000/actions/movebackward",
+					"href":"http://localhost:8000/turtlebot3/actions/basebackward",
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
 				}],
-				"idempotent": true,
+				"idempotent": false,
 				"safe": false
 			},
-            "rotateLeft":{
+			"baseBackwardWithTime":{
+				"title":"Move Base Backward with a set time",
+				"description":"Move backward for 1 second",
+				"input": "integer",
+				"forms":[{
+					"href":"http://localhost:8000/turtlebot3/actions/basebackwardwithtime",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": false,
+				"safe": false
+			},
+            "baseRotateLeft":{
 				"title":"Rotate Base Left",
 				"description":"Rotates to the left for 1 second",
 				"forms":[{
-					"href":"http://localhost:8000/actions/rotateleft",
+					"href":"http://localhost:8000/turtlebot3/actions/baserotateleft",
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
 				}],
-				"idempotent": true,
+				"idempotent": false,
+				"safe": false
+			},
+			"baseRotateLeftWithTime":{
+				"title":"Rotate Base Left",
+				"description":"Rotates to the left for set second",
+				"input": "integer",
+				"forms":[{
+					"href":"http://localhost:8000/turtlebot3/actions/baserotateleftwithtime",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": false,
 				"safe": false
 			},
             "rotateRight":{
 				"title":"Rotate Base Right",
 				"description":"Rotates to the right for 1 second",
 				"forms":[{
-					"href":"http://localhost:8000/actions/rotateright",
+					"href":"http://localhost:8000/turtlebot3/actions/baserotateright",
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
 				}],
-				"idempotent": true,
+				"idempotent": false,
 				"safe": false
 			},
-            "goHome":{
-				"title":"Home",
-				"description":"Return to Home Position",
+			"rotateRightWithTime":{
+				"title":"Rotate Base Right",
+				"description":"Rotates to the right for set second",
+				"input": "integer",
 				"forms":[{
-					"href":"http://localhost:8000/actions/gohome",
+					"href":"http://localhost:8000/turtlebot3/actions/baserotaterightwithtime",
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
 				}],
-				"idempotent": true,
+				"idempotent": false,
 				"safe": false
 			},
-            "triggerLidar":{
-				"title":"Trigger Lidar",
-				"description":"Get back a value from the Lidar",
+			"baseStop":{
+				"title":"Stop Base Movement",
+				"description":"Stop Base Movement",
 				"forms":[{
-					"href":"http://localhost:8000/actions/triggerlidar",
+					"href":"http://localhost:8000/turtlebot3/actions/basestop",
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
 				}],
-				"idempotent": true,
+				"idempotent": false,
 				"safe": false
 			},
-            "rotateArmLeft":{
-				"title":"Rotate Arm Left",
-				"description":"Rotates Arm to the left",
+            "moveArmPosition1":{
+				"title":"Move arm to position 1",
+				"description":"Arm moves to the middle of the base to a high position",
 				"forms":[{
-					"href":"http://localhost:8000/actions/rotatearmleft",
+					"href":"http://localhost:8000/turtlebot3/actions/armpose1",
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
 				}],
-				"idempotent": true,
+				"idempotent": false,
 				"safe": false
 			},
-            "rotateArmRight":{
-				"title":"Rotate Arm Right",
-				"description":"Rotates Arm to the right",
+            "moveArmPosition2":{
+				"title":"Move arm to position 2",
+				"description":"Arm moves to the middle of the base to a mid level position",
 				"forms":[{
-					"href":"http://localhost:8000/actions/rotatearmright",
+					"href":"http://localhost:8000/turtlebot3/actions/armpose2",
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
 				}],
-				"idempotent": true,
+				"idempotent": false,
 				"safe": false
 			},
-            "moveArmTo":{
-				"title":"Move Arm to Position",
-				"description":"Moves the Arm to a certain position",
-                "input" : {
-					"type" : "object",
-					"required":["x","y","z"],
-					"properties": {
-						"x":{
-							"type":"integer",
-							"minimum" : 200,
-							"maximum" : 200
-						},
-						"y":{
-							"type":"integer",
-							"minimum" : 200,
-							"maximum" : 200
-						},
-						"z":{
-							"type":"integer",
-							"minimum" : 200,
-							"maximum" : 200
-						}
-					}
-				},
+			"moveArmPosition3":{
+				"title":"Move arm to position 1",
+				"description":"Arm moves to the middle of the base to a low position",
 				"forms":[{
-					"href":"http://localhost:8000/actions/rotatearmto",
+					"href":"http://localhost:8000/turtlebot3/actions/armpose3",
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
 				}],
-				"idempotent": true,
+				"idempotent": false,
 				"safe": false
 			},
-            "goHomeArm":{
-				"title":"Move Arm to Home Position",
-				"description":"Moves the Arm to its Home Position",
+			"moveArmPosition4":{
+				"title":"Move arm to position 4",
+				"description":"Arm moves to the left of the base to a high position",
 				"forms":[{
-					"href":"http://localhost:8000/actions/gohomearm",
+					"href":"http://localhost:8000/turtlebot3/actions/armpose4",
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
 				}],
-				"idempotent": true,
+				"idempotent": false,
+				"safe": false
+			},
+			"moveArmPosition5":{
+				"title":"Move arm to position 5",
+				"description":"Arm moves to the left of the base to a mid level position",
+				"forms":[{
+					"href":"http://localhost:8000/turtlebot3/actions/armpose5",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": false,
+				"safe": false
+			},
+			"moveArmPosition6":{
+				"title":"Move arm to position 6",
+				"description":"Arm moves to the left of the base to a low position",
+				"forms":[{
+					"href":"http://localhost:8000/turtlebot3/actions/armpose6",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": false,
+				"safe": false
+			},
+			"moveArmPosition7":{
+				"title":"Move arm to position 7",
+				"description":"Arm moves to the right of the base to a high position",
+				"forms":[{
+					"href":"http://localhost:8000/turtlebot3/actions/armpose7",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": false,
+				"safe": false
+			},
+			"moveArmPosition8":{
+				"title":"Move arm to position 8",
+				"description":"Arm moves to the right of the base to a mid level position",
+				"forms":[{
+					"href":"http://localhost:8000/turtlebot3/actions/armpose8",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": false,
+				"safe": false
+			},
+			"moveArmPosition9":{
+				"title":"Move arm to position 1",
+				"description":"Arm moves to the right of the base to a low position",
+				"forms":[{
+					"href":"http://localhost:8000/turtlebot3/actions/armpose9",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": false,
 				"safe": false
 			},
 			"closeGrip":{
 				"title":"Close the Gripper",
 				"description":"Closes the Gripper",
 				"forms":[{
-					"href":"http://localhost:8000/actions/closegrip",
+					"href":"http://localhost:8000/turtlebot3/actions/gripclose",
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
@@ -269,46 +243,15 @@
 				"title":"Open the Gripper",
 				"description":"Opens the Gripper",
 				"forms":[{
-					"href":"http://localhost:8000/actions/opengrip",
+					"href":"http://localhost:8000/turtlebot3/actions/gripopen",
 					"contentType":"application/json",
 					"op":"invokeaction",
 					"htv:methodName":"POST"
 				}],
 				"idempotent": true,
 				"safe": false
-			},
-			
-			"resetNumber2":{
-				"title":"Reset Number 1",
-				"description":"Action resets value of Number 1 to 0",
-                "input":{
-					"type": "integer",
-					"maximum": 30
-				},
-				"forms":[
-					{
-					"href":"http://localhost:8000/actions/resetNumber2",
-					"contentType":"application/json",
-					"op":"invokeaction",
-					"htv:methodName":"POST"
-					}
-				],
-				"idempotent": true,
-				"safe": false
 			}
-		
 		},
 		"events":{
-            "onChange": {
-				"title":"onChange Event",
-				"description":"Event gets triggered when number1 value changes",
-                "forms":[
-                    {
-                    "href":"http://localhost:8080/events/onChange",
-					"contentType":"application/json",
-                    "op":"subscribeevent"
-                    }
-                ]   
-            }
         }
 }

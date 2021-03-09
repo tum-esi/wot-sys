@@ -49,16 +49,30 @@ def rotateleftwithtime():
     else:
         abort(415)
 
+@app.route('/turtlebot3/actions/baserotateright', methods= ["POST"])
+def rotateright():
+    base_rotate_right()
+    return ("",204)
+
+@app.route('/turtlebot3/actions/baserotaterightwithtime', methods= ["POST"])
+def rotaterightwithtime():
+    if request.is_json:
+        seconds = request.json
+        base_rotate_right_with_time(seconds)
+        return ("",204)
+    else:
+        abort(415)
+
 @app.route('/turtlebot3/actions/basestop', methods= ["POST"])
 def basestop():
     stop_wheel()
     return ("",204)
-
+# this was a debugg fct so it is not listed in the Thing Description
 @app.route('/turtlebot3/actions/arm', methods= ["POST"])
 def arm():
     arm_move()
     return ("",204)
-
+# this was a debugg fct so it is not listed in the Thing Description
 @app.route('/turtlebot3/actions/shutdown', methods= ["POST"])
 def shutdown():
     shutdown_flask()
