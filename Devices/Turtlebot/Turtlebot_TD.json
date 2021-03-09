@@ -1,0 +1,314 @@
+{"@context": "https://www.w3.org/2019/wot/td/v1",
+	    "id": "de.tum:ei:esi",
+	    "title": "Tutlebot",
+	    "securityDefinitions": { "nosec_sc": {"scheme": "nosec"}
+	    },
+	    "security": ["nosec_sc"],
+	    "properties": {
+	    	"location":{
+	    		"title":"Location",
+	    		"description":"Stores the current Location",
+				"type":"object",
+				"required":["x","y"],
+				"properties": {
+					"x":{
+						"type":"integer",
+						"minimum" : 200,
+						"maximum" : 200
+					},
+					"y":{
+						"type":"integer",
+						"minimum" : 200,
+						"maximum" : 200
+					}
+				},
+				"forms": [{"href": "http://localhost:8000/properties/location",
+					"op": ["readproperty"],
+					"contentType":"application/json"
+					}
+				]
+	    	},
+			"home":{
+	    		"title":"Home",
+	    		"description":"Stores value of the Home Location",
+	    		"type":"object",
+				"required":["x","y"],
+				"properties": {
+					"x":{
+						"type":"integer",
+						"minimum" : 200,
+						"maximum" : 200
+					},
+					"y":{
+						"type":"integer",
+						"minimum" : 200,
+						"maximum" : 200
+					}
+				},
+				"forms": [
+					{"href": "http://localhost:8000/properties/home",
+					"op": ["readproperty", "writeproperty"],
+					"contentType":"application/json"
+					}
+				]
+			},
+			"locationArm":{
+	    		"title":"Location",
+	    		"description":"Stores the current Location of the Arm",
+                "type":"object",
+				"required":["x","y","z"],
+				"properties": {
+					"x":{
+						"type":"integer",
+						"minimum" : 200,
+						"maximum" : 200
+					},
+					"y":{
+						"type":"integer",
+						"minimum" : 200,
+						"maximum" : 200
+					},
+					"z":{
+						"type":"integer",
+						"minimum" : 200,
+						"maximum" : 200
+					}
+				},
+				"forms": [{"href": "http://localhost:8000/properties/locationarm",
+					"op": ["readproperty"],
+					"contentType":"application/json"
+					}
+				]
+	    	},
+            "homeArm":{
+	    		"title":"Home Arm",
+	    		"description":"Stores value of the Arm Home Location",
+	    		"type":"object",
+				"required":["x","y","z"],
+				"properties": {
+					"x":{
+						"type":"integer",
+						"minimum" : 200,
+						"maximum" : 200
+					},
+					"y":{
+						"type":"integer",
+						"minimum" : 200,
+						"maximum" : 200
+					},
+					"z":{
+						"type":"integer",
+						"minimum" : 200,
+						"maximum" : 200
+					}
+				},
+				"forms": [
+					{"href": "http://localhost:8000/properties/homearm",
+					"op": ["readproperty", "writeproperty"],
+					"contentType":"application/json"
+					}
+				]
+	    	}
+	    },
+	    "actions":{
+	
+			"moveForward":{
+				"title":"Move Base Forward",
+				"description":"Move forward for 1 second",
+				"forms":[{
+					"href":"http://localhost:8000/actions/moveforward",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": true,
+				"safe": false
+			},
+            "moveBackward":{
+				"title":"Move Base Backward",
+				"description":"Move backward for 1 second",
+				"forms":[{
+					"href":"http://localhost:8000/actions/movebackward",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": true,
+				"safe": false
+			},
+            "rotateLeft":{
+				"title":"Rotate Base Left",
+				"description":"Rotates to the left for 1 second",
+				"forms":[{
+					"href":"http://localhost:8000/actions/rotateleft",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": true,
+				"safe": false
+			},
+            "rotateRight":{
+				"title":"Rotate Base Right",
+				"description":"Rotates to the right for 1 second",
+				"forms":[{
+					"href":"http://localhost:8000/actions/rotateright",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": true,
+				"safe": false
+			},
+            "goHome":{
+				"title":"Home",
+				"description":"Return to Home Position",
+				"forms":[{
+					"href":"http://localhost:8000/actions/gohome",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": true,
+				"safe": false
+			},
+            "triggerLidar":{
+				"title":"Trigger Lidar",
+				"description":"Get back a value from the Lidar",
+				"forms":[{
+					"href":"http://localhost:8000/actions/triggerlidar",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": true,
+				"safe": false
+			},
+            "rotateArmLeft":{
+				"title":"Rotate Arm Left",
+				"description":"Rotates Arm to the left",
+				"forms":[{
+					"href":"http://localhost:8000/actions/rotatearmleft",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": true,
+				"safe": false
+			},
+            "rotateArmRight":{
+				"title":"Rotate Arm Right",
+				"description":"Rotates Arm to the right",
+				"forms":[{
+					"href":"http://localhost:8000/actions/rotatearmright",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": true,
+				"safe": false
+			},
+            "moveArmTo":{
+				"title":"Move Arm to Position",
+				"description":"Moves the Arm to a certain position",
+                "input" : {
+					"type" : "object",
+					"required":["x","y","z"],
+					"properties": {
+						"x":{
+							"type":"integer",
+							"minimum" : 200,
+							"maximum" : 200
+						},
+						"y":{
+							"type":"integer",
+							"minimum" : 200,
+							"maximum" : 200
+						},
+						"z":{
+							"type":"integer",
+							"minimum" : 200,
+							"maximum" : 200
+						}
+					}
+				},
+				"forms":[{
+					"href":"http://localhost:8000/actions/rotatearmto",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": true,
+				"safe": false
+			},
+            "goHomeArm":{
+				"title":"Move Arm to Home Position",
+				"description":"Moves the Arm to its Home Position",
+				"forms":[{
+					"href":"http://localhost:8000/actions/gohomearm",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": true,
+				"safe": false
+			},
+			"closeGrip":{
+				"title":"Close the Gripper",
+				"description":"Closes the Gripper",
+				"forms":[{
+					"href":"http://localhost:8000/actions/closegrip",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": true,
+				"safe": false
+			},
+			"openGrip":{
+				"title":"Open the Gripper",
+				"description":"Opens the Gripper",
+				"forms":[{
+					"href":"http://localhost:8000/actions/opengrip",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+				}],
+				"idempotent": true,
+				"safe": false
+			},
+			
+			"resetNumber2":{
+				"title":"Reset Number 1",
+				"description":"Action resets value of Number 1 to 0",
+                "input":{
+					"type": "integer",
+					"maximum": 30
+				},
+				"forms":[
+					{
+					"href":"http://localhost:8000/actions/resetNumber2",
+					"contentType":"application/json",
+					"op":"invokeaction",
+					"htv:methodName":"POST"
+					}
+				],
+				"idempotent": true,
+				"safe": false
+			}
+		
+		},
+		"events":{
+            "onChange": {
+				"title":"onChange Event",
+				"description":"Event gets triggered when number1 value changes",
+                "forms":[
+                    {
+                    "href":"http://localhost:8080/events/onChange",
+					"contentType":"application/json",
+                    "op":"subscribeevent"
+                    }
+                ]   
+            }
+        }
+}
