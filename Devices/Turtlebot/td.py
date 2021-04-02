@@ -2,11 +2,10 @@ def get_td(ip_address):
 	return {
 			"@context": "https://www.w3.org/2019/wot/td/v1",
 					"id": "de.tum:ei:esi:turtlebot3:1",
-					"title": "Tutlebot",
-					"securityDefinitions": { "nosec_sc": {"scheme": "nosec"}
-					},
+					"title": "Turtlebot3",
+					"description": "A robotic arm on wheels with full control on wheel movement and predefined positions for the arm",
+					"securityDefinitions": { "nosec_sc": {"scheme": "nosec"}},
 					"security": ["nosec_sc"],
-					"properties": {},
 					"actions":{
 				
 						"baseForward":{
@@ -65,7 +64,7 @@ def get_td(ip_address):
 						},
 						"baseRotateLeft":{
 							"title":"Rotate Base Left",
-							"description":"Rotates to the left for 1 second",
+							"description":"Starts the rotation of the base to the left, can be stacked to increase speed",
 							"forms":[{
 								"href":"http://{}/turtlebot3/actions/baserotateleft".format(ip_address),
 								"contentType":"application/json",
@@ -76,7 +75,7 @@ def get_td(ip_address):
 							"safe": False
 						},
 						"baseRotateLeftWithTime":{
-							"title":"Rotate Base Left",
+							"title":"Rotate Base Left with Time",
 							"description":"Rotates to the left for set second",
 							"input":{
 								"type": "integer"
@@ -92,7 +91,7 @@ def get_td(ip_address):
 						},
 						"rotateRight":{
 							"title":"Rotate Base Right",
-							"description":"Rotates to the right for 1 second",
+							"description":"Starts the rotation of the base to the right, can be stacked to increase speed",
 							"forms":[{
 								"href":"http://{}/turtlebot3/actions/baserotateright".format(ip_address),
 								"contentType":"application/json",
@@ -103,7 +102,7 @@ def get_td(ip_address):
 							"safe": False
 						},
 						"rotateRightWithTime":{
-							"title":"Rotate Base Right",
+							"title":"Rotate Base Right with Time",
 							"description":"Rotates to the right for set second",
 							"input":{
 								"type": "integer"
@@ -154,7 +153,7 @@ def get_td(ip_address):
 							"safe": False
 						},
 						"moveArmPosition3":{
-							"title":"Move arm to position 1",
+							"title":"Move arm to position 3",
 							"description":"Arm moves to the middle of the base to a low position",
 							"forms":[{
 								"href":"http://{}/turtlebot3/actions/armpose3".format(ip_address),
@@ -226,7 +225,7 @@ def get_td(ip_address):
 							"safe": False
 						},
 						"moveArmPosition9":{
-							"title":"Move arm to position 1",
+							"title":"Move arm to position 9",
 							"description":"Arm moves to the right of the base to a low position",
 							"forms":[{
 								"href":"http://{}/turtlebot3/actions/armpose9".format(ip_address),
@@ -261,7 +260,7 @@ def get_td(ip_address):
 							"idempotent": True,
 							"safe": False
 						}
-					},
-					"events":{
 					}
 			}
+
+

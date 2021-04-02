@@ -1,11 +1,22 @@
 from TB3_Robot import *
 import TB3_Robot
+from td import get_td
 from flask import Flask, request, json, jsonify, abort
 import threading
 import rospy
+import json
+
+
+IP_address = "172.16.1.120"
 
 #Initialize Flask
 app = Flask(__name__)
+
+# fct returns TD
+@app.route('/turtlebot3')
+def thing_description():
+    return json.dumps(get_td(IP_address+":8080")), {'Content-Type':'application/json'}
+
 
 @app.route('/turtlebot3/actions/baseforward', methods= ["POST"])
 def forward():
@@ -40,15 +51,6 @@ def rotateleft():
     base_rotate_left()
     return ("",204)
 
-@app.route('/turtlebot3/actions/baserotateleftwithtime', methods= ["POST"])
-def rotateleftwithtime():
-    if request.is_json:
-        seconds = request.json
-        base_rotate_left_with_time(seconds)
-        return ("",204)
-    else:
-        abort(415)
-
 @app.route('/turtlebot3/actions/baserotateright', methods= ["POST"])
 def rotateright():
     base_rotate_right()
@@ -63,16 +65,25 @@ def rotaterightwithtime():
     else:
         abort(415)
 
+@app.route('/turtlebot3/actions/baserotateleftwithtime', methods= ["POST"])
+def rotateleftwithtime():
+    if request.is_json:
+        seconds = request.json
+        base_rotate_left_with_time(seconds)
+        return ("",204)
+    else:
+        abort(415)
+
 @app.route('/turtlebot3/actions/basestop', methods= ["POST"])
 def basestop():
     stop_wheel()
     return ("",204)
-# this was a debugg fct so it is not listed in the Thing Description
+
 @app.route('/turtlebot3/actions/arm', methods= ["POST"])
 def arm():
     arm_move()
     return ("",204)
-# this was a debugg fct so it is not listed in the Thing Description
+
 @app.route('/turtlebot3/actions/shutdown', methods= ["POST"])
 def shutdown():
     shutdown_flask()
@@ -135,11 +146,11 @@ def armpose9():
 
 def main():
 
-    threading.Thread(rospy.init_node('turtel_control', anonymous=False, log_level = None)).start()
+    threading.Thread(rospy.init_node('turtle_control', anonymous=False, log_level = None)).start()
     #Initialize Turtlebot
     init_robot()
     #Start Flask
-    threading.Thread(target=app.run(host="172.16.1.250" ,port=8080,use_reloader = False))
+    threading.Thread(target=app.run(host=IP_address ,port=8080,use_reloader = False))
     
 
 
