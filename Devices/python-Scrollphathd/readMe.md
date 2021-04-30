@@ -10,7 +10,7 @@
 3. Run ``` pyhton3 phat.py ```.
 ## Important Notes:
 
-1. In phat.py, replace TD_DIRECTORY_ADDRESS, if you dont have a directory comment out submit_td().
+1. In phat.py, replace TD_DIRECTORY_ADDRESS, if you don't have a directory comment out submit_td().
 2. In phat.py, replace the router address you connect.
 3. You can get the Thing Description from ``` localhost:port/ ```.
 4. You can use other ports as well.
