@@ -1,8 +1,6 @@
 ## Requirements:
 * Pyhton 3.7
 * Pip3 9.0.1 
-&nbsp;
-
 
 ## Installation:
 1. Clone the repository in a local file.
@@ -15,7 +13,7 @@
 2. In phat.py, replace the router address you connect.
 3. You can get the Thing Description from ``` localhost:port/ ```.
 4. You can use other ports as well.
-
+ 
 
 &nbsp;
 ## Using SendImage Interaction:
