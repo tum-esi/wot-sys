@@ -18,10 +18,11 @@
 &nbsp;
 ## Using SendImage Interaction:
 SendImage interaction allows you to upload and image to scrollphat and display that on display. But it only accepts images with specific properties. 
+
 Image Properties:
-    * File type: Bmp
-    * Dimensions: 17x7 Pixels
-    * Depth of colour or bits per pixel: 8
+* File type: Bmp
+* Dimensions: 17x7 Pixels
+* Depth of colour or bits per pixel: 8
 
 ### How To Create bmp Image:
 * **Using GIMP:**
