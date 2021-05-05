@@ -57,6 +57,7 @@ Refer to this [tutorial](https://medium.com/sysf/bits-to-bitmaps-a-simple-walkth
 ```
 curl --location --request POST 'http://<device ip>:8080/actions/sendImage' --form 'example.bmp=@"<directory of image>/example.bmp"'
 ```
+> Note: How to upload the image is not properly described in the TD, read more [here.](./proposal.md)
 
 
 
