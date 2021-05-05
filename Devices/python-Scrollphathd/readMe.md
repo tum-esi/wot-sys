@@ -17,7 +17,7 @@
 
 &nbsp;
 ## Using SendImage Interaction:
-SendImage interaction allows you to upload images to scrollphat and display that image on display. But it only accepts images with specific properties. 
+SendImage interaction allows you to upload image to scrollphathd and display that image on the screen. But it only accepts images with specific properties. 
 
 Image Properties:
 * File type: Bmp
