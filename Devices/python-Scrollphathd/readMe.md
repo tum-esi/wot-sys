@@ -8,20 +8,24 @@
 1. Clone the repository in a local file.
 2. Go into the that directory in terminal and run ``` pip3 install -r requirements.txt ``` .&nbsp;
 3. Run ``` pyhton3 phat.py ```.
+
 ## Important Notes:
 
-1. In phat.py, replace TD_DIRECTORY_ADDRESS, if you don't have a directory comment out submit_td().
+1. In phat.py, replace TD_DIRECTORY_ADDRESS, if you do not have a directory comment out submit_td().
 2. In phat.py, replace the router address you connect.
 3. You can get the Thing Description from ``` localhost:port/ ```.
 4. You can use other ports as well.
-5. Image Properties:
-    * File type: Bmp
-    * Dimensions: 17x7 Pixels
-    * bpp: 8
+
 
 &nbsp;
+## Using SendImage Interaction:
+SendImage interaction allows you to upload and image to scrollphat and display that on display. But it only accepts images with specific properties. 
+Image Properties:
+    * File type: Bmp
+    * Dimensions: 17x7 Pixels
+    * Depth of colour or bits per pixel: 8
 
-## How To Create bmp Image:
+### How To Create bmp Image:
 * **Using GIMP:**
     * ![readme1](readme_images/gimp1.png)&nbsp;
     * ![readme2](readme_images/gimp2.png)&nbsp;
