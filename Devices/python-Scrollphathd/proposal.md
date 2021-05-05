@@ -3,7 +3,7 @@ Thing description standard uses JSON for describing the specs of the thing but t
 &nbsp;
 #### Problem Context:
 
-Scrollphathd is a simple IoT device with a display of size 17x7. It runs a flask server and when it receives a bmp image, it displays the image for 10 seconds. It can currently work only with bmp images of size 17x7 with bpp value of 8. 
+Scrollphathd is a simple IoT device with a display of size 17x7. It runs a flask server and when it receives a bmp image, it displays the image for 10 seconds. It can currently work only with bmp images of size 17x7 with bit per pixel value of 8. 
 &nbsp;
 
 ### Possible solutions: 
