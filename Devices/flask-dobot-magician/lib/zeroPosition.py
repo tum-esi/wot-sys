@@ -7,6 +7,6 @@ device = Dobot(port=port, verbose=True)
 
 (x, y, z, r, j1, j2, j3, j4) = device.pose()
 (l) = device.pose_l()
-print(f'x:{x} y:{y} z:{z} r:{r} l:{l} j1:{j1} j2:{j2} j3:{j3} j4:{j4}')
-
+device.move_to_with_l(x,y,30,0,l)
+device.move_to_with_l(236, 23, 30, 0, 0, wait=True) # we wait until this movement is done before continuing
 device.close()
