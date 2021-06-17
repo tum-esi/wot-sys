@@ -5,8 +5,7 @@ from pydobot import Dobot
 port = list_ports.comports()[0].device
 device = Dobot(port=port, verbose=True)
 
+device.home()
 (x, y, z, r, j1, j2, j3, j4) = device.pose()
 (l) = device.pose_l()
-device.move_to_with_l(x,y,30,0,l)
-device.move_to_with_l(236, 23, 30, 0, 0, wait=True) # we wait until this movement is done before continuing
 device.close()

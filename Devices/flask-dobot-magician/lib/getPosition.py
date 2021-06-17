@@ -9,4 +9,5 @@ device = Dobot(port=port, verbose=False)
 (l) = device.pose_l()
 
 print('{"x":',x,',"y":',y,',"z":',z,',"r":',r,',"l":',l,'}')
+print(j1, j2, j3, j4)
 device.close()

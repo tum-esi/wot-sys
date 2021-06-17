@@ -73,7 +73,10 @@ class Dobot:
             print('pydobot: waiting for command', expected_idx)
 
         while True:
-            current_idx = self._get_queued_cmd_current_index()
+            try:
+                current_idx = self._get_queued_cmd_current_index()
+            except:
+                return
 
             if current_idx != expected_idx:
                 time.sleep(0.1)
@@ -275,6 +278,13 @@ class Dobot:
         response = self._send_command(msg)
         idx = struct.unpack_from('L', response.params, 0)[0]
         return idx
+    
+    def _set_home_cmd(self):
+        msg = Message()
+        msg.id = 31
+        msg.ctrl = 0x03
+        return self._send_command(msg,True)
+
 
     def go(self, x, y, z, r=0.):
         warnings.warn('go() is deprecated, use move_to() instead')
@@ -312,3 +322,6 @@ class Dobot:
         response = self._get_pose_l()
         l = struct.unpack_from('f', response.params, 0)[0]
         return l
+
+    def home(self):
+        self._set_home_cmd()

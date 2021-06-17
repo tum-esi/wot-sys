@@ -1,9 +1,8 @@
-from os import wait
+import time
+
 from serial.tools import list_ports
 
 from pydobot import Dobot
-
-import time
 
 port = list_ports.comports()[0].device
 device = Dobot(port=port, verbose=True)

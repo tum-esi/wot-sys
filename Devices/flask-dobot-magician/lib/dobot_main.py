@@ -50,15 +50,15 @@ def getPosition():
     data = util.getPosition(device)
     return jsonify(data)
 
-@app.route("/DobotMagician/actions/returnToStartPosition", methods=['Post'])
-def goToStartPosition():
+@app.route("/DobotMagician/actions/calibrateDevice", methods=['Post'])
+def calibrateDevice():
     if(thQueue.qsize() >= 3):
         abort(status=429)
     else:
-        th = threading.Thread(target=util.goToStartPosition, args=[device])
+        th = threading.Thread(target=util.calibrateDevice, args=[device])
         try:
             thQueue.put_nowait(th)
-            return Response(status=200)
+            return Response(status=204)
         except:
             abort(status=429)
 
@@ -70,7 +70,7 @@ def getCube():
         th = threading.Thread(target=util.getCubeFromQueue, args=[device])
         try:
             thQueue.put_nowait(th)
-            return Response(status=200)
+            return Response(status=204)
         except:
             abort(status=429)
 
@@ -82,7 +82,7 @@ def returnCube():
         th = threading.Thread(target=util.returnCubeToQueue, args=[device])
         try:
             thQueue.put_nowait(th)
-            return Response(status=200)
+            return Response(status=204)
         except:
             abort(status=429)
 
