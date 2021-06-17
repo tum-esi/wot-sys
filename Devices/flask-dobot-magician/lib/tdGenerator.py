@@ -47,7 +47,7 @@ def getTD(ip_address):
             },
             "getCube": {
                 "title": "Get cube from warehouse queue",
-                "description": "Get a cube from the warehouse queue and put it on the first conyevor belt, then pushes the queue. Response is sent as soon as the request is received.",
+                "description": "Get a cube from the warehouse queue and put it on the second conyevor belt, then pushes the queue. Response is sent as soon as the request is received.",
                 "safe":False,
                 "idempotent":True,
                 "synchronous": False,
@@ -59,7 +59,7 @@ def getTD(ip_address):
             },
             "returnCube": {
                 "title": "Return cube to warehouse queue",
-                "description": "Return a cube from the second conveyor belt to the warehouse queue. Response is sent as soon as the request is received.",
+                "description": "Return a cube from the first conveyor belt to the warehouse queue. Response is sent as soon as the request is received.",
                 "safe":False,
                 "idempotent":True,
                 "synchronous": False,
