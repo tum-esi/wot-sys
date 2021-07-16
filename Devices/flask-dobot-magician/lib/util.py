@@ -42,23 +42,30 @@ def pushCubeQueue(device):
     while not fallingEdgeFlag and missingCubes < 10:
         lForPush = 608 - (missingCubes*25)
         device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -90, -75, lForPush, wait=True) # pushing
+        channel = GPIO.wait_for_edge(SWITCH_GPIO, GPIO.FALLING, timeout=500)
         device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -90, -75, lForPush + 6, wait=True) # returning a bit to not collide with cube
-        if GPIO.event_detected(SWITCH_GPIO):
+        if channel is None:
+            print('Timeout occurred')
+        else:
             fallingEdgeFlag = True
-            print("Detected falling edge")
+            print('Edge detected on channel', channel)
+        # if GPIO.event_detected(SWITCH_GPIO):
+        #     fallingEdgeFlag = True
+        #     print("Detected falling edge")
         missingCubes = missingCubes + 1
     device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -30, -75, lForPush + 5, wait=True) # raising arm
 
 def pickCubeUp(device):
-    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -30, -75, 400, wait=True) # Position above queue start
+    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -30, -75, 398, wait=True) # Position above queue start
     device.suck(True)
     device.grip(False)
-    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -85, -75, 400, wait=True) # go down to pickup cube
+    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -85, -75, 398, wait=True) # go down to pickup cube
     device.grip(True)
-    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -80, -75, 400, wait=True) # go up a little
-    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -80, -75, 405, wait=True) # push cubes back to not get stuck
-    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -80, -75, 400, wait=True) # go back to start of queue
-    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -30, -75, 400, wait=True) # go up
+    time.sleep(0.5)
+    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -80, -75, 398, wait=True) # go up a little
+    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -80, -75, 403, wait=True) # push cubes back to not get stuck
+    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -80, -75, 398, wait=True) # go back to start of queue
+    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -30, -75, 398, wait=True) # go up
     device.move_to_with_l(HOME_X, HOME_Y, -30, -75, 150, wait=True) # Stop between both
     device.move_to_with_l(BELT_ONE_X_POSITION, BELT_ONE_Y_POSITION, -30, -10, 0, wait=True) # Position above first conveyor belt
     device.move_to_with_l(BELT_ONE_X_POSITION, BELT_ONE_Y_POSITION, -40, -10, 0, wait=True) # put cube

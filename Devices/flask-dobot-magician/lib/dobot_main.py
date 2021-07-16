@@ -1,8 +1,6 @@
 import requests
 import socket
 import time
-import json
-import _thread
 import threading
 import queue
 from serial.tools import list_ports
@@ -98,7 +96,7 @@ def returnCube():
 ##################################33
 def submit_td(ip_addr, tdd_address):
     global td 
-    td = get_td(ip_addr)
+    td = getTD(ip_addr)
     print("Uploading TD to directory ...")
     while True:
         try:
@@ -115,53 +113,6 @@ def submit_td(ip_addr, tdd_address):
             print(e)
             print("TD could not be uploaded. Will try again in 15 Seconds...")
             time.sleep(15)
-
-
-
-    dur = 7
-    count = 0
-    while count < dur*(10):
-        scrollphathd.clear()
-
-        float_sec = (time.time() % 60) / 59.0
-        seconds_progress = float_sec * 15
-
-        if DISPLAY_BAR:
-        # Step through 15 pixels to draw the seconds bar
-            for y in range(15):
-
-                current_pixel = min(seconds_progress, 1)
-                scrollphathd.set_pixel(y + 1, 6, current_pixel * BRIGHTNESS)
-                seconds_progress -= 1
-
-            
-                if seconds_progress <= 0:
-                    break
-
-        else:
-        # Just display a simple dot
-            scrollphathd.set_pixel(int(seconds_progress), 6, BRIGHTNESS)
-
-    # Display the time (HH:MM) in a 5x5 pixel font
-        scrollphathd.write_string(
-            time.strftime("%H:%M"),
-            x=0,               
-            y=0,                  
-            font=font5x5,          
-            brightness=0.3  
-        )
-
-        if int(time.time()) % 2 == 0:
-            scrollphathd.clear_rect(8, 0, 1, 5)
-
-        scrollphathd.show()
-        scrollphathd.flip(x=True, y=True)
-        time.sleep(0.1)
-        count = count + 1
-    
-    return "", 204
-    scrollphathd.clear()
-    scrollphathd.show()
 
 
 
