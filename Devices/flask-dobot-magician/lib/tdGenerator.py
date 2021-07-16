@@ -20,7 +20,7 @@ def getTD(ip_address):
                     "y": {"type": "number"},
                     "z": {"type": "number"},
                     "r": {"type": "number"},
-                    "l": {"type": "number", "min": "0", "max":"900"},
+                    "l": {"type": "number", "minimum": "0", "maximum":"900"},
                 },
                 "readOnly": True,
                 "forms": [{
