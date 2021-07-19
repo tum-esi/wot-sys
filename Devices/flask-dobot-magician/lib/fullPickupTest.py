@@ -8,3 +8,4 @@ device = Dobot(port=port, verbose=False)
 
 util.goToStartPosition(device)
 util.getCubeFromQueue(device)
+util.goToStartPosition(device)

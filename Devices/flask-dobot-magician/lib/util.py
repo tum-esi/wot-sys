@@ -8,7 +8,7 @@ HOME_Z = -8.5
 HOME_R = 0
 HOME_L = 0
 
-QUEUE_X_POSITION = 122
+QUEUE_X_POSITION = 118
 QUEUE_Y_POSITION = -210
 BELT_ONE_X_POSITION = 250
 BELT_ONE_Y_POSITION = 110
@@ -38,22 +38,32 @@ def pushCubeQueue(device):
     device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -30, -73, 643, wait=True) # Position above queue end to push
     device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -90, -73, 643, wait=True) # Position behind queue end to push
     missingCubes=0
-    fallingEdgeFlag = False
-    while not fallingEdgeFlag and missingCubes < 10:
+    fallingEdgeFlagTest = False
+    fallingEdgeFlagPush = False
+    while (not fallingEdgeFlagPush and not fallingEdgeFlagTest) and missingCubes < 10:
         lForPush = 608 - (missingCubes*25)
         device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -90, -75, lForPush, wait=True) # pushing
-        channel = GPIO.wait_for_edge(SWITCH_GPIO, GPIO.FALLING, timeout=500)
-        device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -90, -75, lForPush + 6, wait=True) # returning a bit to not collide with cube
-        if channel is None:
+        channel1 = GPIO.wait_for_edge(SWITCH_GPIO, GPIO.FALLING, timeout=250)
+        device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -90, -75, lForPush + 10, wait=True) # returning a bit to not collide with cube
+        if channel1 is None:
             print('Timeout occurred')
         else:
-            fallingEdgeFlag = True
-            print('Edge detected on channel', channel)
-        # if GPIO.event_detected(SWITCH_GPIO):
-        #     fallingEdgeFlag = True
-        #     print("Detected falling edge")
+            fallingEdgeFlagPush = True
+            print('Edge detected on channel', channel1)
+        
+        if not fallingEdgeFlagPush:
+            lForPush = lForPush - 6
+            device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -90, -75, lForPush, wait=True) # pushing
+            channel2 = GPIO.wait_for_edge(SWITCH_GPIO, GPIO.FALLING, timeout=250)
+            device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -90, -75, lForPush + 10, wait=True) # returning a bit to not collide with cube
+            if channel2 is None:
+                print('Timeout occurred')
+            else:
+                fallingEdgeFlagPush = True
+                print('Edge detected on channel', channel2)
+
         missingCubes = missingCubes + 1
-    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -30, -75, lForPush + 5, wait=True) # raising arm
+    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -30, -75, lForPush + 6, wait=True) # raising arm
 
 def pickCubeUp(device):
     device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -30, -75, 398, wait=True) # Position above queue start
@@ -76,22 +86,40 @@ def pickCubeUp(device):
     device.suck(False)
 
 def pickAndReturnCube(device):
-    device.move_to_with_l(BELT_TWO_X_POSITION, BELT_TW0_Y_POSITION, -20, 50, 825, wait=True) # Position above second conveyor belt
+    device.move_to_with_l(BELT_TWO_X_POSITION, BELT_TW0_Y_POSITION, -20, 50, 830, wait=True) # Position above second conveyor belt
     device.suck(True)
     device.grip(False)
-    device.move_to_with_l(BELT_TWO_X_POSITION, BELT_TW0_Y_POSITION, -40, 50, 825, wait=True) # go down to pickup
+    device.move_to_with_l(BELT_TWO_X_POSITION, BELT_TW0_Y_POSITION, -40, 50, 830, wait=True) # go down to pickup
     device.grip(True)
-    device.move_to_with_l(BELT_TWO_X_POSITION, BELT_TW0_Y_POSITION, -20, 50, 825, wait=True) # go up
-    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -30, -75, 625, wait=True) # Postion above queue end to put
-    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -80, -75, 625, wait=True) # put down
+    device.move_to_with_l(BELT_TWO_X_POSITION, BELT_TW0_Y_POSITION, -20, 50, 830, wait=True) # go up
+    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -30, -75, 623.2, wait=True) # Postion above queue end to put
+    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -84, -75, 623.2, wait=True) # put down
     device.grip(False)
-    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -35, -75, 625, wait=True) # go up
+    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -35, -75, 623.2, wait=True) # go up
     device.grip(True)
     time.sleep(0.5)
     device.suck(False)
+    #Push
+    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -30, -73, 643, wait=True) # Position above queue end to push
+    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -90, -73, 643, wait=True) # Position behind queue end to push
+    fallingEdgeFlag = False
+    lForPush = 643 - 16
+    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -90, -75, lForPush, wait=True) # pushing
+    channel = GPIO.wait_for_edge(SWITCH_GPIO, GPIO.FALLING, timeout=250)
+    device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -90, -75, lForPush + 10, wait=True) # returning a bit to not collide with cube
+    if channel is None:
+        print('Timeout occurred')
+    else:
+        fallingEdgeFlag = True
+        device.move_to_with_l(QUEUE_X_POSITION, QUEUE_Y_POSITION, -30, -75, lForPush + 10, wait=True) # raising arm
+        print('Edge detected on channel', channel)
+    return fallingEdgeFlag
+    
 
 def returnCubeToQueue(device):
-    pickAndReturnCube(device)
+    isFullyPushed = pickAndReturnCube(device)
+    if not isFullyPushed:
+        pushCubeQueue(device)
     goToStartPosition(device)
 
 
