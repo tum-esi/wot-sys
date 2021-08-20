@@ -1,0 +1,315 @@
+{
+    "@context": "https://www.w3.org/2019/wot/td/v1",
+    "id": "",
+    "title": "Ur-10",
+    "securityDefinitions": { "nosec_sc": {"scheme": "nosec"}
+    },
+    "security": ["nosec_sc"],
+    "properties": {
+        "homeLoc":{
+            "title":"Home location",
+            "description":"Home location",
+            "type":"object",
+            "required":["x","y","z"],
+            "properties":{
+                "x":{
+                    "type":"integer",
+                    "minimum": -360,
+                    "maximum": 360
+                    },
+                "y":{
+                    "type":"integer",
+                    "minimum": -360,
+                    "maximum": 360
+                    },
+                "z":{
+                    "type":"integer",
+                    "minimum":-360,
+                    "maximum": 360
+                    }
+            },
+            "forms": [
+                {
+                "href": "http://{}/ur10/properties/homeloc",
+                "op": ["readproperty"],
+                "contentType":"application/json"
+                }
+            ]
+        },
+        "curLocation":{
+            "title":"Location",
+            "description":"Gives back the current location",
+            "type":"object",
+            "required":["x","y","z"],
+            "properties":{
+                "x":{
+                    "type":"integer",
+                    "minimum": -360,
+                    "maximum": 360
+                    },
+                "y":{
+                    "type":"integer",
+                    "minimum": -360,
+                    "maximum": 360
+                    },
+                "z":{
+                    "type":"integer",
+                    "minimum": -360,
+                    "maximum": 360
+                    }
+            },
+            "forms": [
+                {"href": "http://{}/ur10/properties/location",
+                "op": ["readproperty"],
+                "contentType":"application/json"
+                }
+            ]
+        },
+        "moveSpeed":{
+            "title":"Speed",
+            "description": "Its value sets the moving speed of all UR-10 robot arm joints, default value is 45 but can be changed",
+            "type": "integer",
+            "minimum": 5,
+            "maximum": 99,
+            "forms": [
+                {"href": "http://{}/ur10/properties/speed",
+                "op": ["readproperty","writeproperty"],
+                "contentType":"application/json"
+                }
+            ]
+        }
+    },
+
+    "actions":{
+        "goHome":{
+            "title":"Go Home",
+            "description":"Go to the home point",
+            "forms":[{
+                "href":"http://{}/ur10/actions/gohome",
+                "contentType":"application/json",
+                "op":"invokeaction",
+                "htv:methodName":"POST"
+            }],
+            "idempotent": false,
+            "safe": false
+        },	
+        "turnBase":{
+            "title":"Turn Base",
+            "description":"Turn the robot arm Base joint within borders",
+            "input":{
+                "type":"object",
+                "required":["base"],
+                "properties":{
+                    
+                    "base":{
+                        "type":"number",
+                        "minimum": -360,
+                        "maximum": 360
+                    }
+                }
+            },
+            "forms":[{
+                "href":"http://{}/ur10/actions/turnBase",
+                "contentType":"application/json",
+                "op":"invokeaction",
+                "htv:methodName":"POST"
+            }],
+            "idempotent": false,
+            "safe": false
+        },
+        "turnShoulder":{
+            "title":"Turn Shoulder",
+            "description":"Turn the robot arm shoulder joint within borders",
+            "input":{
+                "type":"object",
+                "required":["shoulder"],
+                "properties":{
+                    
+                    "shoulder":{
+                        "type":"number",
+                        "minimum": -360,
+                        "maximum": 360
+                    }
+                }
+            },
+            "forms":[{
+                "href":"http://{}/ur10/actions/turnShoulder",
+                "contentType":"application/json",
+                "op":"invokeaction",
+                "htv:methodName":"POST"
+            }],
+            "idempotent": false,
+            "safe": false
+        },
+        "turnElbow":{
+            "title":"Turn Elbow",
+            "description":"Turn the robot arm elbow joint within borders",
+            "input":{
+                "type":"object",
+                "required":["elbow"],
+                "properties":{
+                    
+                    "elbow":{
+                        "type":"number",
+                        "minimum": -360,
+                        "maximum": 360
+                    }
+                }
+            },
+            "forms":[{
+                "href":"http://{}/ur10/actions/turnElbow",
+                "contentType":"application/json",
+                "op":"invokeaction",
+                "htv:methodName":"POST"
+            }],
+            "idempotent": false,
+            "safe": false
+        },
+        "turnWrist1":{
+            "title":"Turn Wrist1",
+            "description":"Turn the robot arm Wrist1 joint within borders",
+            "input":{
+                "type":"object",
+                "required":["wrist1"],
+                "properties":{
+                    
+                    "wrist1":{
+                        "type":"number",
+                        "minimum": -360,
+                        "maximum": 360
+                    }
+                }
+            },
+            "forms":[{
+                "href":"http://{}/ur10/actions/turnWrist1",
+                "contentType":"application/json",
+                "op":"invokeaction",
+                "htv:methodName":"POST"
+            }],
+            "idempotent": false,
+            "safe": false
+        },
+        "turnWrist2":{
+            "title":"Turn Wrist2",
+            "description":"Turn the robot arm Wrist2 joint within borders",
+            "input":{
+                "type":"object",
+                "required":["wrist2"],
+                "properties":{
+                    
+                    "wrist2":{
+                        "type":"number",
+                        "minimum": -360,
+                        "maximum": 360
+                    }
+                }
+            },
+            "forms":[{
+                "href":"http://{}/ur10/actions/turnWrist2",
+                "contentType":"application/json",
+                "op":"invokeaction",
+                "htv:methodName":"POST"
+            }],
+            "idempotent": false,
+            "safe": false
+        },
+        "turnWrist3":{
+            "title":"Turn Wrist3",
+            "description":"Turn the robot arm Wrist3 joint within borders",
+            "input":{
+                "type":"object",
+                "required":["wrist3"],
+                "properties":{
+                    
+                    "wrist3":{
+                        "type":"number",
+                        "minimum": -360,
+                        "maximum": 360
+                    }
+                }
+            },
+            "forms":[{
+                "href":"http://{}/ur10/actions/turnWrist3",
+                "contentType":"application/json",
+                "op":"invokeaction",
+                "htv:methodName":"POST"
+            }],
+            "idempotent": false,
+            "safe": false
+        },
+
+
+        "goTo":{
+            "title":"Go to position",
+            "description":"Move to Position x,y,z given by the user with assigned speed, default is .... ",
+            "input":{
+                "type":"object",
+                "required":["x","y","z"],
+                "properties":{
+                    "x":{
+                        "type":"integer",
+                        "minimum": -360,
+                        "maximum": 360
+                    },
+                    "y":{
+                        "type":"number",
+                        "minimum": -360,
+                        "maximum": 360
+                    },
+                    "z":{
+                        "type":"integer",
+                        "minimum": -360,
+                        "maximum": 360
+                    }
+                }
+            },
+            "forms":[{
+                "href":"http://{}/ur10/actions/goto",
+                "contentType":"application/json",
+                "op":"invokeaction",
+                "htv:methodName":"POST"
+            }],
+            "idempotent": true,
+            "safe": false
+        },
+
+        "sequence1":{
+            "title":"Grip Routine",
+            "description":"Routine to move to a position and close the grip",
+            "forms":[{
+                "href":"http://{}/ur10/actions/sequence1",
+                "contentType":"application/json",
+                "op":"invokeaction",
+                "htv:methodName":"POST"
+            }],
+            "idempotent": true,
+            "safe": false
+        },
+        "gripClose":{
+            "title":"Close Grip",
+            "description":"Closes the grip",
+            "forms":[{
+                "href":"http://{}/ur10/actions/gripclose",
+                "contentType":"application/json",
+                "op":"invokeaction",
+                "htv:methodName":"POST"
+            }],
+            "idempotent": true,
+            "safe": false
+        },
+        "gripOpen":{
+            "title":"Open Grip",
+            "description":"Opens the grip",
+            "forms":[{
+                "href":"http://{}/ur10/actions/gripopen",
+                "contentType":"application/json",
+                "op":"invokeaction",
+                "htv:methodName":"POST"
+            }],
+            "idempotent": true,
+            "safe": false
+        }
+    
+    }
+        
+}
