@@ -137,7 +137,7 @@ def goHome():
         jointPoslist.append(list1[i+3])
     print(jointPoslist)
     for i in range (6):
-        jointPoslist[i]= jointPoslist[i]/57.29
+        jointPoslist[i]= jointPoslist[i]/57.29 ## is the ratio between the angle of joint in degrees on the control screen and the angle output when API function is used. (https://sdurobotics.gitlab.io/ur_rtde/api/api.html#rtde-control-interface-api)
     status = rtde_r.getRobotStatus()
     if status == 3:
         rtde_c.moveJ(jointPoslist, DEFAULTSPEED, DEFAULTACCELERATION, False)
