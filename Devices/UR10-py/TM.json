@@ -332,55 +332,19 @@
 
             "idempotent": true,
             "safe": false
-        },
-        
-        "move":{
-            "title":"Move in a certain direction from current location",
-            "description":"Move in a direction from current location in cartesian coordinates (x,y,z) with the assigned speed and acceleration, default values are .... ", 
-            "input":{
-                "type":"object",
-                "required":["x","y","z"],
-                "properties":{
-                    "x":{
-                        "type":"integer",
-                        "minimum": "{{MIN_X_MOVEMENT}}",
-                        "maximum": "{{MAX_X_MOVEMENT}}"
-                        },
-                    "y":{
-                        "type":"integer",
-                        "minimum": "{{MIN_Y_MOVEMENT}}",
-                        "maximum": "{{MAX_Y_MOVEMENT}}"
-                        },
-                    "z":{
-                        "type":"integer",
-                        "minimum": "{{MIN_Z_MOVEMENT}}",
-                        "maximum": "{{MAX_Z_MOVEMENT}}"
-                        },
-                    "s": {
-                        "type": "number",
-                        "minimum":"{{MIN_SPEED}}",
-                        "maximum": "{{MAX_SPEED}}"
-                    },
-                    "a": {
-                        "type": "number",
-                        "minimum": "{{MIN_ACC}}",
-                        "maximum": "{{MAX_ACC}}"
-                    }
-                }
-            },
-
-
-            "idempotent": false,
-            "safe": false
-        },
-
+        }, 
         "gripClose":{
             "title":"Close Grip",
-            "description":"Closes the grip",
-  
+            "description":"Closes the grip", 
             "idempotent": true,
             "safe": false
         },
+        "gripCloseLight":{
+            "title":"Close Grip",
+            "description":"Closes the grip with 25 Newton of force",
+            "idempotent": true,
+			"safe": false
+		},
         "gripOpen":{
             "title":"Open Grip",
             "description":"Opens the grip",

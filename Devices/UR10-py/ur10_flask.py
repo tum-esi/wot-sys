@@ -1,7 +1,6 @@
 from rtde_control import RTDEControlInterface as RTDEControl
 from rtde_receive import RTDEReceiveInterface as RTDEReceive
 from rtde_io import RTDEIOInterface as RTDEIO
-from urTD import get_td
 import requests
 import socket
 import time
@@ -28,6 +27,9 @@ except ImportError:
 with open("constants.json", "r") as f:
     constants = json.load(f)
 
+with open("convertedTD.json", "r") as f:
+    td = json.load(f)
+
 TD_DIRECTORY_ADDRESS = constants["TD_DIRECTORY_ADDRESS"]
 LISTENING_PORT = constants["LISTENING_PORT"]
 global DEFAULTSPEED
@@ -38,13 +40,15 @@ global HOMELOCATION
 HOMELOCATION = constants["HOMELOCATION"]
 
 
-td = 0
 app = Flask(__name__)
+
+rtde_c = RTDEControl("172.16.1.222")
+rtde_r = RTDEReceive("172.16.1.222")
 
 
 @app.route("/ur10/")
 def thing_description():
-    return json.dumps(get_td(ip_addr)), {'Content-Type': 'application/json'}
+    return json.dumps(td), {'Content-Type': 'application/json'}
 
 
 @app.route("/ur10/properties/homeloc", methods=["GET"])
@@ -57,8 +61,8 @@ def homeloc():
 
 @app.route("/ur10/properties/curLocation", methods=["GET"])
 def curLocation():
-    rtde_c = RTDEControl("172.16.1.222")
-    rtde_r = RTDEReceive("172.16.1.222")
+    ##rtde_c = RTDEControl("172.16.1.222")
+    ##rtde_r = RTDEReceive("172.16.1.222")
     TCPpose = rtde_r.getActualTCPPose()
     TCPpose[0]= TCPpose[0]*1000
     TCPpose[1]= TCPpose[1]*1000
@@ -67,8 +71,8 @@ def curLocation():
 
 @app.route("/ur10/properties/curJointPos", methods=["GET"])
 def curJointPos():
-    rtde_c = RTDEControl("172.16.1.222")
-    rtde_r = RTDEReceive("172.16.1.222")
+    ##rtde_c = RTDEControl("172.16.1.222")
+    ##rtde_r = RTDEReceive("172.16.1.222")
     init_q = rtde_r.getActualQ()
     for i in range (6):
         init_q[i]= init_q[i]*57.29
@@ -88,8 +92,8 @@ def speed():
                 DEFAULTSPEED = request.json
                 return "new default speed is {}".format(DEFAULTSPEED), 200, {'Content-Type': 'application/json'}
             except:
-                return "wrong input"
-                abort(400)
+                
+                abort(400,"wrong input")
 
 
         else:
@@ -109,8 +113,8 @@ def acceleration():
                 DEFAULTACCELERATION = request.json
                 return "new default acceleration is {}".format(DEFAULTACCELERATION), 200, {'Content-Type': 'application/json'}
             except:
-                return "wrong input"
-                abort(400)
+                
+                abort(400, "wrong input")
 
 
         else:
@@ -121,8 +125,8 @@ def acceleration():
 
 @app.route("/ur10/actions/goHome", methods=["POST"])
 def goHome():
-    rtde_c = RTDEControl("172.16.1.222")
-    rtde_r = RTDEReceive("172.16.1.222")
+    ##rtde_c = RTDEControl("172.16.1.222")
+    ##rtde_r = RTDEReceive("172.16.1.222")
     list1 = []
     global HOMELOCATION
     for key, value in  HOMELOCATION.items():
@@ -134,12 +138,13 @@ def goHome():
     print(jointPoslist)
     for i in range (6):
         jointPoslist[i]= jointPoslist[i]/57.29
+    status = rtde_r.getRobotStatus()
     if status == 3:
         rtde_c.moveJ(jointPoslist, DEFAULTSPEED, DEFAULTACCELERATION, False)
         return "" ,204
     else:
-        return "robot is not in Normal mode"
-        abort(400)
+    
+        abort(400,"robot is not in Normal mode")
 
 @app.route("/ur10/actions/turnBase", methods=["POST"])
 def turnBase():
@@ -150,24 +155,25 @@ def turnBase():
         try:
             validate(instance=request.json, schema=schema)
         except:
-            return "wrong input"
-            abort(400)
+         
+            abort(400,"wrong input")
 
         degree = request.json["base"]
-        rtde_c = RTDEControl("172.16.1.222")
-        rtde_r = RTDEReceive("172.16.1.222")
+        ##rtde_c = RTDEControl("172.16.1.222")
+        ##rtde_r = RTDEReceive("172.16.1.222")
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[0] += degree/57.29
+        status = rtde_r.getRobotStatus()
         if status == 3:
             rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
             return "", 204 
         else:
-            return "robot is not in Normal mode"
-            abort(400)
+       
+            abort(400,"robot is not in Normal mode")
     else:
-        return "Error 415"
-        abort(415)
+        
+        abort(415,"Error 415")
 
 
 ##################################################3
@@ -182,16 +188,17 @@ def turnShoulder():
         try:
             validate(instance=request.json, schema=schema)
         except:
-            return "wrong input"
-            abort(400)
+            
+            abort(400,"wrong input")
 
         
         degree = request.json["shoulder"]
-        rtde_c = RTDEControl("172.16.1.222")
-        rtde_r = RTDEReceive("172.16.1.222")
+        ##rtde_c = RTDEControl("172.16.1.222")
+        ##rtde_r = RTDEReceive("172.16.1.222")
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[1] += degree/57.29
+        status = rtde_r.getRobotStatus()
         if status == 3:
             rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
             return "", 204 
@@ -215,27 +222,28 @@ def turnElbow():
         try:
             validate(instance=request.json, schema=schema)
         except:
-            return "wrong input"
-            abort(400)
+            
+            abort(400,"wrong input")
 
 
 
         degree = request.json["elbow"]
         print((type(degree)))
-        rtde_c = RTDEControl("172.16.1.222")
-        rtde_r = RTDEReceive("172.16.1.222")
+        ##rtde_c = RTDEControl("172.16.1.222")
+        ##rtde_r = RTDEReceive("172.16.1.222")
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[2] += degree/57.29
+        status = rtde_r.getRobotStatus()
         if status == 3:
             rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
             return "", 204 
         else:
-            return "robot is not in Normal mode"
-            abort(400)
+            
+            abort(400,"robot is not in Normal mode")
     else:
-        return "Error 415"
-        abort(415)
+        
+        abort(415,"Error 415")
 
 
 @app.route("/ur10/actions/turnWrist1", methods=["POST"])
@@ -249,26 +257,27 @@ def turnWrist1():
         try:
             validate(instance=request.json, schema=schema)
         except:
-            return "wrong input"
-            abort(400)
+          
+            abort(400, "wrong input")
 
 
         degree = request.json["wrist1"]
         print((type(degree)))
-        rtde_c = RTDEControl("172.16.1.222")
-        rtde_r = RTDEReceive("172.16.1.222")
+        ##rtde_c = RTDEControl("172.16.1.222")
+        ##rtde_r = RTDEReceive("172.16.1.222")
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[3] += degree/57.29
+        status = rtde_r.getRobotStatus()
         if status == 3:
             rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
             return "", 204 
         else:
-            return "robot is not in Normal mode"
-            abort(400)
+            abort(400, "robot is not in Normal mode")
+        
     else:
-        return "Error 415"
-        abort(415)
+       
+        abort(415, "Error 415")
 
 
 @app.route("/ur10/actions/turnWrist2", methods=["POST"])
@@ -282,27 +291,28 @@ def turnWrist2():
         try:
             validate(instance=request.json, schema=schema)
         except:
-            return "wrong input"
-            abort(400)
+            
+            abort(400,"wrong input")
 
 
         degree = request.json["wrist2"]
         print((type(degree)))
-        rtde_c = RTDEControl("172.16.1.222")
-        rtde_r = RTDEReceive("172.16.1.222")
+        ##rtde_c = RTDEControl("172.16.1.222")
+        ##rtde_r = RTDEReceive("172.16.1.222")
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[4] += degree/57.29
+        status = rtde_r.getRobotStatus()
         if status == 3:
             rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
             return "", 204 
         else:
-            return "robot is not in Normal mode"
-            abort(400)
+           
+            abort(400,"robot is not in Normal mode")
 
     else:
-        return "Error 415"
-        abort(415)
+        
+        abort(415,"Error 415")
 
 
 @app.route("/ur10/actions/turnWrist3", methods=["POST"])
@@ -319,27 +329,27 @@ def turnWrist3():
             if jsonschema.exceptions.ValidationError:
                 return "got in heeeere"
         except:
-            return "wrong input"
-            abort(400)
+            
+            abort(400,"wrong input")
 
 
         degree = request.json["wrist3"]
         print((type(degree)))
-        rtde_c = RTDEControl("172.16.1.222")
-        rtde_r = RTDEReceive("172.16.1.222")
+        ##rtde_c = RTDEControl("172.16.1.222")
+        ##rtde_r = RTDEReceive("172.16.1.222")
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[5] += degree/57.29
+        status = rtde_r.getRobotStatus()
         if status == 3:
             rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
             return "", 204 
         else:
-            return "robot is not in Normal mode"
-            abort(400)
+            abort(400,"wrong input")
 
     else:
-        return "Error 415"
-        abort(415)     
+        
+        abort(415,"Error 415")     
 
 #and type(value)== float and -360<value<360
 @app.route("/ur10/actions/setJointDegrees", methods=["POST"])
@@ -371,8 +381,8 @@ def setJointDegrees():
                     asyn = request.json["async"]
 
             print(jointList)
-            rtde_c = RTDEControl("172.16.1.222")
-            rtde_r = RTDEReceive("172.16.1.222")
+            ##rtde_c = RTDEControl("172.16.1.222")
+            ##rtde_r = RTDEReceive("172.16.1.222")
             init_q = rtde_r.getActualQ()
             print(init_q)
 
@@ -380,25 +390,26 @@ def setJointDegrees():
                 if not jointList[i] == None:
                     init_q[i]=jointList[i]
                 else:
-                    pass  
+                    pass
+            status = rtde_r.getRobotStatus()      
             if status == 3:            
                 new_q = init_q[:]
                 print(new_q)
                 rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, asyn)
                 return "", 204 
             else:
-                return "robot is not in Normal mode"
-                abort(400)
+                
+                abort(400,"robot is not in Normal mode")
         except Exception as e:
             print(e)
-            return "wrong input"
-            abort(400)
+            
+            abort(400,"wrong input")
 
 
         
     else:
-        return "Error 415"
-        abort(415)  
+        
+        abort(415,"Error 415")  
 
 ###################################################333
 
@@ -415,8 +426,8 @@ def goTo():
         try:
             validate(instance=request.json, schema=schema)
         except:
-            return "wrong input"
-            abort(400)
+            
+            abort(400,"wrong input")
         asyn = False
 
         for key in request.json.keys():
@@ -441,8 +452,8 @@ def goTo():
 
 
         print(goList)
-        rtde_c = RTDEControl("172.16.1.222")
-        rtde_r = RTDEReceive("172.16.1.222")
+        ##rtde_c = RTDEControl("172.16.1.222")
+        ##rtde_r = RTDEReceive("172.16.1.222")
         TCPpose = rtde_r.getActualTCPPose()
         print(TCPpose)
 
@@ -466,11 +477,11 @@ def goTo():
             TCPpose[5]= TCPpose[5]
             return "", 204
         else:
-            return "robot is not in Normal mode"
-            abort(400) 
+           
+            abort(400,"robot is not in Normal mode") 
     else:
-        return "Error 415"
-        abort(415)  
+        
+        abort(415,"Error 415")  
 
 
 @app.route("/ur10/actions/gripClose", methods=["POST"])
@@ -507,7 +518,7 @@ def gripOpen():
 
 def submit_td(ip_addr, tdd_address):
     global td 
-    td = get_td(ip_addr)
+    td = td
     print("Uploading TD to directory ...")
     while True:
         try:
@@ -526,61 +537,13 @@ def submit_td(ip_addr, tdd_address):
             time.sleep(45)
 
 
-
-    dur = 7
-    count = 0
-    while count < dur*(10):
-        scrollphathd.clear()
-
-        float_sec = (time.time() % 60) / 59.0
-        seconds_progress = float_sec * 15
-
-        if DISPLAY_BAR:
-        # Step through 15 pixels to draw the seconds bar
-            for y in range(15):
-
-                current_pixel = min(seconds_progress, 1)
-                scrollphathd.set_pixel(y + 1, 6, current_pixel * BRIGHTNESS)
-                seconds_progress -= 1
-
-            
-                if seconds_progress <= 0:
-                    break
-
-        else:
-        # Just display a simple dot
-            scrollphathd.set_pixel(int(seconds_progress), 6, BRIGHTNESS)
-
-    # Display the time (HH:MM) in a 5x5 pixel font
-        scrollphathd.write_string(
-            time.strftime("%H:%M"),
-            x=0,               
-            y=0,                  
-            font=font5x5,          
-            brightness=0.3  
-        )
-
-        if int(time.time()) % 2 == 0:
-            scrollphathd.clear_rect(8, 0, 1, 5)
-
-        scrollphathd.show()
-        scrollphathd.flip(x=True, y=True)
-        time.sleep(0.1)
-        count = count + 1
-    
-    return "", 204
-    scrollphathd.clear()
-    scrollphathd.show()
-
-
-
 # wait for Wifi to connect
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 while True:
     try:
         # connect to router to ensure a successful connection
-        s.connect(('172.16.1.1', 80))
+        s.connect((constants["routerIP"],constants["routerPort"]))
         ip_addr = s.getsockname()[0] + ":" + str(LISTENING_PORT)
         print(ip_addr)
         break

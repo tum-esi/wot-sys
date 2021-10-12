@@ -1,5 +1,7 @@
 {
-    "HTTP_IP_ADDRESS": "3333333333",
+    "@type": "UR-10 Robot Arm",
+    "securityDefinitions":{"nosec_sc": {"scheme": "nosec"}},
+    "HTTP_IP_ADDRESS": "172.16.1.219",
     "MIN_X":-1300,
     "MIN_Y":-1300,
     "MIN_Z":-1300,
@@ -28,5 +30,4 @@
     "MAX_Y_MOVEMENT":2600,
     "MIN_Z_MOVEMENT":-2600,
     "MAX_Z_MOVEMENT":2600
-
 }

@@ -14,9 +14,9 @@ config_string = json.dumps(config)
 
 config_new = {}
 
-for keyy in config:
-    anahtar = r"{{" + str(keyy) + r"}}"
-    config_new[anahtar] = config[keyy]
+for key_old in config:
+    key_new = r"{{" + str(key_old) + r"}}"
+    config_new[key_new] = config[key_old]
 
 #print(config_new)
 
@@ -31,8 +31,8 @@ tm_modified_dict = json.loads(tm_string)
 #print(tm_modified_dict)
 
 
-tm_modified_dict["@type"] = "UR-10 Robot Arm"
-tm_modified_dict["securityDefinitions"] = {"nosec_sc": {"scheme": "nosec"}}
+tm_modified_dict["@type"] = config["@type"]
+tm_modified_dict["securityDefinitions"] = config["securityDefinitions"]
 tm_modified_dict["security"] = ["nosec_sc"]
 tm_modified_dict["links"]= [{
 		"rel" : "type",
@@ -63,14 +63,14 @@ for key in tm_modified_dict["properties"]:
 					{"href": "properties/{}".format(key),
 					"op": "readproperty",
 					"contentType":"application/json",
-					"htv:methodName": "GET",
-					"security": "nosec_sc"
+					"htv:methodName": "GET"
+					
 					},
 					{"href": "properties/{}".format(key),
 					"htv:methodName": "PUT",
                     "op": "writeproperty",
-					"contentType":"application/json",
-					"security": "nosec_sc"
+					"contentType":"application/json"
+					
 					}
 				]
 

@@ -80,6 +80,22 @@
    "safe": false,
    "title": "Close Grip"
   },
+  "gripCloseLight": {
+   "description": "Closes the grip with 25 Newton of force",
+   "forms": [
+    [
+     {
+      "contentType": "application/json",
+      "href": "actions/gripCloseLight",
+      "htv:methodName": "POST",
+      "op": "invokeaction"
+     }
+    ]
+   ],
+   "idempotent": true,
+   "safe": false,
+   "title": "Close Grip"
+  },
   "gripOpen": {
    "description": "Opens the grip",
    "forms": [
@@ -95,57 +111,6 @@
    "idempotent": true,
    "safe": false,
    "title": "Open Grip"
-  },
-  "move": {
-   "description": "Move in a direction from current location in cartesian coordinates (x,y,z) with the assigned speed and acceleration, default values are .... ",
-   "forms": [
-    [
-     {
-      "contentType": "application/json",
-      "href": "actions/move",
-      "htv:methodName": "POST",
-      "op": "invokeaction"
-     }
-    ]
-   ],
-   "idempotent": false,
-   "input": {
-    "properties": {
-     "a": {
-      "maximum": 1.0,
-      "minimum": 0.1,
-      "type": "number"
-     },
-     "s": {
-      "maximum": 1.0,
-      "minimum": 0.1,
-      "type": "number"
-     },
-     "x": {
-      "maximum": 2600,
-      "minimum": -2600,
-      "type": "integer"
-     },
-     "y": {
-      "maximum": 2600,
-      "minimum": -2600,
-      "type": "integer"
-     },
-     "z": {
-      "maximum": 2600,
-      "minimum": -2600,
-      "type": "integer"
-     }
-    },
-    "required": [
-     "x",
-     "y",
-     "z"
-    ],
-    "type": "object"
-   },
-   "safe": false,
-   "title": "Move in a certain direction from current location"
   },
   "setJointDegrees": {
    "description": "Turn the robot arm joints to a specific degree",
@@ -531,15 +496,13 @@
      "contentType": "application/json",
      "href": "properties/moveAcceleration",
      "htv:methodName": "GET",
-     "op": "readproperty",
-     "security": "nosec_sc"
+     "op": "readproperty"
     },
     {
      "contentType": "application/json",
      "href": "properties/moveAcceleration",
      "htv:methodName": "PUT",
-     "op": "writeproperty",
-     "security": "nosec_sc"
+     "op": "writeproperty"
     }
    ],
    "maximum": 1.0,
@@ -556,15 +519,13 @@
      "contentType": "application/json",
      "href": "properties/moveSpeed",
      "htv:methodName": "GET",
-     "op": "readproperty",
-     "security": "nosec_sc"
+     "op": "readproperty"
     },
     {
      "contentType": "application/json",
      "href": "properties/moveSpeed",
      "htv:methodName": "PUT",
-     "op": "writeproperty",
-     "security": "nosec_sc"
+     "op": "writeproperty"
     }
    ],
    "maximum": 1.0,
