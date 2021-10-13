@@ -338,7 +338,7 @@
    "title": "Turn Wrist3"
   }
  },
- "base": "http://3333333333/ur10/",
+ "base": "http://172.16.1.219/ur10/",
  "id": "de:tum:ei:esi:ur10",
  "links": [
   {
@@ -348,12 +348,49 @@
   }
  ],
  "properties": {
-  "curJointPos": {
+  "currentCoordinates": {
+   "description": "Gives back the current location in cartesian coordinates",
+   "forms": [
+    {
+     "contentType": "application/json",
+     "href": "properties/currentCoordinates",
+     "op": [
+      "readproperty"
+     ]
+    }
+   ],
+   "properties": {
+    "x": {
+     "maximum": 1300,
+     "minimum": -1300,
+     "type": "integer"
+    },
+    "y": {
+     "maximum": 1300,
+     "minimum": -1300,
+     "type": "integer"
+    },
+    "z": {
+     "maximum": 1300,
+     "minimum": -1300,
+     "type": "integer"
+    }
+   },
+   "readOnly": true,
+   "required": [
+    "x",
+    "y",
+    "z"
+   ],
+   "title": "Location",
+   "type": "object"
+  },
+  "currentJointDegrees": {
    "description": "Gives back the current degree values for joints",
    "forms": [
     {
      "contentType": "application/json",
-     "href": "properties/curJointPos",
+     "href": "properties/currentJointDegrees",
      "op": [
       "readproperty"
      ]
@@ -403,49 +440,12 @@
    "title": "Current Joint Position",
    "type": "object"
   },
-  "curLocation": {
-   "description": "Gives back the current location in cartesian coordinates",
+  "homePosition": {
+   "description": "Home position on x-y-z space and joint degrees values",
    "forms": [
     {
      "contentType": "application/json",
-     "href": "properties/curLocation",
-     "op": [
-      "readproperty"
-     ]
-    }
-   ],
-   "properties": {
-    "x": {
-     "maximum": 1300,
-     "minimum": -1300,
-     "type": "integer"
-    },
-    "y": {
-     "maximum": 1300,
-     "minimum": -1300,
-     "type": "integer"
-    },
-    "z": {
-     "maximum": 1300,
-     "minimum": -1300,
-     "type": "integer"
-    }
-   },
-   "readOnly": true,
-   "required": [
-    "x",
-    "y",
-    "z"
-   ],
-   "title": "Location",
-   "type": "object"
-  },
-  "homeLoc": {
-   "description": "Home location on x-y-z space and joint degrees values",
-   "forms": [
-    {
-     "contentType": "application/json",
-     "href": "properties/homeLoc",
+     "href": "properties/homePosition",
      "op": [
       "readproperty"
      ]
@@ -486,7 +486,7 @@
     "y",
     "z"
    ],
-   "title": "Home location",
+   "title": "Home position",
    "type": "object"
   },
   "moveAcceleration": {

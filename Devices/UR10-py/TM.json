@@ -6,9 +6,9 @@
     "base": "http://{{HTTP_IP_ADDRESS}}/ur10/",
 
     "properties": {
-        "homeLoc":{
-            "title":"Home location",
-            "description":"Home location on x-y-z space and joint degrees values",
+        "homePosition":{
+            "title":"Home position",
+            "description":"Home position on x-y-z space and joint degrees values",
             "type":"object",
             "required":["x","y","z"],
             "properties":{
@@ -42,7 +42,7 @@
             },
             "readOnly": true
         },
-        "curLocation":{
+        "currentCoordinates":{
             "title":"Location",
             "description":"Gives back the current location in cartesian coordinates",
             "type":"object",
@@ -66,7 +66,7 @@
             },
             "readOnly": true
         },
-        "curJointPos":{
+        "currentJointDegrees":{
             "title":"Current Joint Position",
             "description":"Gives back the current degree values for joints",
             "type":"object",

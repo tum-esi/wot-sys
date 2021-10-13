@@ -1,6 +1,7 @@
 from rtde_control import RTDEControlInterface as RTDEControl
 from rtde_receive import RTDEReceiveInterface as RTDEReceive
 from rtde_io import RTDEIOInterface as RTDEIO
+
 import requests
 import socket
 import time
@@ -9,11 +10,7 @@ import _thread
 
 
 from flask import Flask, request, abort,redirect, url_for,flash
-
-
 from jsonschema import validate
-# from jschon import JSON, JSONSchema
-# from pprint import pp
 from sys import exit
 
 
@@ -29,6 +26,9 @@ with open("constants.json", "r") as f:
 
 with open("convertedTD.json", "r") as f:
     td = json.load(f)
+    
+with open("config.json", "r") as f:
+    config = json.load(f)
 
 TD_DIRECTORY_ADDRESS = constants["TD_DIRECTORY_ADDRESS"]
 LISTENING_PORT = constants["LISTENING_PORT"]
@@ -42,8 +42,9 @@ HOMELOCATION = constants["HOMELOCATION"]
 
 app = Flask(__name__)
 
-rtde_c = RTDEControl("172.16.1.222")
-rtde_r = RTDEReceive("172.16.1.222")
+rtde_c = RTDEControl(config["robotIP"])
+rtde_r = RTDEReceive(config["robotIP"])
+rtde_io_ = RTDEIO(config["robotIP"])
 
 
 @app.route("/ur10/")
@@ -51,28 +52,24 @@ def thing_description():
     return json.dumps(td), {'Content-Type': 'application/json'}
 
 
-@app.route("/ur10/properties/homeloc", methods=["GET"])
-def homeloc():
+@app.route("/ur10/properties/homePosition", methods=["GET"])
+def homePosition():
     x = json.dumps(HOMELOCATION)
     print(type(json.dumps(HOMELOCATION)))
     print(json.dumps(HOMELOCATION))
     return x , 200, {'Content-Type': 'application/json'}
 
 
-@app.route("/ur10/properties/curLocation", methods=["GET"])
-def curLocation():
-    ##rtde_c = RTDEControl("172.16.1.222")
-    ##rtde_r = RTDEReceive("172.16.1.222")
+@app.route("/ur10/properties/currentCoordinates", methods=["GET"])
+def currentCoordinates():
     TCPpose = rtde_r.getActualTCPPose()
     TCPpose[0]= TCPpose[0]*1000
     TCPpose[1]= TCPpose[1]*1000
     TCPpose[2]= (TCPpose[2]-0.4)*1000
     return json.dumps(TCPpose), 200, {'Content-Type': 'application/json'}
 
-@app.route("/ur10/properties/curJointPos", methods=["GET"])
-def curJointPos():
-    ##rtde_c = RTDEControl("172.16.1.222")
-    ##rtde_r = RTDEReceive("172.16.1.222")
+@app.route("/ur10/properties/currentJointDegrees", methods=["GET"])
+def currentJointDegrees():
     init_q = rtde_r.getActualQ()
     for i in range (6):
         init_q[i]= init_q[i]*57.29
@@ -125,8 +122,6 @@ def acceleration():
 
 @app.route("/ur10/actions/goHome", methods=["POST"])
 def goHome():
-    ##rtde_c = RTDEControl("172.16.1.222")
-    ##rtde_r = RTDEReceive("172.16.1.222")
     list1 = []
     global HOMELOCATION
     for key, value in  HOMELOCATION.items():
@@ -159,8 +154,6 @@ def turnBase():
             abort(400,"wrong input")
 
         degree = request.json["base"]
-        ##rtde_c = RTDEControl("172.16.1.222")
-        ##rtde_r = RTDEReceive("172.16.1.222")
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[0] += degree/57.29
@@ -176,13 +169,11 @@ def turnBase():
         abort(415,"Error 415")
 
 
-##################################################3
+##################################################
 @app.route("/ur10/actions/turnShoulder", methods=["POST"])
 def turnShoulder():
 
     if request.is_json:
-        # schema = td["actions"]["turnBase"]["input"]
-        # valid_input = Draft6Validator(schema).is_valid(request.json)
  
         schema = td["actions"]["turnShoulder"]["input"]
         try:
@@ -191,10 +182,7 @@ def turnShoulder():
             
             abort(400,"wrong input")
 
-        
         degree = request.json["shoulder"]
-        ##rtde_c = RTDEControl("172.16.1.222")
-        ##rtde_r = RTDEReceive("172.16.1.222")
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[1] += degree/57.29
@@ -215,9 +203,6 @@ def turnShoulder():
 def turnElbow():
 
     if request.is_json:
-        # schema = td["actions"]["turnBase"]["input"]
-        # valid_input = Draft6Validator(schema).is_valid(request.json)
-
         schema = td["actions"]["turnElbow"]["input"]
         try:
             validate(instance=request.json, schema=schema)
@@ -229,8 +214,6 @@ def turnElbow():
 
         degree = request.json["elbow"]
         print((type(degree)))
-        ##rtde_c = RTDEControl("172.16.1.222")
-        ##rtde_r = RTDEReceive("172.16.1.222")
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[2] += degree/57.29
@@ -250,9 +233,6 @@ def turnElbow():
 def turnWrist1():
 
     if request.is_json:
-        # schema = td["actions"]["turnBase"]["input"]
-        # valid_input = Draft6Validator(schema).is_valid(request.json)
-        
         schema = td["actions"]["turnWrist1"]["input"]
         try:
             validate(instance=request.json, schema=schema)
@@ -260,11 +240,8 @@ def turnWrist1():
           
             abort(400, "wrong input")
 
-
         degree = request.json["wrist1"]
         print((type(degree)))
-        ##rtde_c = RTDEControl("172.16.1.222")
-        ##rtde_r = RTDEReceive("172.16.1.222")
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[3] += degree/57.29
@@ -284,9 +261,6 @@ def turnWrist1():
 def turnWrist2():
 
     if request.is_json:
-        # schema = td["actions"]["turnBase"]["input"]
-        # valid_input = Draft6Validator(schema).is_valid(request.json)
-        
         schema = td["actions"]["turnWrist2"]["input"]
         try:
             validate(instance=request.json, schema=schema)
@@ -297,8 +271,6 @@ def turnWrist2():
 
         degree = request.json["wrist2"]
         print((type(degree)))
-        ##rtde_c = RTDEControl("172.16.1.222")
-        ##rtde_r = RTDEReceive("172.16.1.222")
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[4] += degree/57.29
@@ -319,8 +291,7 @@ def turnWrist2():
 def turnWrist3():
 
     if request.is_json:
-        #schema = td["actions"]["turnWrist3"]["input"]
-        # valid_input = Draft6Validator(schema).is_valid(request.json)
+
         print(request.json)
         schema = td["actions"]["turnWrist3"]["input"]
         try:
@@ -335,8 +306,6 @@ def turnWrist3():
 
         degree = request.json["wrist3"]
         print((type(degree)))
-        ##rtde_c = RTDEControl("172.16.1.222")
-        ##rtde_r = RTDEReceive("172.16.1.222")
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[5] += degree/57.29
@@ -381,8 +350,6 @@ def setJointDegrees():
                     asyn = request.json["async"]
 
             print(jointList)
-            ##rtde_c = RTDEControl("172.16.1.222")
-            ##rtde_r = RTDEReceive("172.16.1.222")
             init_q = rtde_r.getActualQ()
             print(init_q)
 
@@ -411,7 +378,7 @@ def setJointDegrees():
         
         abort(415,"Error 415")  
 
-###################################################333
+###################################################
 
 @app.route("/ur10/actions/goTo", methods=["POST"])
 def goTo():
@@ -452,8 +419,6 @@ def goTo():
 
 
         print(goList)
-        ##rtde_c = RTDEControl("172.16.1.222")
-        ##rtde_r = RTDEReceive("172.16.1.222")
         TCPpose = rtde_r.getActualTCPPose()
         print(TCPpose)
 
@@ -487,8 +452,6 @@ def goTo():
 @app.route("/ur10/actions/gripClose", methods=["POST"])
 def gripClose(): 
 
-    rtde_io_ = RTDEIO("172.16.1.222")
-    rtde_receive_ = RTDEReceive("172.16.1.222")
     rtde_io_.setStandardDigitalOut(0, False)
     rtde_io_.setStandardDigitalOut(1, True)
     rtde_io_.setStandardDigitalOut(3, False)
@@ -497,8 +460,6 @@ def gripClose():
 @app.route("/ur10/actions/gripCloseLight", methods=["POST"])
 def gripCloseLight(): 
 
-    rtde_io_ = RTDEIO("172.16.1.222")
-    rtde_receive_ = RTDEReceive("172.16.1.222")
     rtde_io_.setStandardDigitalOut(0, False)
     rtde_io_.setStandardDigitalOut(1, False)
     rtde_io_.setStandardDigitalOut(3, True)
@@ -507,14 +468,13 @@ def gripCloseLight():
 @app.route("/ur10/actions/gripOpen", methods=["POST"])
 def gripOpen(): 
 
-    rtde_io_ = RTDEIO("172.16.1.222")
-    rtde_receive_ = RTDEReceive("172.16.1.222")
+
     rtde_io_.setStandardDigitalOut(0, True)
     rtde_io_.setStandardDigitalOut(1, False)
     rtde_io_.setStandardDigitalOut(3, False)
     return "", 204
 
-##################################33
+##################################################
 
 def submit_td(ip_addr, tdd_address):
     global td 
@@ -543,7 +503,7 @@ s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 while True:
     try:
         # connect to router to ensure a successful connection
-        s.connect((constants["routerIP"],constants["routerPort"]))
+        s.connect((config["routerIP"],config["routerPort"]))
         ip_addr = s.getsockname()[0] + ":" + str(LISTENING_PORT)
         print(ip_addr)
         break

@@ -11,25 +11,21 @@ tm_string = json.dumps(tm_dict)
 config_string = json.dumps(config)
 
 
-
+#creating a new dict using the keys and values from the json object in config.json and adding brackets on each side of each key. Later on the updated key strings in TM.json are changed with the corresponding value in the new_config dict. 
 config_new = {}
 
 for key_old in config:
     key_new = r"{{" + str(key_old) + r"}}"
     config_new[key_new] = config[key_old]
 
-#print(config_new)
 
 
 for key, value in config_new.items():
-    #tm_string = tm_string.replace("{{HTTP_IP_ADDRESS}}", "2222222")
-    tm_string = tm_string.replace('"{}"'.format(key), str(value)) #backslah bak
+    tm_string = tm_string.replace('"{}"'.format(key), str(value))
     tm_string = tm_string.replace(key, str(value))
 
 
 tm_modified_dict = json.loads(tm_string)
-#print(tm_modified_dict)
-
 
 tm_modified_dict["@type"] = config["@type"]
 tm_modified_dict["securityDefinitions"] = config["securityDefinitions"]
@@ -64,7 +60,6 @@ for key in tm_modified_dict["properties"]:
 					"op": "readproperty",
 					"contentType":"application/json",
 					"htv:methodName": "GET"
-					
 					},
 					{"href": "properties/{}".format(key),
 					"htv:methodName": "PUT",
@@ -74,10 +69,7 @@ for key in tm_modified_dict["properties"]:
 					}
 				]
 
-
-
 with open('convertedTD.json', 'w') as file:
      file.write(json.dumps(tm_modified_dict, indent=1, sort_keys=True))   
 
 
-print(json.dumps(tm_modified_dict, indent=1, sort_keys=True))
