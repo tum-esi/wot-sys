@@ -12,15 +12,15 @@ config_string = json.dumps(config)
 
 
 #creating a new dict using the keys and values from the json object in config.json and adding brackets on each side of each key. Later on the updated key strings in TM.json are changed with the corresponding value in the new_config dict. 
-config_new = {}
+config_for_TM = {}
 
 for key_old in config:
     key_new = r"{{" + str(key_old) + r"}}"
-    config_new[key_new] = config[key_old]
+    config_for_TM[key_new] = config[key_old]
 
 
 
-for key, value in config_new.items():
+for key, value in config_for_TM.items():
     tm_string = tm_string.replace('"{}"'.format(key), str(value))
     tm_string = tm_string.replace(key, str(value))
 
