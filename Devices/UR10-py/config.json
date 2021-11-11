@@ -30,7 +30,7 @@
     "MAX_Y_MOVEMENT":2600,
     "MIN_Z_MOVEMENT":-2600,
     "MAX_Z_MOVEMENT":2600,
-    "robotIP":"172.16.1.222",
+    "robotIP":"172.16.1.130",
     "routerIP": "172.16.1.1",
     "routerPort":80
 }

@@ -84,7 +84,7 @@ def speed():
             try:
                 validate(instance=request.json, schema=schema)
                 DEFAULTSPEED = request.json
-                return "new default speed is {}".format(DEFAULTSPEED), 200, {'Content-Type': 'application/json'}
+                return  200, {'Content-Type': 'application/json'}
             except:
                 
                 abort(400,"wrong input")
@@ -105,7 +105,7 @@ def acceleration():
             try:
                 validate(instance=request.json, schema=schema)
                 DEFAULTACCELERATION = request.json
-                return "new default acceleration is {}".format(DEFAULTACCELERATION), 200, {'Content-Type': 'application/json'}
+                return 200, {'Content-Type': 'application/json'}
             except:
                 
                 abort(400, "wrong input")
@@ -129,15 +129,11 @@ def goHome():
         jointPoslist.append(list1[i + 3])
     print(jointPoslist)
     for i in range(6):
-        jointPoslist[i] = jointPoslist[i] / 57.29 ## is the ratio between the angle of joint in degrees on the control screen
-                                                  ## and the angle output when
-                                                                                                   ## API
-                                                                                                                                                    ## function
-                                                                                                                                                                                                     ## is
-                                                                                                                                                                                                                                                      ## used.
-                                                                                                                                                                                                                                                                                                       ## (https://sdurobotics.gitlab.io/ur_rtde/api/api.html#rtde-control-interface-api)
+        jointPoslist[i] = jointPoslist[i] / 57.29 # is the ratio between the angle of joint in degrees on the control screen
+                                                  # and the angle output when API function is used.
+                                                  #  (https://sdurobotics.gitlab.io/ur_rtde/api/api.html#rtde-control-interface-api)
     status = rtde_r.getRobotStatus()
-    if status == 3:
+    if status >= 1:
         rtde_c.moveJ(jointPoslist, DEFAULTSPEED, DEFAULTACCELERATION, False)
         return "" ,204
     else:
@@ -153,7 +149,6 @@ def turnBase():
         try:
             validate(instance=request.json, schema=schema)
         except:
-         
             abort(400,"wrong input")
 
         degree = request.json["base"]
@@ -161,11 +156,13 @@ def turnBase():
         new_q = init_q[:]
         new_q[0] += degree / 57.29
         status = rtde_r.getRobotStatus()
-        if status == 3:
-            rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
-            return "", 204 
+        if status >= 1:
+            isDone = rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
+            if isDone:
+                return "", 204
+            else:
+                abort(400, "Couldn't perform")
         else:
-       
             abort(400,"robot is not in Normal mode")
     else:
         
@@ -190,9 +187,13 @@ def turnShoulder():
         new_q = init_q[:]
         new_q[1] += degree / 57.29
         status = rtde_r.getRobotStatus()
-        if status == 3:
-            rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
-            return "", 204 
+        print(status)
+        if status >= 1:
+            isDone =  rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
+            if isDone:
+                return "", 204
+            else:
+                abort(400, "Couldn't perform")
         else:
             return "robot is not in Normal mode"
             abort(400)
@@ -221,9 +222,12 @@ def turnElbow():
         new_q = init_q[:]
         new_q[2] += degree / 57.29
         status = rtde_r.getRobotStatus()
-        if status == 3:
-            rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
-            return "", 204 
+        if status >= 1:
+            isDone = rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
+            if isDone:
+                return "", 204
+            else:
+                abort(400, "Couldn't perform")
         else:
             
             abort(400,"robot is not in Normal mode")
@@ -249,9 +253,12 @@ def turnWrist1():
         new_q = init_q[:]
         new_q[3] += degree / 57.29
         status = rtde_r.getRobotStatus()
-        if status == 3:
-            rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
-            return "", 204 
+        if status >= 1:
+            isDone = rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
+            if isDone:
+                return "", 204
+            else:
+                abort(400, "Couldn't perform") 
         else:
             abort(400, "robot is not in Normal mode")
         
@@ -278,9 +285,12 @@ def turnWrist2():
         new_q = init_q[:]
         new_q[4] += degree / 57.29
         status = rtde_r.getRobotStatus()
-        if status == 3:
-            rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
-            return "", 204 
+        if status >= 1:
+            isDone = rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
+            if isDone:
+                return "", 204
+            else:
+                abort(400, "Couldn't perform") 
         else:
            
             abort(400,"robot is not in Normal mode")
@@ -298,14 +308,9 @@ def turnWrist3():
         print(request.json)
         schema = td["actions"]["turnWrist3"]["input"]
         try:
-            v = validate(instance=request.json, schema=schema)
-            print(v)
-            if jsonschema.exceptions.ValidationError:
-                return "got in heeeere"
-        except:
-            
+            validate(instance=request.json, schema=schema)
+        except:              
             abort(400,"wrong input")
-
 
         degree = request.json["wrist3"]
         print((type(degree)))
@@ -313,9 +318,12 @@ def turnWrist3():
         new_q = init_q[:]
         new_q[5] += degree / 57.29
         status = rtde_r.getRobotStatus()
-        if status == 3:
-            rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
-            return "", 204 
+        if status >= 1:
+            isDone = rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
+            if isDone:
+                return "", 204
+            else:
+                abort(400, "Couldn't perform") 
         else:
             abort(400,"wrong input")
 
@@ -362,11 +370,14 @@ def setJointDegrees():
                 else:
                     pass
             status = rtde_r.getRobotStatus()      
-            if status == 3:            
+            if status >= 1:            
                 new_q = init_q[:]
                 print(new_q)
-                rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, asyn)
-                return "", 204 
+                isDone = rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, asyn)
+                if isDone:
+                    return "", 204
+                else:
+                    abort(400, "Couldn't perform")  
             else:
                 
                 abort(400,"robot is not in Normal mode")
@@ -433,15 +444,20 @@ def goTo():
         new_q = TCPpose[:]
         print(new_q)
         status = rtde_r.getRobotStatus()
-        if status == 3:
-            rtde_c.moveJ_IK(new_q,DEFAULTSPEED,DEFAULTACCELERATION , asyn)
-            TCPpose = rtde_r.getActualTCPPose()
-            TCPpose[0] = TCPpose[0] * 1000
-            TCPpose[1] = TCPpose[1] * 1000
-            TCPpose[2] = (TCPpose[2] - 0.4) * 1000
-            TCPpose[3] = TCPpose[3]
-            TCPpose[4] = TCPpose[4]
-            TCPpose[5] = TCPpose[5]
+        if status >= 1:
+            isDone = rtde_c.moveJ_IK(new_q,DEFAULTSPEED,DEFAULTACCELERATION , asyn)
+            if isDone:
+                TCPpose = rtde_r.getActualTCPPose()
+                TCPpose[0] = TCPpose[0] * 1000
+                TCPpose[1] = TCPpose[1] * 1000
+                TCPpose[2] = (TCPpose[2] - 0.4) * 1000
+                TCPpose[3] = TCPpose[3]
+                TCPpose[4] = TCPpose[4]
+                TCPpose[5] = TCPpose[5]
+                return "", 204
+            else:
+                abort(400, "Couldn't perform") 
+
             return "", 204
         else:
            
@@ -451,29 +467,39 @@ def goTo():
         abort(415,"Error 415")  
 
 
+# These gripper functions do not work for now. Needs some change in the robot code
 @app.route("/ur10/actions/gripClose", methods=["POST"])
 def gripClose(): 
 
-    rtde_io_.setStandardDigitalOut(0, False)
     rtde_io_.setStandardDigitalOut(1, True)
+    rtde_io_.setStandardDigitalOut(4, True)
+    rtde_io_.setStandardDigitalOut(4, False)
+    rtde_io_.setStandardDigitalOut(1, False)
     rtde_io_.setStandardDigitalOut(3, False)
+    rtde_io_.setStandardDigitalOut(0, False)
     return "", 204
 
 @app.route("/ur10/actions/gripCloseLight", methods=["POST"])
 def gripCloseLight(): 
 
-    rtde_io_.setStandardDigitalOut(0, False)
-    rtde_io_.setStandardDigitalOut(1, False)
     rtde_io_.setStandardDigitalOut(3, True)
+    rtde_io_.setStandardDigitalOut(4, True)
+    rtde_io_.setStandardDigitalOut(4, False)
+    rtde_io_.setStandardDigitalOut(1, False)
+    rtde_io_.setStandardDigitalOut(3, False)
+    rtde_io_.setStandardDigitalOut(0, False)
     return "", 204
 
 @app.route("/ur10/actions/gripOpen", methods=["POST"])
 def gripOpen(): 
-
-
+    
     rtde_io_.setStandardDigitalOut(0, True)
+    rtde_io_.setStandardDigitalOut(4, True)
+    rtde_io_.setStandardDigitalOut(4, False)
     rtde_io_.setStandardDigitalOut(1, False)
     rtde_io_.setStandardDigitalOut(3, False)
+    rtde_io_.setStandardDigitalOut(0, False)
+
     return "", 204
 
 ##################################################
