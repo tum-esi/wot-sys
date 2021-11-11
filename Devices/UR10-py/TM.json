@@ -1,358 +1,358 @@
 {
-    "@type" : "tm:ThingModel",
-    "@context": "https://www.w3.org/2019/wot/td/v1",
-    "id": "de:tum:ei:esi:ur10", 
-    "title": "Ur-10",
-    "base": "http://{{HTTP_IP_ADDRESS}}/ur10/",
+  "@type": "tm:ThingModel",
+  "@context": "https://www.w3.org/2019/wot/td/v1",
+  "id": "de:tum:ei:esi:ur10",
+  "title": "Ur-10",
+  "base": "http://{{HTTP_IP_ADDRESS}}/ur10/",
 
-    "properties": {
-        "homePosition":{
-            "title":"Home position",
-            "description":"Home position on x-y-z space and joint degrees values",
-            "type":"object",
-            "required":["x","y","z"],
-            "properties":{
-                "x":{
-                    "type":"integer"
-                    },
-                "y":{
-                    "type":"integer"
-                    },
-                "z":{
-                    "type":"integer"
-                    },
-                "base":{
-                    "type":"number"
-                },
-                "shoulder":{
-                    "type":"number"
-                },
-                "elbow":{
-                    "type":"number"
-                },
-                "wrist1":{
-                    "type":"number"
-                },
-                "wrist2":{
-                    "type":"number"
-                },
-                "wrist3":{
-                    "type":"number"
-                }
-            },
-            "readOnly": true
+  "properties": {
+    "homePosition": {
+      "title": "Home position",
+      "description": "Home position on x-y-z space and joint degrees values",
+      "type": "object",
+      "required": [ "x", "y", "z" ],
+      "properties": {
+        "x": {
+          "type": "integer"
         },
-        "currentCoordinates":{
-            "title":"Location",
-            "description":"Gives back the current location in cartesian coordinates",
-            "type":"object",
-            "required":["x","y","z"],
-            "properties":{
-                "x":{
-                    "type":"integer",
-                    "minimum": "{{MIN_X}}",
-                    "maximum": "{{MAX_X}}"
-                    },
-                "y":{
-                    "type":"integer",
-                    "minimum": "{{MIN_Y}}",
-                    "maximum": "{{MAX_Y}}"
-                    },
-                "z":{
-                    "type":"integer",
-                    "minimum": "{{MIN_Z}}",
-                    "maximum": "{{MAX_Z}}"
-                    }
-            },
-            "readOnly": true
+        "y": {
+          "type": "integer"
         },
-        "currentJointDegrees":{
-            "title":"Current Joint Position",
-            "description":"Gives back the current degree values for joints",
-            "type":"object",
-            "required":["base","shoulder","elbow","wrist1","wrist2","wrist3"],
-            "properties":{
-                "base":{
-                    "type":"number",
-                    "minimum": "{{MIN_BASE_DEGREE}}",
-                    "maximum": "{{MAX_BASE_DEGREE}}"
-                },
-                "shoulder":{
-                    "type":"number",
-                    "minimum": "{{MIN_SHOULDER_DEGREE}}",
-                    "maximum": "{{MAX_SHOULDER_DEGREE}}"
-                },
-                "elbow":{
-                    "type":"number",
-                    "minimum": "{{MIN_ELBOW_DEGREE}}",
-                    "maximum": "{{MAX_ELBOW_DEGREE}}"
-                },
-                "wrist1":{
-                    "type":"number",
-                    "minimum": "{{MIN_WRIST1_DEGREE}}",
-                    "maximum": "{{MAX_WRIST1_DEGREE}}"
-                },
-                "wrist2":{
-                    "type":"number",
-                    "minimum": "{{MIN_WRIST2_DEGREE}}",
-                    "maximum": "{{MAX_WRIST2_DEGREE}}"
-                },
-                "wrist3":{
-                    "type":"number",
-                    "minimum": "{{MIN_WRIST3_DEGREE}}",
-                    "maximum": "{{MAX_WRIST3_DEGREE}}"
-                }
-            },
-            "readOnly": true
-
+        "z": {
+          "type": "integer"
         },
-        "moveSpeed":{
-            "title":"Speed",
-            "description": "Its value sets the moving speed of all UR-10 robot arm joints, default value is 0.5 but can be changed",
-            "type": "number",
-            "minimum": 0.1, 
-            "maximum": 1.0,
-            "readOnly": false,
-            "writeOnly": false
-
+        "base": {
+          "type": "number"
         },
-        "moveAcceleration":{
-            "title":"Acceleration",
-            "description": "Its value sets the moving acceleration of all UR-10 robot arm joints, default value is 0.5 but can be changed",
-            "type": "number",
-            "minimum": 0.1, 
-            "maximum": 1.0,
-            "readOnly": false,
-            "writeOnly": false
-
+        "shoulder": {
+          "type": "number"
+        },
+        "elbow": {
+          "type": "number"
+        },
+        "wrist1": {
+          "type": "number"
+        },
+        "wrist2": {
+          "type": "number"
+        },
+        "wrist3": {
+          "type": "number"
         }
+      },
+      "readOnly": true
+    },
+    "currentCoordinates": {
+      "title": "Current Cartesian Coordinates",
+      "description": "Gives back the current location in cartesian coordinates",
+      "type": "object",
+      "required": [ "x", "y", "z" ],
+      "properties": {
+        "x": {
+          "type": "integer",
+          "minimum": "{{MIN_X}}",
+          "maximum": "{{MAX_X}}"
+        },
+        "y": {
+          "type": "integer",
+          "minimum": "{{MIN_Y}}",
+          "maximum": "{{MAX_Y}}"
+        },
+        "z": {
+          "type": "integer",
+          "minimum": "{{MIN_Z}}",
+          "maximum": "{{MAX_Z}}"
+        }
+      },
+      "readOnly": true
+    },
+    "currentJointDegrees": {
+      "title": "Current Joint Position",
+      "description": "Gives back the current degree values for joints",
+      "type": "object",
+      "required": [ "base", "shoulder", "elbow", "wrist1", "wrist2", "wrist3" ],
+      "properties": {
+        "base": {
+          "type": "number",
+          "minimum": "{{MIN_BASE_DEGREE}}",
+          "maximum": "{{MAX_BASE_DEGREE}}"
+        },
+        "shoulder": {
+          "type": "number",
+          "minimum": "{{MIN_SHOULDER_DEGREE}}",
+          "maximum": "{{MAX_SHOULDER_DEGREE}}"
+        },
+        "elbow": {
+          "type": "number",
+          "minimum": "{{MIN_ELBOW_DEGREE}}",
+          "maximum": "{{MAX_ELBOW_DEGREE}}"
+        },
+        "wrist1": {
+          "type": "number",
+          "minimum": "{{MIN_WRIST1_DEGREE}}",
+          "maximum": "{{MAX_WRIST1_DEGREE}}"
+        },
+        "wrist2": {
+          "type": "number",
+          "minimum": "{{MIN_WRIST2_DEGREE}}",
+          "maximum": "{{MAX_WRIST2_DEGREE}}"
+        },
+        "wrist3": {
+          "type": "number",
+          "minimum": "{{MIN_WRIST3_DEGREE}}",
+          "maximum": "{{MAX_WRIST3_DEGREE}}"
+        }
+      },
+      "readOnly": true
+
+    },
+    "moveSpeed": {
+      "title": "Speed",
+      "description": "Its value sets the moving speed of all UR-10 robot arm joints, default value is 0.5 but can be changed",
+      "type": "number",
+      "minimum": 0.1,
+      "maximum": 1.0,
+      "readOnly": false,
+      "writeOnly": false
+
+    },
+    "moveAcceleration": {
+      "title": "Acceleration",
+      "description": "Its value sets the moving acceleration of all UR-10 robot arm joints, default value is 0.5 but can be changed",
+      "type": "number",
+      "minimum": 0.1,
+      "maximum": 1.0,
+      "readOnly": false,
+      "writeOnly": false
+
+    }
+  },
+
+  "actions": {
+    "goHome": {
+      "title": "Go Home",
+      "description": "Go to the home position",
+
+      "idempotent": false,
+      "safe": false
+    },
+    "turnBase": {
+      "title": "Turn Base",
+      "description": "Turn the robot arm Base joint a certain amount within borders",
+      "input": {
+        "type": "object",
+        "required": [ "base" ],
+        "properties": {
+
+          "base": {
+            "type": "number",
+            "minimum": "{{MIN_BASE_DEGREE}}",
+            "maximum": "{{MAX_BASE_DEGREE}}"
+          }
+        }
+      },
+      "idempotent": false,
+      "safe": false
+    },
+    "turnShoulder": {
+      "title": "Turn Shoulder",
+      "description": "Turn the robot arm shoulder joint a certain amount within borders",
+      "input": {
+        "type": "object",
+        "required": [ "shoulder" ],
+        "properties": {
+
+          "shoulder": {
+            "type": "number",
+            "minimum": "{{MIN_SHOULDER_DEGREE}}",
+            "maximum": "{{MAX_SHOULDER_DEGREE}}"
+          }
+        }
+      },
+
+
+      "idempotent": false,
+      "safe": false
+    },
+    "turnElbow": {
+      "title": "Turn Elbow",
+      "description": "Turn the robot arm elbow joint a certain amount within borders",
+      "input": {
+        "type": "object",
+        "required": [ "elbow" ],
+        "properties": {
+
+          "elbow": {
+            "type": "number",
+            "minimum": "{{MIN_ELBOW_DEGREE}}",
+            "maximum": "{{MAX_ELBOW_DEGREE}}"
+          }
+        }
+      },
+
+      "idempotent": false,
+      "safe": false
+    },
+    "turnWrist1": {
+      "title": "Turn Wrist1",
+      "description": "Turn the robot arm Wrist1 joint a certain amount within borders",
+      "input": {
+        "type": "object",
+        "required": [ "wrist1" ],
+        "properties": {
+
+          "wrist1": {
+            "type": "number",
+            "minimum": "{{MIN_WRIST1_DEGREE}}",
+            "maximum": "{{MAX_WRIST1_DEGREE}}"
+          }
+        }
+      },
+
+
+      "idempotent": false,
+      "safe": false
+    },
+    "turnWrist2": {
+      "title": "Turn Wrist2",
+      "description": "Turn the robot arm Wrist2 joint a certain amount within borders",
+      "input": {
+        "type": "object",
+        "required": [ "wrist2" ],
+        "properties": {
+          "wrist2": {
+            "type": "number",
+            "minimum": "{{MIN_WRIST1_DEGREE}}",
+            "maximum": "{{MAX_WRIST1_DEGREE}}"
+          }
+        }
+      },
+
+
+      "idempotent": false,
+      "safe": false
+    },
+    "turnWrist3": {
+      "title": "Turn Wrist3",
+      "description": "Turn the robot arm Wrist3 joint a certain amount within borders",
+      "input": {
+        "type": "object",
+        "required": [ "wrist3" ],
+        "properties": {
+
+          "wrist3": {
+            "type": "number",
+            "minimum": "{{MIN_WRIST1_DEGREE}}",
+            "maximum": "{{MAX_WRIST1_DEGREE}}"
+          }
+        }
+      },
+
+
+      "idempotent": false,
+      "safe": false
+    },
+    "setJointDegrees": {
+      "title": "Set the joint positions ",
+      "description": "Turn the robot arm joints to a specific degree",
+      "input": {
+        "type": "object",
+        "properties": {
+          "base": {
+            "type": "number",
+            "minimum": "{{MIN_BASE_DEGREE}}",
+            "maximum": "{{MAX_BASE_DEGREE}}"
+          },
+          "shoulder": {
+            "type": "number",
+            "minimum": "{{MIN_SHOULDER_DEGREE}}",
+            "maximum": "{{MAX_SHOULDER_DEGREE}}"
+          },
+          "elbow": {
+            "type": "number",
+            "minimum": "{{MIN_ELBOW_DEGREE}}",
+            "maximum": "{{MAX_ELBOW_DEGREE}}"
+          },
+          "wrist1": {
+            "type": "number",
+            "minimum": "{{MIN_WRIST1_DEGREE}}",
+            "maximum": "{{MAX_WRIST1_DEGREE}}"
+          },
+          "wrist2": {
+            "type": "number",
+            "minimum": "{{MIN_WRIST2_DEGREE}}",
+            "maximum": "{{MAX_WRIST2_DEGREE}}"
+          },
+          "wrist3": {
+            "type": "number",
+            "minimum": "{{MIN_WRIST3_DEGREE}}",
+            "maximum": "{{MAX_WRIST3_DEGREE}}"
+          }
+        }
+      },
+
+      "idempotent": true,
+      "safe": false
+
     },
 
-    "actions":{
-        "goHome":{
-            "title":"Go Home",
-            "description":"Go to the home position",
-
-            "idempotent": false,
-            "safe": false
-        },	
-        "turnBase":{
-            "title":"Turn Base",
-            "description":"Turn the robot arm Base joint a certain amount within borders",
-            "input":{
-                "type":"object",
-                "required":["base"],
-                "properties":{
-                    
-                    "base":{
-                        "type":"number",
-                        "minimum": "{{MIN_BASE_DEGREE}}",
-                        "maximum": "{{MAX_BASE_DEGREE}}"
-                    }
-                }
-            },
-            "idempotent": false,
-            "safe": false
-        },
-        "turnShoulder":{
-            "title":"Turn Shoulder",
-            "description":"Turn the robot arm shoulder joint a certain amount within borders",
-            "input":{
-                "type":"object",
-                "required":["shoulder"],
-                "properties":{
-                    
-                    "shoulder":{
-                        "type":"number",
-                        "minimum": "{{MIN_SHOULDER_DEGREE}}",
-                        "maximum": "{{MAX_SHOULDER_DEGREE}}"
-                    }
-                }
-            },
-
-
-            "idempotent": false,
-            "safe": false
-        },
-        "turnElbow":{
-            "title":"Turn Elbow",
-            "description":"Turn the robot arm elbow joint a certain amount within borders",
-            "input":{
-                "type":"object",
-                "required":["elbow"],
-                "properties":{
-                    
-                    "elbow":{
-                        "type":"number",
-                        "minimum": "{{MIN_ELBOW_DEGREE}}",
-                        "maximum": "{{MAX_ELBOW_DEGREE}}"
-                    }
-                }
-            },
-
-            "idempotent": false,
-            "safe": false
-        },
-        "turnWrist1":{
-            "title":"Turn Wrist1",
-            "description":"Turn the robot arm Wrist1 joint a certain amount within borders",
-            "input":{
-                "type":"object",
-                "required":["wrist1"],
-                "properties":{
-                    
-                    "wrist1":{
-                        "type":"number",
-                        "minimum": "{{MIN_WRIST1_DEGREE}}",
-                        "maximum": "{{MAX_WRIST1_DEGREE}}"
-                    }
-                }
-            },
-
-
-            "idempotent": false,
-            "safe": false
-        },
-        "turnWrist2":{
-            "title":"Turn Wrist2",
-            "description":"Turn the robot arm Wrist2 joint a certain amount within borders",
-            "input":{
-                "type":"object",
-                "required":["wrist2"],
-                "properties":{					
-                    "wrist2":{
-                        "type":"number",
-                        "minimum": "{{MIN_WRIST1_DEGREE}}",
-                        "maximum": "{{MAX_WRIST1_DEGREE}}"
-                    }
-                }
-            },
-
-
-            "idempotent": false,
-            "safe": false
-        },
-        "turnWrist3":{
-            "title":"Turn Wrist3",
-            "description":"Turn the robot arm Wrist3 joint a certain amount within borders",
-            "input":{
-                "type":"object",
-                "required":["wrist3"],
-                "properties":{
-                    
-                    "wrist3":{
-                        "type":"number",
-                        "minimum": "{{MIN_WRIST1_DEGREE}}",
-                        "maximum": "{{MAX_WRIST1_DEGREE}}"
-                    }
-                }
-            },
-
-
-            "idempotent": false,
-            "safe": false
-        },
-        "setJointDegrees":{
-            "title":"Set the joint positions ",
-            "description":"Turn the robot arm joints to a specific degree",
-            "input":{
-                "type":"object",
-                "properties":{
-                    "base":{
-                        "type":"number",
-                        "minimum": "{{MIN_BASE_DEGREE}}",
-                        "maximum": "{{MAX_BASE_DEGREE}}"
-                    },
-                    "shoulder":{
-                        "type":"number",
-                        "minimum": "{{MIN_SHOULDER_DEGREE}}",
-                        "maximum": "{{MAX_SHOULDER_DEGREE}}"
-                    },
-                    "elbow":{
-                        "type":"number",
-                        "minimum": "{{MIN_ELBOW_DEGREE}}",
-                        "maximum": "{{MAX_ELBOW_DEGREE}}"
-                    },
-                    "wrist1":{
-                        "type":"number",
-                        "minimum": "{{MIN_WRIST1_DEGREE}}",
-                        "maximum": "{{MAX_WRIST1_DEGREE}}"
-                    },
-                    "wrist2":{
-                        "type":"number",
-                        "minimum": "{{MIN_WRIST2_DEGREE}}",
-                        "maximum": "{{MAX_WRIST2_DEGREE}}"
-                    },
-                    "wrist3":{
-                        "type":"number",
-                        "minimum": "{{MIN_WRIST3_DEGREE}}",
-                        "maximum": "{{MAX_WRIST3_DEGREE}}"
-                    }
-                }
-            },
- 
-            "idempotent": true,
-            "safe": false
-
-        },
-
-        "goTo":{
-            "title":"Go to position",
-            "description":"Move to position in cartesian coordinates with the assigned speed and acceleration, default values are .... ",
-            "input":{
-                "type":"object",
-                "properties":{
-                    "x":{
-                        "type":"integer",
-                        "minimum": "{{MIN_X}}",
-                        "maximum": "{{MAX_X}}"
-                        },
-                    "y":{
-                        "type":"integer",
-                        "minimum": "{{MIN_Y}}",
-                        "maximum": "{{MAX_Y}}"
-                        },
-                    "z":{
-                        "type":"integer",
-                        "minimum": "{{MIN_Z}}",
-                        "maximum": "{{MAX_Z}}"
-                        },
-                    "s": {
-                        "type": "number",
-                        "minimum":"{{MIN_SPEED}}",
-                        "maximum": "{{MAX_SPEED}}"
-                    },
-                    "a": {
-                        "type": "number",
-                        "minimum": "{{MIN_ACC}}",
-                        "maximum": "{{MAX_ACC}}"
-                    }
-                }
-            },
-
-            "idempotent": true,
-            "safe": false
-        }, 
-        "gripClose":{
-            "title":"Close Grip",
-            "description":"Closes the grip", 
-            "idempotent": true,
-            "safe": false
-        },
-        "gripCloseLight":{
-            "title":"Close Grip",
-            "description":"Closes the grip with 25 Newton of force",
-            "idempotent": true,
-			"safe": false
-		},
-        "gripOpen":{
-            "title":"Open Grip",
-            "description":"Opens the grip",
-
-            "idempotent": true,
-            "safe": false
+    "goTo": {
+      "title": "Go to position",
+      "description": "Move to position in cartesian coordinates with the assigned speed and acceleration, default values are .... ",
+      "input": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "integer",
+            "minimum": "{{MIN_X}}",
+            "maximum": "{{MAX_X}}"
+          },
+          "y": {
+            "type": "integer",
+            "minimum": "{{MIN_Y}}",
+            "maximum": "{{MAX_Y}}"
+          },
+          "z": {
+            "type": "integer",
+            "minimum": "{{MIN_Z}}",
+            "maximum": "{{MAX_Z}}"
+          },
+          "s": {
+            "type": "number",
+            "minimum": "{{MIN_SPEED}}",
+            "maximum": "{{MAX_SPEED}}"
+          },
+          "a": {
+            "type": "number",
+            "minimum": "{{MIN_ACC}}",
+            "maximum": "{{MAX_ACC}}"
+          }
         }
-    
+      },
+
+      "idempotent": true,
+      "safe": false
+    },
+    "gripClose": {
+      "title": "Close Grip",
+      "description": "Closes the grip",
+      "idempotent": true,
+      "safe": false
+    },
+    "gripCloseLight": {
+      "title": "Close Grip",
+      "description": "Closes the grip with 25 Newton of force",
+      "idempotent": true,
+      "safe": false
+    },
+    "gripOpen": {
+      "title": "Open Grip",
+      "description": "Opens the grip",
+
+      "idempotent": true,
+      "safe": false
     }
-        
+
+  }
+
 }

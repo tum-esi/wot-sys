@@ -18,7 +18,7 @@
 * ur_rtde
 * Flask
 * jsonschema
-* Pillow
+
 
 ## Installation
 
