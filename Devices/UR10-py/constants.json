@@ -1,0 +1,7 @@
+{
+"TD_DIRECTORY_ADDRESS" : "http://172.16.1.100:8080",
+"LISTENING_PORT": 8080,
+"DEFAULTSPEED" : 0.5,
+"DEFAULTACCELERATION" : 0.5,
+"HOMELOCATION" : {"x": 0.55, "y": -490 , "z":1026, "base":0.00,"shoulder":-90,"elbow":0.00,"wrist1":-90.00,"wrist2":0.00,"wrist3":0.00}
+}
