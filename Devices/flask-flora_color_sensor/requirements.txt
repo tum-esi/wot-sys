@@ -1,5 +1,5 @@
 Flask==2.0.1 
-requests==2.25.1 
+requests==2.31.0 
 requests-unixsocket==0.1.5 
 adafruit-circuitpython-tcs34725==3.3.7
 
