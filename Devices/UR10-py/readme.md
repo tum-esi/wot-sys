@@ -14,7 +14,7 @@
 
 ## Dependencies
 
-* Python >=3.6 <= 3.9 (3.10+ won't work)
+* Python >=3.6 <= 3.9 (3.10+ won't work as ur_rtde==1.4.4 won't compile)
 * ur_rtde
 * Flask
 * jsonschema
