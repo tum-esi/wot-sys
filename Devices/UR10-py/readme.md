@@ -14,7 +14,7 @@
 
 ## Dependencies
 
-* Python >=3.6
+* Python >=3.6 <= 3.9 (3.10+ won't work)
 * ur_rtde
 * Flask
 * jsonschema
