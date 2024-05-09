@@ -91,3 +91,7 @@ Thumbs.db
 
 # Python
 **/__pycache__
+
+# emacs
+.dir-locals.el
+.projectile.el
