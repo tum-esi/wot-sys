@@ -1,7 +1,8 @@
-Flask==1.0.2
-requests==2.20.0
+Flask==2.3.2
+requests==2.32.2
 jsonschema==3.2.0
 Jinja2==3.1.4
-Werkzeug==2.2.2
-itsdangerous==2.0.1
-ur_rtde==1.4.4
+Werkzeug==3.0.6
+itsdangerous==2.1.2
+ur_rtde==1.5.9
+pillow

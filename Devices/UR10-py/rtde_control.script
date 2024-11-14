@@ -1,0 +1,47 @@
+# NODE_CONTROL_LOOP_BEGINS
+
+        ###################################
+        # RTDE Control script - Main loop #
+        ###################################
+        textmsg("RTDE Control Script Loaded (14.02.2024-12:23)")
+
+        # Initialize gain and damping for force mode to a more stable default
+
+        keep_running = True
+        executing_cmd = False
+        reset_async_progress()
+        signal_ready()
+
+        
+
+        while keep_running:
+
+          if read_input_integer_register(18) == 1:
+              RG6(0, 40)
+          elif read_input_integer_register(18) == 2:
+              RG6(80, 40)
+          end
+
+
+            cmd = rtde_cmd()
+            if cmd == 24 or cmd == 11 or cmd == 9 or cmd == 10 or cmd == 6 or cmd == 25 or cmd == 26 or cmd == 27 or cmd == 38 or cmd == 58:
+                # for realtime commands simply process and signal ready.
+                keep_running = process_cmd(cmd)
+                signal_ready()
+            else:
+                # regular mode
+                if cmd == 0:
+                    executing_cmd = False
+                    signal_ready()
+                else:
+                    if not executing_cmd:
+                        keep_running = process_cmd(cmd)
+                    end
+                    executing_cmd = True
+                end
+            end
+
+            sync()
+        end
+        textmsg("RTDE Control Script Terminated")
+# NODE_CONTROL_LOOP_ENDS

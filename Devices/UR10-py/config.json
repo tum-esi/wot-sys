@@ -1,7 +1,7 @@
 {
     "@type": "UR-10 Robot Arm",
     "securityDefinitions":{"nosec_sc": {"scheme": "nosec"}},
-    "HTTP_IP_ADDRESS": "172.16.1.219",
+    "HTTP_IP_ADDRESS": "192.168.0.102",
     "MIN_X":-1300,
     "MIN_Y":-1300,
     "MIN_Z":-1300,
@@ -30,7 +30,27 @@
     "MAX_Y_MOVEMENT":2600,
     "MIN_Z_MOVEMENT":-2600,
     "MAX_Z_MOVEMENT":2600,
-    "robotIP":"172.16.1.130",
+    "robotIP":"192.168.0.101",
     "routerIP": "172.16.1.1",
-    "routerPort":80
+    "routerPort":80,
+    "jointConfiguration": [
+        {"offset": 0, "direction": 1, "min": -360, "max": 360},
+        {"offset": -90, "direction": 1, "min": -360, "max": 360},
+        {"offset": 0, "direction": 1, "min": -360, "max": 360},
+        {"offset": -90, "direction": 1, "min": -360, "max": 360},
+        {"offset": 0, "direction": 1, "min": -360, "max": 360},
+        {"offset": 0, "direction": 1, "min": -360, "max": 360}
+    ],
+    "offset": {
+        "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "rotation": {
+            "rx": 0,
+            "ry": 0,
+            "rz": 0
+        }
+    }
 }

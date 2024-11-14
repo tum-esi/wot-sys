@@ -1,5 +1,4 @@
 import json
-import _pickle as pickle
 
 with open("TM.json", "r") as f:
     tm_dict = json.load(f)

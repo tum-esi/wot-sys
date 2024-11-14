@@ -125,6 +125,14 @@
       "readOnly": false,
       "writeOnly": false
 
+    },
+    "getSafetyStatus": {
+      "title": "Get Safety Status",
+      "description": "Returns the current robot safety status. (see: https://sdurobotics.gitlab.io/ur_rtde/api/api.html#_CPPv4N7ur_rtde20RTDEReceiveInterface12SafetyStatusE)",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10,
+      "readOnly": true
     }
   },
 
@@ -295,7 +303,6 @@
       "safe": false
 
     },
-
     "goTo": {
       "title": "Go to position",
       "description": "Move to position in cartesian coordinates with the assigned speed and acceleration, default values are .... ",
@@ -333,22 +340,15 @@
       "idempotent": true,
       "safe": false
     },
-    "gripClose": {
-      "title": "Close Grip",
-      "description": "Closes the grip",
+    "closeGripper": {
+      "title": "Close Gripper",
+      "description": "Closes the Onrobot RG6 gripper",
       "idempotent": true,
       "safe": false
     },
-    "gripCloseLight": {
-      "title": "Close Grip",
-      "description": "Closes the grip with 25 Newton of force",
-      "idempotent": true,
-      "safe": false
-    },
-    "gripOpen": {
-      "title": "Open Grip",
-      "description": "Opens the grip",
-
+    "openGripper": {
+      "title": "Open Gripper",
+      "description": "Opens the Onrobot RG6 gripper",
       "idempotent": true,
       "safe": false
     }

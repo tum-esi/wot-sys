@@ -7,19 +7,19 @@ import socket
 import time
 import json
 import _thread
-
+import argparse  # Import argparse for command-line arguments
 
 from flask import Flask, request, abort, redirect, url_for, flash
 from jsonschema import validate
 from sys import exit
 import time
+import math
 
-try:
-    from PIL import Image
-except ImportError:
-    exit(
-        "This script requires the pillow module\nInstall with: sudo pip install pillow"
-    )
+# Parse command-line arguments
+parser = argparse.ArgumentParser(description="UR10 Flask Server")
+parser.add_argument('--dummy', action='store_true',
+                    help="Run in dummy mode without connecting to the robot")
+args = parser.parse_args()
 
 # ---------------- CONFIG ----------------
 with open("constants.json", "r") as f:
@@ -40,27 +40,138 @@ DEFAULTACCELERATION = constants["DEFAULTACCELERATION"]
 global HOMELOCATION
 HOMELOCATION = constants["HOMELOCATION"]
 
-
 app = Flask(__name__)
 
-rtde_c = RTDEControl(config["robotIP"])
-rtde_r = RTDEReceive(config["robotIP"])
-rtde_io_ = RTDEIO(config["robotIP"])
+# Initialize robot interfaces only if not in dummy mode
+
+rtde_c = None
+rtde_r = None
+rtde_io_ = None
+
+
+def initialize_robot_interfaces():
+    global rtde_c
+    global rtde_r
+    global rtde_io_
+    rtde_c = RTDEControl(config["robotIP"], RTDEControl.FLAG_CUSTOM_SCRIPT | RTDEControl.FLAG_NO_WAIT)
+    rtde_r = RTDEReceive(config["robotIP"])
+    rtde_io_ = RTDEIO(config["robotIP"])
+
+
+def close_robot_interfaces():
+    global rtde_c
+    global rtde_r
+    global rtde_io_
+    print("Close Robot triggered")
+    try:
+        if rtde_c is not None:
+            rtde_c.stopScript()  # Stop any running script on the controller
+            rtde_c.disconnect()  # Disconnect the RTDE Control interface
+            rtde_c = None  # Clear the reference
+
+        if rtde_r is not None:
+            rtde_r.disconnect()  # Disconnect the RTDE Receive interface
+            rtde_r = None  # Clear the reference
+
+        # No disconnect for rtde_io_ since it doesn't have a disconnect method
+        rtde_io_ = None  # Just clear the reference
+
+        print("Robot interfaces successfully closed.")
+    except Exception as e:
+        print(f"Error while closing robot interfaces: {e}")
+
+
+
+def reinitialize_robot_interfaces():
+    close_robot_interfaces()  # Close existing interfaces
+    time.sleep(1)  # Short delay to ensure resources are released
+    initialize_robot_interfaces()  # Reinitialize the interfaces
+
+if not args.dummy:
+    initialize_robot_interfaces()
+else:
+    rtde_c = None
+    rtde_r = None
+    rtde_io_ = None
 
 
 @app.route("/ur10/")
 def thing_description():
     return json.dumps(td), {"Content-Type": "application/json"}
 
+@ app.route("/ur10/properties/getSafetyStatus")
+def getSafetyStatus():
+    statusBits = rtde_r.getSafetyStatusBits()
+    return json.dumps(statusBits), 200, {"Content-Type": "application/json"}
 
-@app.route("/ur10/properties/homePosition", methods=["GET"])
+
+@app.route("/ur10/properties/jointConfiguration", methods=["GET"])
+def jointConfiguration():
+    return json.dumps({"jointConfiguration": config["jointConfiguration"]}), 200, {"Content-Type": "application/json"}
+
+@app.route("/ur10/actions/closeGripper", methods=["POST"])
+def grip_close():
+    print ("closing gripper...")    
+    result = rtde_io_.setInputIntRegister(18, 1)
+    print(result)
+    if result:
+        return "", 204
+    else:
+        abort(400, "Couldn't close gripper")
+    
+
+@app.route("/ur10/actions/openGripper", methods=["POST"])
+def grip_open():
+    print ("opening gripper...")
+    result = rtde_io_.setInputIntRegister(18, 2)
+    print(result)
+    if result:
+        return "", 204
+    else:
+        abort(400, "Couldn't open gripper")
+
+
+def apply_offset(coordinates, offset):
+    # Apply position offset
+    x = coordinates[0] + offset['position']['x']
+    y = coordinates[1] + offset['position']['y']
+    z = coordinates[2] + offset['position']['z']
+
+    # Apply rotation offset (this is a simplified rotation - for accurate rotation, consider using rotation matrices or quaternions)
+    rx = coordinates[3] + math.radians(offset['rotation']['rx'])
+    ry = coordinates[4] + math.radians(offset['rotation']['ry'])
+    rz = coordinates[5] + math.radians(offset['rotation']['rz'])
+
+    return [x, y, z, rx, ry, rz]
+
+
+@ app.route("/ur10/properties/worldCoordinates", methods=["GET"])
+def worldCoordinates():
+    if args.dummy:
+        return json.dumps([0, 0, 0, 0, 0, 0]), 200, {"Content-Type": "application/json"}
+    TCPpose = rtde_r.getActualTCPPose()
+    TCPpose[0] = TCPpose[0] * 1000
+    TCPpose[1] = TCPpose[1] * 1000
+    TCPpose[2] = (TCPpose[2] - 0.4) * 1000
+    world_pose = apply_offset(TCPpose, config["offset"])
+    return json.dumps(world_pose), 200, {"Content-Type": "application/json"}
+
+
+@ app.route("/ur10/properties/offset", methods=["GET"])
+def get_offset():
+    return json.dumps(config["offset"]), 200, {"Content-Type": "application/json"}
+
+
+@ app.route("/ur10/properties/homePosition", methods=["GET"])
 def homePosition():
     x = json.dumps(HOMELOCATION)
     return x, 200, {"Content-Type": "application/json"}
 
 
-@app.route("/ur10/properties/currentCoordinates", methods=["GET"])
+@ app.route("/ur10/properties/currentCoordinates", methods=["GET"])
 def currentCoordinates():
+    if args.dummy:
+        return json.dumps([0, 0, 0, 0, 0, 0]), 200, {"Content-Type": "application/json"}
     TCPpose = rtde_r.getActualTCPPose()
     TCPpose[0] = TCPpose[0] * 1000
     TCPpose[1] = TCPpose[1] * 1000
@@ -68,20 +179,21 @@ def currentCoordinates():
     return json.dumps(TCPpose), 200, {"Content-Type": "application/json"}
 
 
-@app.route("/ur10/properties/currentJointDegrees", methods=["GET"])
+@ app.route("/ur10/properties/currentJointDegrees", methods=["GET"])
 def currentJointDegrees():
+    if args.dummy:
+        return json.dumps([0, 0, 0, 0, 0, 0]), 200, {"Content-Type": "application/json"}
     init_q = rtde_r.getActualQ()
     for i in range(6):
         init_q[i] = init_q[i] * 57.29
     return json.dumps(init_q), 200, {"Content-Type": "application/json"}
 
 
-@app.route("/ur10/properties/moveSpeed", methods=["GET", "PUT"])
+@ app.route("/ur10/properties/moveSpeed", methods=["GET", "PUT"])
 def speed():
     global DEFAULTSPEED
     if request.method == "PUT":
         if request.is_json:
-
             print(request.json)
             schema = td["properties"]["moveSpeed"]
             try:
@@ -89,16 +201,14 @@ def speed():
                 DEFAULTSPEED = request.json
                 return 200, {"Content-Type": "application/json"}
             except:
-
                 abort(400, "wrong input")
-
         else:
             abort(415)
     else:
         return json.dumps(DEFAULTSPEED), 200, {"Content-Type": "application/json"}
 
 
-@app.route("/ur10/properties/moveAcceleration", methods=["GET", "PUT"])
+@ app.route("/ur10/properties/moveAcceleration", methods=["GET", "PUT"])
 def acceleration():
     global DEFAULTACCELERATION
     if request.method == "PUT":
@@ -110,9 +220,7 @@ def acceleration():
                 DEFAULTACCELERATION = request.json
                 return 200, {"Content-Type": "application/json"}
             except:
-
                 abort(400, "wrong input")
-
         else:
             abort(415)
     else:
@@ -123,8 +231,16 @@ def acceleration():
         )
 
 
-@app.route("/ur10/actions/goHome", methods=["POST"])
+@ app.route("/ur10/properties/urdfFile", methods=["GET"])
+def urdfFile():
+    urdf_url = "http://127.0.0.1:5000/files/ur10_urdf.zip"
+    return json.dumps({"url": urdf_url}), 200, {"Content-Type": "application/json"}
+
+
+@ app.route("/ur10/actions/goHome", methods=["POST"])
 def goHome():
+    if args.dummy:
+        return "", 204
     list1 = []
     global HOMELOCATION
     for key, value in HOMELOCATION.items():
@@ -135,36 +251,30 @@ def goHome():
         jointPoslist.append(list1[i + 3])
     print(jointPoslist)
     for i in range(6):
-        jointPoslist[i] = (
-            jointPoslist[i] / 57.29
-        )  # is the ratio between the angle of joint in degrees on the control screen
-        # and the angle output when API function is used.
-        #  (https://sdurobotics.gitlab.io/ur_rtde/api/api.html#rtde-control-interface-api)
-    status = rtde_r.getRobotStatus()
+        jointPoslist[i] = (jointPoslist[i] / 57.29)
+    status = rtde_r.getSafetyStatusBits()
     if status >= 1:
         rtde_c.moveJ(jointPoslist, DEFAULTSPEED, DEFAULTACCELERATION, False)
         return "", 204
     else:
-
         abort(400, "robot is not in Normal mode")
 
 
-@app.route("/ur10/actions/turnBase", methods=["POST"])
+@ app.route("/ur10/actions/turnBase", methods=["POST"])
 def turnBase():
-
+    if args.dummy:
+        return "", 204
     if request.is_json:
-
         schema = td["actions"]["turnBase"]["input"]
         try:
             validate(instance=request.json, schema=schema)
         except:
             abort(400, "wrong input")
-
         degree = request.json["base"]
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[0] += degree / 57.29
-        status = rtde_r.getRobotStatus()
+        status = rtde_r.getSafetyStatusBits()
         if status >= 1:
             isDone = rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
             if isDone:
@@ -174,28 +284,24 @@ def turnBase():
         else:
             abort(400, "robot is not in Normal mode")
     else:
-
         abort(415, "Error 415")
 
 
-##################################################
-@app.route("/ur10/actions/turnShoulder", methods=["POST"])
+@ app.route("/ur10/actions/turnShoulder", methods=["POST"])
 def turnShoulder():
-
+    if args.dummy:
+        return "", 204
     if request.is_json:
-
         schema = td["actions"]["turnShoulder"]["input"]
         try:
             validate(instance=request.json, schema=schema)
         except:
-
             abort(400, "wrong input")
-
         degree = request.json["shoulder"]
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[1] += degree / 57.29
-        status = rtde_r.getRobotStatus()
+        status = rtde_r.getSafetyStatusBits()
         print(status)
         if status >= 1:
             isDone = rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
@@ -206,29 +312,27 @@ def turnShoulder():
         else:
             return "robot is not in Normal mode"
             abort(400)
-
     else:
         return "Error 415"
         abort(415)
 
 
-@app.route("/ur10/actions/turnElbow", methods=["POST"])
+@ app.route("/ur10/actions/turnElbow", methods=["POST"])
 def turnElbow():
-
+    if args.dummy:
+        return "", 204
     if request.is_json:
         schema = td["actions"]["turnElbow"]["input"]
         try:
             validate(instance=request.json, schema=schema)
         except:
-
             abort(400, "wrong input")
-
         degree = request.json["elbow"]
         print((type(degree)))
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[2] += degree / 57.29
-        status = rtde_r.getRobotStatus()
+        status = rtde_r.getSafetyStatusBits()
         if status >= 1:
             isDone = rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
             if isDone:
@@ -236,30 +340,27 @@ def turnElbow():
             else:
                 abort(400, "Couldn't perform")
         else:
-
             abort(400, "robot is not in Normal mode")
     else:
-
         abort(415, "Error 415")
 
 
-@app.route("/ur10/actions/turnWrist1", methods=["POST"])
+@ app.route("/ur10/actions/turnWrist1", methods=["POST"])
 def turnWrist1():
-
+    if args.dummy:
+        return "", 204
     if request.is_json:
         schema = td["actions"]["turnWrist1"]["input"]
         try:
             validate(instance=request.json, schema=schema)
         except:
-
             abort(400, "wrong input")
-
         degree = request.json["wrist1"]
         print((type(degree)))
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[3] += degree / 57.29
-        status = rtde_r.getRobotStatus()
+        status = rtde_r.getSafetyStatusBits()
         if status >= 1:
             isDone = rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
             if isDone:
@@ -268,29 +369,26 @@ def turnWrist1():
                 abort(400, "Couldn't perform")
         else:
             abort(400, "robot is not in Normal mode")
-
     else:
-
         abort(415, "Error 415")
 
 
-@app.route("/ur10/actions/turnWrist2", methods=["POST"])
+@ app.route("/ur10/actions/turnWrist2", methods=["POST"])
 def turnWrist2():
-
+    if args.dummy:
+        return "", 204
     if request.is_json:
         schema = td["actions"]["turnWrist2"]["input"]
         try:
             validate(instance=request.json, schema=schema)
         except:
-
             abort(400, "wrong input")
-
         degree = request.json["wrist2"]
         print((type(degree)))
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[4] += degree / 57.29
-        status = rtde_r.getRobotStatus()
+        status = rtde_r.getSafetyStatusBits()
         if status >= 1:
             isDone = rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
             if isDone:
@@ -298,32 +396,28 @@ def turnWrist2():
             else:
                 abort(400, "Couldn't perform")
         else:
-
             abort(400, "robot is not in Normal mode")
-
     else:
-
         abort(415, "Error 415")
 
 
-@app.route("/ur10/actions/turnWrist3", methods=["POST"])
+@ app.route("/ur10/actions/turnWrist3", methods=["POST"])
 def turnWrist3():
-
+    if args.dummy:
+        return "", 204
     if request.is_json:
-
         print(request.json)
         schema = td["actions"]["turnWrist3"]["input"]
         try:
             validate(instance=request.json, schema=schema)
         except:
             abort(400, "wrong input")
-
         degree = request.json["wrist3"]
         print((type(degree)))
         init_q = rtde_r.getActualQ()
         new_q = init_q[:]
         new_q[5] += degree / 57.29
-        status = rtde_r.getRobotStatus()
+        status = rtde_r.getSafetyStatusBits()
         if status >= 1:
             isDone = rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, False)
             if isDone:
@@ -332,90 +426,101 @@ def turnWrist3():
                 abort(400, "Couldn't perform")
         else:
             abort(400, "wrong input")
-
     else:
-
         abort(415, "Error 415")
 
 
-# and type(value)== float and -360<value<360
-@app.route("/ur10/actions/setJointDegrees", methods=["POST"])
+@ app.route("/ur10/actions/setJointDegrees", methods=["POST"])
 def setJointDegrees():
+    if args.dummy:
+        return "", 204
     print(request.json)
+
+    global rtde_c
     if request.is_json:
         print(request.json)
         jointList = [None] * 6
         print(request.json)
         asyn = False
-
         schema = td["actions"]["setJointDegrees"]["input"]
         try:
             validate(instance=request.json, schema=schema)
-            for key in request.json.keys():
-                if key == "base":
-                    jointList[0] = request.json["base"] / 57.29
-                elif key == "shoulder":
-                    jointList[1] = request.json["shoulder"] / 57.29
-                elif key == "elbow":
-                    jointList[2] = request.json["elbow"] / 57.29
-                elif key == "wrist1":
-                    jointList[3] = request.json["wrist1"] / 57.29
-                elif key == "wrist2":
-                    jointList[4] = request.json["wrist2"] / 57.29
-                elif key == "wrist3":
-                    jointList[5] = request.json["wrist3"] / 57.29
-                elif key == "async":
-                    asyn = request.json["async"]
-
+            if (type(request.json) == dict):
+                for key in request.json.keys():
+                    if key == "base":
+                        jointList[0] = request.json["base"] / 57.29
+                    elif key == "shoulder":
+                        jointList[1] = request.json["shoulder"] / 57.29
+                    elif key == "elbow":
+                        jointList[2] = request.json["elbow"] / 57.29
+                    elif key == "wrist1":
+                        jointList[3] = request.json["wrist1"] / 57.29
+                    elif key == "wrist2":
+                        jointList[4] = request.json["wrist2"] / 57.29
+                    elif key == "wrist3":
+                        jointList[5] = request.json["wrist3"] / 57.29
+                    elif key == "async":
+                        asyn = request.json["async"]
+            elif (type(request.json) == list):
+                for i in range(6):
+                    jointList[i] = request.json[i] / \
+                        57.29  # convert to radians
+            print("jointList:")
             print(jointList)
-            init_q = rtde_r.getActualQ()
-            print(init_q)
 
+            init_q = rtde_r.getActualQ()
+            print("init_q:")
+            print(init_q)
             for i in range(6):
                 if not jointList[i] == None:
                     init_q[i] = jointList[i]
                 else:
                     pass
-            status = rtde_r.getRobotStatus()
+            status = rtde_r.getSafetyStatusBits()
             if status >= 1:
                 new_q = init_q[:]
+                print("new_q:")
                 print(new_q)
-                isDone = rtde_c.moveJ(new_q, DEFAULTSPEED, DEFAULTACCELERATION, asyn)
+
+                isDone = rtde_c.moveJ(
+                    new_q, DEFAULTSPEED, DEFAULTACCELERATION, asyn)
+                if not isDone:
+                    # try with Reinitializing
+                    reinitialize_robot_interfaces()
+                    isDone = rtde_c.moveJ(
+                        new_q, DEFAULTSPEED, DEFAULTACCELERATION, asyn)
+
                 if isDone:
                     return "", 204
                 else:
-                    abort(400, "Couldn't perform")
+                    abort(400, "Couldn't perform after retry")
             else:
-
+                print("robot is not in Normal mode")
+                print(rtde_r.getSafetyStatusBits())
                 abort(400, "robot is not in Normal mode")
         except Exception as e:
             print(e)
-
             abort(400, "wrong input")
-
     else:
-
         abort(415, "Error 415")
 
 
-###################################################
-@app.route("/ur10/actions/goTo", methods=["POST"])
+@ app.route("/ur10/actions/goTo", methods=["POST"])
 def goTo():
+    if args.dummy:
+        return "", 204
     global DEFAULTACCELERATION
     global DEFAULTSPEED
     if request.is_json:
         goList = [None] * 6
         print(request.json)
         print(type(request.json))
-
         schema = td["actions"]["goTo"]["input"]
         try:
             validate(instance=request.json, schema=schema)
         except:
-
             abort(400, "wrong input")
         asyn = False
-
         for key in request.json.keys():
             if key == "x":
                 goList[0] = request.json["x"] / 1000
@@ -435,20 +540,17 @@ def goTo():
                 DEFAULTACCELERATION = request.json["a"]
             elif key == "async":
                 asyn = request.json["async"]
-
         print(goList)
         TCPpose = rtde_r.getActualTCPPose()
         print(TCPpose)
-
         for i in range(6):
             if not goList[i] == None:
                 TCPpose[i] = goList[i]
             else:
                 pass
-
         new_q = TCPpose[:]
         print(new_q)
-        status = rtde_r.getRobotStatus()
+        status = rtde_r.getSafetyStatusBits()
         if status >= 1:
             isDone = rtde_c.moveJ_IK(new_q, DEFAULTSPEED, DEFAULTACCELERATION, asyn)
             if isDone:
@@ -462,96 +564,13 @@ def goTo():
                 return "", 204
             else:
                 abort(400, "Couldn't perform")
-
             return "", 204
         else:
-
             abort(400, "robot is not in Normal mode")
     else:
-
         abort(415, "Error 415")
 
 
-# These gripper functions do not work for now. Needs some change in the robot code
-@app.route("/ur10/actions/gripClose", methods=["POST"])
-def gripClose():
-    # rtde_io_.setStandardDigitalOut(1, True)
-    # rtde_io_.setStandardDigitalOut(1, True)
-    # rtde_io_.setStandardDigitalOut(4, True)
-    # rtde_io_.setStandardDigitalOut(4, False)
-    # rtde_io_.setStandardDigitalOut(1, False)
-    # rtde_io_.setStandardDigitalOut(3, False)
-    # rtde_io_.setStandardDigitalOut(0, False)
-    rtde_io_.setStandardDigitalIn(0, False)
-    return "", 204
-
-
-@app.route("/ur10/actions/gripCloseLight", methods=["POST"])
-def gripCloseLight():
-
-    # rtde_io_.setStandardDigitalOut(3, True)
-    # rtde_io_.setStandardDigitalOut(4, True)
-    # rtde_io_.setStandardDigitalOut(4, False)
-    # rtde_io_.setStandardDigitalOut(1, False)
-    # rtde_io_.setStandardDigitalOut(3, False)
-    # rtde_io_.setStandardDigitalOut(0, False)
-
-    # rtde_io_.setStandardAnalogOu
-    # rtde_io_.setToolDigitalIn(0, True)
-    print(f"dirs: {dir(rtde_io_)}")
-    # rtde_io_.setAnalogOutputCurrent(3, 0.5)
-    # rtde_io_.setToolDigitalOut(0, True)
-    # rtde_io_.setToolDigitalOut(1, True)
-    # rtde_io_.setToolDigitalOut(0, False)
-    # rtde_io_.setToolDigitalOut(1, False)
-    # rtde_io_.setToolDigitalOut(1, True)
-    
-    # num_outputs = 8
-    # # # Calculate the number of combinations, 2^num_outputs
-    # total_combinations = 2 ** num_outputs
-    
-    # # # Iterate over all possible combinations
-    # for i in range(total_combinations):
-    #     # Generate the boolean values for each output
-    #     for output in range(num_outputs):
-    #         # Calculate the value for this particular output
-    #         # Shift right 'output' bits and AND with 1 to get the bit value
-    #         value = (i >> output) & 1
-            
-    #         # Convert integer to boolean (0 is False, 1 is True)
-    #         value = bool(value)
-            
-    #         # Set the digital output
-    #         # print(rtde_io_.__dict__)
-    #         # print(f"dirs: {dir(rtde_io_)}")
-    #         rtde_io_.setAnalogOutputVoltage(output, value)
-    #         # rtde_io_.setToolAnalogIn(output, value)
-        
-    #     # Optionally add a delay or print the current combination
-    #     print(f"Set outputs to binary: {i:0{num_outputs}b}")
-    #     time.sleep(0.5)
-
-# Example of using this function:
-# rtde_io_ = your_RTDE_IO_control_object
-# set_all_outputs(rtde_io_, 8)  # Adjust the '8' based on how many outputs you have
-
-    return "", 204
-
-
-@app.route("/ur10/actions/gripOpen", methods=["POST"])
-def gripOpen():
-
-    rtde_io_.setStandardDigitalOut(0, True)
-    rtde_io_.setStandardDigitalOut(4, True)
-    rtde_io_.setStandardDigitalOut(4, False)
-    rtde_io_.setStandardDigitalOut(1, False)
-    rtde_io_.setStandardDigitalOut(3, False)
-    rtde_io_.setStandardDigitalOut(0, False)
-
-    return "", 204
-
-
-##################################################
 def submit_td(tdd_address):
     global td
     td = td
@@ -565,32 +584,18 @@ def submit_td(tdd_address):
                 print("TD uploaded!")
                 return
             else:
-                # print("TD could not be uploaded.  Will try again in 15
-                # Seconds...")
                 time.sleep(45)
         except Exception as e:
-            # print(e)
-            # print("TD could not be uploaded.  Will try again in 15
-            # Seconds...")
             time.sleep(45)
 
 
-# wait for Wifi to connect
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-while True:
-    try:
-        # connect to router to ensure a successful connection
-        # s.connect((config["routerIP"],config["routerPort"]))
-        # ip_addr = s.getsockname()[0] + ":" + str(LISTENING_PORT)
-        # print(ip_addr)
-        break
-    except OSError:
-        time.sleep(5)
+if not args.dummy:
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    while True:
+        try:
+            break
+        except OSError:
+            time.sleep(5)
 
-# Submit TD to directory
-# _thread.start_new_thread(submit_td, (ip_addr, TD_DIRECTORY_ADDRESS))
-# _thread.start_new_thread(submit_td, (TD_DIRECTORY_ADDRESS,))
-
-# Run app server
 app.run(host="0.0.0.0", port=8080)
