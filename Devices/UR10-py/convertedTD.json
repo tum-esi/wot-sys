@@ -110,39 +110,80 @@
    ],
    "idempotent": true,
    "input": {
-    "properties": {
-     "base": {
-      "maximum": 360,
-      "minimum": -360,
-      "type": "number"
+    "oneOf": [
+     {
+      "properties": {
+       "base": {
+        "maximum": 360,
+        "minimum": -360,
+        "type": "number"
+       },
+       "elbow": {
+        "maximum": 360,
+        "minimum": -360,
+        "type": "number"
+       },
+       "shoulder": {
+        "maximum": 360,
+        "minimum": -360,
+        "type": "number"
+       },
+       "wrist1": {
+        "maximum": 360,
+        "minimum": -360,
+        "type": "number"
+       },
+       "wrist2": {
+        "maximum": 360,
+        "minimum": -360,
+        "type": "number"
+       },
+       "wrist3": {
+        "maximum": 360,
+        "minimum": -360,
+        "type": "number"
+       }
+      },
+      "type": "object"
      },
-     "elbow": {
-      "maximum": 360,
-      "minimum": -360,
-      "type": "number"
-     },
-     "shoulder": {
-      "maximum": 360,
-      "minimum": -360,
-      "type": "number"
-     },
-     "wrist1": {
-      "maximum": 360,
-      "minimum": -360,
-      "type": "number"
-     },
-     "wrist2": {
-      "maximum": 360,
-      "minimum": -360,
-      "type": "number"
-     },
-     "wrist3": {
-      "maximum": 360,
-      "minimum": -360,
-      "type": "number"
+     {
+      "items": [
+       {
+        "maximum": 360,
+        "minimum": -360,
+        "type": "number"
+       },
+       {
+        "maximum": 360,
+        "minimum": -360,
+        "type": "number"
+       },
+       {
+        "maximum": 360,
+        "minimum": -360,
+        "type": "number"
+       },
+       {
+        "maximum": 360,
+        "minimum": -360,
+        "type": "number"
+       },
+       {
+        "maximum": 360,
+        "minimum": -360,
+        "type": "number"
+       },
+       {
+        "maximum": 360,
+        "minimum": -360,
+        "type": "number"
+       }
+      ],
+      "maxItems": 6,
+      "minItems": 6,
+      "type": "array"
      }
-    },
-    "type": "object"
+    ]
    },
    "safe": false,
    "title": "Set the joint positions "
@@ -326,10 +367,9 @@
  "id": "de:tum:ei:esi:ur10",
  "links": [
   {
-   "href": "",
-   "rel": "type",
-   "type": "application/td+json"
-  }
+    "href": "http://127.0.0.1:5000/files/urdf.zip",
+    "rel": "urdfFile"
+   }
  ],
  "properties": {
   "currentCoordinates": {
